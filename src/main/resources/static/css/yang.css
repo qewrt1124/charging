@@ -520,11 +520,10 @@ input[type="checkbox"] {
 .stationInfo-wrap {
   width: 600px;
   margin: 50px auto;
-  border: 1px solid black;
 }
 
 .stationInfo-wrap h1 {
- font-size: 20px;
+ font-size: 25px;
 }
 
 .stationInfo-wrap ul {
@@ -539,20 +538,27 @@ input[type="checkbox"] {
 }
 
 #stationInfo-top-title-detail-title {
-  float: left;
-}
-
-.stationInfo-top-title-update > ul > li > h1 {
-  font-size: 20px;
+  vertical-align: middle;
   margin: 0;
+  float: left;
+  font-size: 25px;
 }
 
-#update-content-wrap {
+#stationInfo-top-title-detail-update {
+  float: right;
+}
+
+#update-content-wrap span {
   float: right;
 }
 
 .stationInfo-top-title-detail {
   text-align: left;
+}
+
+.stationInfo-top-title-detail > ul > li {
+  font-size: 16px;
+  margin-bottom: 8px;
 }
 
 .stationInfo-bottom-chargingStatus-adapter {
@@ -590,3 +596,54 @@ input[type="checkbox"] {
   text-align: left;
 }
 
+.stationInfo-bottom-chargingStatus-title > h1 {
+  font-size: 25px;
+}
+
+#stationInfo-middle-charginfStation-info-title-content {
+  font-size: 25px;
+}
+
+.stationInfo-middle-charginfStation-info-detail {
+  font-size: 16px;
+}
+
+#stationInfo-bottom-chargingStatus-detail-table-wrap {
+  font-size: 16px;
+}
+
+#stationInfo-bottom-chargingStatus-detail-table > tr > td > ul {
+  display: flex;
+  justify-content: space-around;
+}
+
+.stationInfo-reservation-check {
+  cursor: pointer;
+}
+
+.stationInfo-middle-charginfStation-info-detail-table tr td {
+  padding: 5px 0;
+}
+
+#stationInfo-top-title-detail-addr {
+  padding-top: 20px;
+  padding-bottom: 5px;
+}
+
+#stationInfo-top-title-detail-busiCall {
+  padding: 5px 0;
+}
+
+/* reload-button */
+#reload-button {
+  position: absolute;
+  top: 8px;
+  left: 850px;
+  overflow: hidden;
+  overflow: auto;
+  margin: 0;
+  z-index: 1;
+  font-size: 12px;
+  background-color: #fff;
+  display: none;
+}

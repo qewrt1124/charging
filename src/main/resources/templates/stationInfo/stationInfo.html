@@ -6,10 +6,13 @@
     <div>
       <div class="stationInfo-top-title-update">
         <div class="exit-button" onclick="exitButton()">X</div>
-        <ul>
-          <li id="stationInfo-top-title-detail-title"><h1>상세정보</h1></li>
-          <li id="update-content-wrap"><span>업데이트 </span><span id="stationInfo-top-title-update-content"></span></li>
-        </ul>
+        <div id="stationInfo-top-title-detail-title-wrap">
+          <h1 id="stationInfo-top-title-detail-title">상세정보</h1>
+          <div id="stationInfo-top-title-detail-update">
+            <span>업데이트 </span>
+            <span id="stationInfo-top-title-update-content"></span>
+          </div>
+        </div>
       </div>
       <div class="stationInfo-top-title-detail">
         <ul>
@@ -25,7 +28,7 @@
         <h1 id="stationInfo-middle-charginfStation-info-title-content">전기차충전소 정보</h1>
       </div>
       <div class="stationInfo-middle-charginfStation-info-detail">
-        <table>
+        <table class="stationInfo-middle-charginfStation-info-detail-table">
           <tr>
             <td>운영기관</td>
             <td id="stationInfo-middle-stationInfo-bnm"></td>
@@ -56,8 +59,8 @@
       <table id="stationInfo-bottom-chargingStatus-detail-table-wrap">
         <tbody>
         <tr>
-          <td>충전현황</td>
-          <td>충전방식</td>
+          <td style="width: 120px; height: 42px;">충전현황</td>
+          <td style="width: 600px;">충전방식</td>
         </tr>
         </tbody>
         <tbody id="stationInfo-bottom-chargingStatus-detail-table">

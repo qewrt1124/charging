@@ -14,6 +14,9 @@
 <div class="map-wrap">
   <div id="map">
   </div>
+  <div id="reload-button">
+    <button id="testButton" onclick="ReloadButtonClick()">현재 위치에서 다시 찾기</button>
+  </div>
   <div id="map-location-list-wrap">
   </div>
   <div id="info-wrap" th:include="stationInfo/stationInfo.html">
@@ -69,11 +72,11 @@
     let centerLat = latlng.getLat();
     let centerLng = latlng.getLng();
 
-    setMarkers(null);
+    // setMarkers(null);
 
     rangeList = {"centerLat": centerLat, "centerLng": centerLng, "level": level};
 
-    getRangeList(rangeList);
+    visibleReloadButton();
   });
 
   // 최초 마커 찍기
@@ -83,7 +86,7 @@
     let list = document.querySelector('#map-location-list-wrap');
     for (let i = 0; i < e.length; i++) {
       list.innerHTML += `<div class="map-location-list" onclick="panTo(${e[i].lat}, ${e[i].lng})">
-        <span class="map-location-list-title" style="font-size: 25px;">${e[i].statNm}</span>
+        <a href='javascript:void(0);' onclick="ClickedStationName(${e[i].lat}, ${e[i].lng}, '${e[i].statId}', ${i})"><span class="map-location-list-title" style="font-size: 25px;">${e[i].statNm}</span></a>
         <span class="map-location-list-contentOne">${e[i].addr}</span>
         <span class="map-location-list-contentTwo">${e[i].busiCall}</span>
         </div>`;
@@ -212,6 +215,7 @@
   function getDetail() {
     const infoWrap = document.querySelector('#info-wrap');
     infoWrap.style.visibility = 'visible';
+    console.log(markers[0]);
   }
 
   // 닫기 버튼
@@ -242,15 +246,18 @@
     for (let i = 0; i < e.length; i++) {
       reservation.innerHTML += `
       <tr>
-        <td>예약가능여부</td>
+        <td class="stationInfo-reservation-check">예약가능여부</td>
         <td class="stationInfo-bottom-chargingStatus-adapter">
           <ul>
-  ` + GetChargeInfo(e[i].chgerType)+`
+            ` + GetChargeInfo(e[i].chgerType) + `
           </ul>
         </td>
       </tr>
       `
     }
+    let asdid = markers[3].zd;
+
+    console.log(markers[3].zd.id);
   }
 
   function getChargingInfo(statId) {
@@ -271,10 +278,10 @@
   }
 
   function GetChargeInfo(chrgId){
-    let ac = "<li><span>AC3상</span></li>";
-    let dcCombo = "<li><span>DC콤보</span></li>";
-    let dcCha = "<li><span>DC차데모</span></li>";
-    let slow = "<li><span>AC완속</span></li>";
+    let ac = "<li><span style='color: blue'>AC3상</span></li>";
+    let dcCombo = "<li><span style='color: blue'>DC콤보</span></li>";
+    let dcCha = "<li><span style='color: blue'>DC차데모</span></li>";
+    let slow = "<li><span style='color: blue'>AC완속</span></li>";
 
     //dcCha
     if(!"01|05|06".includes(chrgId)) {
@@ -295,60 +302,42 @@
 
     return dcCha + dcCombo + ac + slow;
   }
+  // 위치 새로고침 버튼 보이게 하는 함수
+  function visibleReloadButton() {
+    let reload = document.querySelector('#reload-button');
+    reload.style.display = 'block';
+  }
 
+  // 새로고침 함수
+  function ReloadButtonClick() {
+    setMarkers(null);
+    getRangeList(rangeList);
+  }
 
-  // // 충전기타입 분류
-  // function chgerTypecal() {
-  //
-  // }
+  // 맵 리스트 충전소 이름 눌렀을때 함수
+  function ClickedStationName(lat, lng, statId, i) {
+    panTo(lat, lng);
+    // getChargingInfo(statId);
+    // markerClic k(i);
 
-  // // DC차데모
-  // function dcTypeDemoType(chgerType) {
-  //   let result;
-  //   if ((chgerType === 1) || (3 <= chgerType <= 6)) {
-  //      result = '<li><span style="color: blue">DC차데모</span></li>';
-  //   } else {
-  //     result = '<li><span style="color: #666666">DC차데모</span></li>';
-  //   }
-  //
-  //   return result;
-  // }
-  //
-  // // AC완속
-  // function slowDevType(chgerType) {
-  //   let result;
-  //   if ((chgerType === 2)) {
-  //     result = '<li><span style="color: blue">완속</span></li>';
-  //   } else {
-  //     result = '<li><span style="color: #666666">완속</span></li>';
-  //   }
-  //
-  //   return result;
-  // }
-  //
-  // // AC3상
-  // function ac3Type(chgerType) {
-  //   let result;
-  //   if ((chgerType === 3) || (6 <= chgerType <= 7)) {
-  //     result = '<li><span style="color: blue">AC3상</span></li>';
-  //   } else {
-  //     result = '<li><span style="color: #666666">AC3상</span></li>';
-  //   }
-  //
-  //   return result;
-  // }
-  //
-  // // DC콤보
-  // function dcComboType(chgerType) {
-  //   let result;
-  //   if ((chgerType === 3) || (6 <= chgerType <= 7)) {
-  //     result = '<li><span style="color: blue">DC콤보</span></li>';
-  //   } else {
-  //     result = '<li><span style="color: #666666">DC콤보</span></li>';
-  //   }
-  //
-  //   return result;
-  // }
+    overlays[i].setMap(map);
+  }
 
+  // 마커 클릭 함수
+  function markerClick(i) {
+    let markerZd = markers[i].zd.id;
+    let markerId = '#' + markerZd.split('.').join('\\\\.').split(':').join('\\\\:');
+    console.log(markerId);
+    // let spMarker = markerZd.split('.');
+    // let sp = spMarker[3].split(':');
+    // console.log(spMarker)
+    // let result;
+    // for (let i = 0; i < spMarker.length - 1; i++) {
+    //   result += spMarker[i] + '//.';
+    // }
+
+    // console.log(markerId);
+    document.querySelector(`${markerId}`).click();
+  }
 </script>
 </html>
