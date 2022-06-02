@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset='utf-8'/>
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="/js/main.js"></script>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+      var calendarEl = document.getElementById('calendar');
+      var calendar = new FullCalendar.Calendar(calendarEl, {
+        dateClick: function(info) {
+          alert('Date: ' + info.dateStr);
+          alert('Resource ID: ' + info.resource.id);
+        },
+        initialView: 'dayGridMonth',
+        editable: true,
+        selectable: true,
+        businessHours: true,
+        dayMaxEvents: true, // allow "more" link when too many events
+        height: 500,
+      });
+      calendar.render();
+    });
+
+    // let str = '06:00 ~ 08:00';
+    // let time1 = str.substr(0, 2);
+    // let time2 = str.substr(-5, 2);
+    //
+    // console.log(time1);
+    // console.log(time2);
+
+    function is_checked() {
+
+      // 1. checkbox element를 찾습니다.
+      const checkbox = document.getElementById('my_checkbox');
+
+      // 2. checked 속성을 체크합니다.
+      const is_checked = checkbox.checked;
+
+      // 3. 결과를 출력합니다.
+      console.log(is_checked);
+
+    }
+
+    // let myelement = document.querySelector('input[name="my_check"]');
+    // console.log(myelement.value);
+
+  </script>
+
+  <style>
+
+    body {
+      margin: 40px 10px;
+      padding: 0;
+      font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+      font-size: 14px;
+    }
+
+    #calendar {
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+  </style>
+</head>
+<body>
+<div id='calendar'></div>
+
+<form class="reservation-wrap">
+  <br>
+  <div class="reservation-time1">
+    <button>06:00 ~ 08:00</button>
+    <button>08:00 ~ 10:00</button>
+    <button>10:00 ~ 12:00</button>
+    <button>12:00 ~ 14:00</button>
+    <button>14:00 ~ 16:00</button>
+    <button>16:00 ~ 18:00</button>
+  </div>
+  <br><br>
+  <div class="reservation-time2">
+    <button>18:00 ~ 20:00</button>
+    <button>20:00 ~ 22:00</button>
+    <button>22:00 ~ 24:00</button>
+    <button>24:00 ~ 02:00</button>
+    <button>02:00 ~ 04:00</button>
+    <button>04:00 ~ 06:00</button>
+  </div>
+  <br><br>
+  <div class="reservation-charging-percent">
+    <div class="charging-start-percent">
+      <div>충전 시작 퍼센트:   </div>
+    </div>
+    <div class="estimated-percentage-of-completion-of-charging">
+      <div>예상 충전 완료 퍼센트:       </div>
+    </div>
+    <div class="Estimated-time-required">
+      <div>예상 소요 시간:          </div>
+    </div>
+    <div class="Estimated-Payment-Amount">
+      <div>결제 예상 금액:        </div>
+    </div>
+    <br><br>
+    <div class="reservation-button">
+      <button>예약하기</button>
+    </div>
+    <div class="reservation-cancle">
+      <button>취소하기</button>
+    </div>
+    <br><br>
+    <div class="Reservation status">
+      <table border="1" align="center">
+        <tr align="center">
+          <p><td colspan="2">예약 상황</td></p>
+        </tr>
+        <tr>
+          <td>충전기 번호</td>
+          <td>1번</td>
+        </tr>
+        <tr>
+          <td>예약 장소</td>
+          <td>세종 정부청사</td>
+        </tr>
+        <tr>
+          <td>예약 날짜</td>
+          <td>2022-05-29</td>
+        </tr>
+        <tr>
+          <td>예약 시간</td>
+          <td>15:00 ~ 17:00</td>
+        </tr>
+        <tr>
+          <td>예상 결제 금액</td>
+          <td>12,800원</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+</form>
+
+<!--<input id="checkbox1" type="checkbox" name="reservationtime"/>-->
+<!--<input id="checkbox2" type="checkbox" name="reservationtime"/>-->
+
+<!--<iframe id="frame" src="reservation1.html"></iframe>-->
+<!--<input id="button1" type="button" value="button" onclick="setTime()"/>-->
+<!--<script type="text/javascript">-->
+<!--  function setTime() {-->
+<!--    let frame = document.getElementById('frame');-->
+
+<!--    let checkboxes = frame.contentWindow.document.getElementsByName('checkbox');-->
+
+<!--    for (let i = 0; i < checkboxes.length; i++) {-->
+<!--      checkboxes[i].checked = true;-->
+<!--    }-->
+<!--  }-->
+<!--</script>-->
+
+<!--<form action="reservation1" name="reservationtime" method="post">-->
+<!--  <div class="reservationTime-wrap">-->
+<!--    <div id="reservationtime" class="reservationtime">-->
+<!--      <label><input type='button' name="reservation" id='my_checkbox' onclick="is_checked()" value="time">06:00 ~ 08:00</label>-->
+<!--      <pre id='reset'></pre>-->
+<!--      <input type="submit" value="submit">-->
+<!--      &lt;!&ndash;    <ul>&ndash;&gt;-->
+<!--      &lt;!&ndash;      <li>06:00 ~ 08:00</li>&ndash;&gt;-->
+<!--      &lt;!&ndash;    </ul>&ndash;&gt;-->
+<!--    </div>-->
+</div>
+</form>
+</body>
+</html>

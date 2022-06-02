@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/css/yang.css">
+  <title>Document</title>
+</head>
+
+<body>
+  <div class="personalInformation-wrap">
+    <header th:include="/main/header/header.html"></header>
+    <br>
+    <div class="wrap">
+      <div class="mypageList-wrap">
+        <ul>
+          <li class="mypageList-background">개인정보관리</li>
+          <li>결제정보등록</li>
+          <li>인증등록</li>
+          <li>차량정보</li>
+        </ul>
+      </div>
+      <div class="mypage-content-wrap">
+        <div class="personalInformation-wrap">
+          <ul>
+            <li>
+              <div class="common-div-size">
+                <div class="personalImage">사진</div>
+                <div class="name-id-wrap">
+                  <div class="memberName">이름</div>
+                  <div class="memberId">아이디</div>
+                </div>
+              </div>
+            </li>
+            <li>
+              <div class="memberPhnum">휴대폰번호</div>
+            </li>
+            <li>
+              <div class="alarm-wrap">
+                <span>알림설정</span>
+                <div class="alarm-switch-wrap">
+                  <div class="message-alarm-wrap">
+                    <span>메시지알림</span>
+                    <div class="message-alarm-switch">
+                      <input type="checkbox" id="switch1" name="switch1" class="input__on-off">
+                      <label for="switch1" class="label__on-off">
+                        <span class="marble"></span>
+                        <span class="on">on</span>
+                        <span class="off">off</span>
+                      </label>
+                    </div>
+                  </div>
+                  <div class="alarm-switch-wrap">
+                    <div class="message-alarm-wrap">
+                      <span>카카오톡알림</span>
+                      <div class="message-alarm-switch">
+                        <input type="checkbox" id="switch1" name="switch1" class="input__on-off">
+                        <label for="switch1" class="label__on-off">
+                          <span class="marble"></span>
+                          <span class="on">on</span>
+                          <span class="off">off</span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </li>
+            <li>
+              <button>회원탈퇴</button>
+              <button style="float: right;">수정하기</button>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+
+</html>

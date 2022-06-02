@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.map">
+  <!-- 해당하는 충전소 정보 가져오기 -->
+  <select id="chargingInfo" parameterType="String" resultType="project.oecr.dto.ChargingInfoDto">
+    select *
+    from charginginfo
+    where statId = #{statId}
+    order by chgerId;
+  </select>
+
+  <!-- 거리에 따라서 좌표 가져오기 -->
+  <!-- Level -->
+  <select id="rangeLevel" parameterType="project.oecr.dto.ChargingInfoDto" resultType="project.oecr.dto.ChargingInfoDto">
+    select distance, statNm, busiCall, stat, lng, lat, statId, addr
+    from
+         (select u_st_distance_sphere(POINT(#{centerLng}, #{centerLat}), POINT(lng, lat)) /1000
+        as distance, statNm, busiCall, stat, lng, lat, statId, addr
+        from charginginfo)
+    <![CDATA[as x where distance<#{distance}]]>
+    group by statId
+    order by distance;
+  </select>
+
+  <!--    <select id="rangeLevel" parameterType="project.oecr.vo.RangeVo" resultType="project.oecr.vo.RangeVo">-->
+  <!--      SELECT u_st_distance_sphere(POINT(127.262851, 36.504682), POINT(lng, lat)) / 1000-->
+  <!--          AS distance, lng, lat, addr-->
+  <!--      FROM charginginfo-->
+  <!--    </select>-->
+
+</mapper>
