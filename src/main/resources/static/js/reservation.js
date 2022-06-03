@@ -43,7 +43,6 @@ function carMenufacturer(e) {
   if (e === "Hyundai") {
     inputOption(carModel);
   }
-<<<<<<< HEAD
 }
 
 function inputOption(d) {
@@ -62,24 +61,6 @@ function checkTest(e) {
     e.parentNode.style.background = "grey";
   }
 }
-=======
-
-  function inputOption(d) {
-    for (let i=0; i<d.length; i++){
-      let carMenu = document.createElement("option");
-      carMenu.value = d[i];
-      carMenu.innerText = value;
-      target.appendChild(carMenu);
-    }
-    for (let [key, value] of d) {
-      let carMenu = document.createElement("option");
-      carMenu.value = value;
-      carMenu.innerText = value;
-      target.appendChild(carMenu);
-    }
-  }
-}
 
 // let myelement = document.querySelector('input[name="my_check"]');
 // console.log(myelement.value);
->>>>>>> 52c50d82d3238bad005b03eec8a6fcfe98344104
