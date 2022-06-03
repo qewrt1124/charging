@@ -1,18 +1,35 @@
 <div id="reservation-wrap">
 
   <div id='calendar'></div>
-
+  <div class="exit-button" onclick="exitButton()">X</div>
   <form class="reservation-form">
     <br>
-    <div class="reservation-time1">
-      <button>06:00 ~ 08:00</button>
-      <button>08:00 ~ 10:00</button>
-      <button>10:00 ~ 12:00</button>
-      <button>12:00 ~ 14:00</button>
-      <button>14:00 ~ 16:00</button>
-      <button>16:00 ~ 18:00</button>
+    <div class="reservation-time-wrap">
+      <button value="1">00:00 ~ 01:00</button>
+      <button value="2">01:00 ~ 02:00</button>
+      <button value="3">02:00 ~ 03:00</button>
+      <button value="4">03:00 ~ 04:00</button>
+      <button value="5">04:00 ~ 05:00</button>
+      <button value="6">05:00 ~ 06:00</button>
+      <button value="7">06:00 ~ 07:00</button>
+      <button value="8">07:00 ~ 08:00</button>
+      <button value="9">09:00 ~ 10:00</button>
+      <button value="10">10:00 ~ 11:00</button>
+      <button value="11">11:00 ~ 12:00</button>
+      <button value="12">12:00 ~ 13:00</button>
+      <button value="13">13:00 ~ 14:00</button>
+      <button value="14">14:00 ~ 15:00</button>
+      <button value="15">15:00 ~ 16:00</button>
+      <button value="16">16:00 ~ 17:00</button>
+      <button value="17">17:00 ~ 18:00</button>
+      <button value="18">18:00 ~ 19:00</button>
+      <button value="19">19:00 ~ 20:00</button>
+      <button value="20">20:00 ~ 21:00</button>
+      <button value="21">21:00 ~ 22:00</button>
+      <button value="22">22:00 ~ 23:00</button>
+      <button value="23">23:00 ~ 24:00</button>
     </div>
-    <br><br>
+    <div id="reservation-select-wrap">
       <div class="car-manufactor">
         <label for="cars-manufacturer-select">Choose a car manufacturer:</label>
         <select id="cars-manufacturer-select">
@@ -30,15 +47,7 @@
           </select>
         </label>
       </div>
-    <div class="reservation-time2">
-      <button>18:00 ~ 20:00</button>
-      <button>20:00 ~ 22:00</button>
-      <button>22:00 ~ 24:00</button>
-      <button>24:00 ~ 02:00</button>
-      <button>02:00 ~ 04:00</button>
-      <button>04:00 ~ 06:00</button>
     </div>
-    <br><br>
     <div class="reservation-charging-percent">
       <div class="charging-start-percent">
         <div>충전 시작 퍼센트:</div>
@@ -53,16 +62,14 @@
         <div>결제 예상 금액:</div>
       </div>
       <br><br>
-      <div class="reservation-button">
-        <button>예약하기</button>
-      </div>
-      <div class="reservation-cancle">
-        <button>취소하기</button>
+      <div id="reservation-button-wrap">
+        <button id="reservation-button">예약하기</button>
+        <button id="reservation-cancle-button">취소하기</button>
       </div>
       <br><br>
       <div class="Reservation status">
-        <table border="1" align="center">
-          <tr align="center">
+        <table id="reservation-table">
+          <tr>
             <td colspan="2">예약 상황</td>
           </tr>
           <tr>

@@ -187,13 +187,14 @@ function panTo(lat, lng) {
 function getDetail() {
   const infoWrap = document.querySelector('#info-wrap1');
   infoWrap.style.visibility = 'visible';
-  console.log(markers[0]);
 }
 
 // 닫기 버튼
 function exitButton() {
-  const infoWrap = document.querySelector('#info-wrap1');
-  infoWrap.style.visibility = 'hidden';
+  const stationInfoPage = document.querySelector('#info-wrap1');
+  const reservationPage = document.querySelector('#info-wrap2');
+  stationInfoPage.style.visibility = "hidden";
+  reservationPage.style.visibility = "hidden";
 }
 
 // stationInfo 내용 갈아 끼기
@@ -218,7 +219,10 @@ function chageStatinInfo(e) {
   for (let i = 0; i < e.length; i++) {
     reservation.innerHTML += `
       <tr>
-        <td class="stationInfo-reservation-check">예약가능여부</td>
+        <td class="stationInfo-reservation-check">
+        <button onclick="ClickedReservation(${e[i].chgerId})">{예약하기}</button>
+        <button onclick="ClickedReservation(${e[i].chgerId})">{다른시간대}</button>
+        </td>
         <td class="stationInfo-bottom-chargingStatus-adapter">
           <ul>
             ` + GetChargeInfo(e[i].chgerType) + `
@@ -228,8 +232,6 @@ function chageStatinInfo(e) {
       `
   }
   let asdid = markers[3].zd;
-
-  console.log(markers[3].zd.id);
 }
 
 function getChargingInfo(statId) {
@@ -240,7 +242,6 @@ function getChargingInfo(statId) {
     dataType: 'json',
     contentType: 'application/json; charset=UTF-8',
     success: (data) => {
-      console.log(data);
       chageStatinInfo(data);
       getDetail();
     }
@@ -299,15 +300,45 @@ function ClickedStationName(lat, lng, statId, i) {
 function markerClick(i) {
   let markerZd = markers[i].zd.id;
   let markerId = '#' + markerZd.split('.').join('\\\\.').split(':').join('\\\\:');
-  console.log(markerId);
-  // let spMarker = markerZd.split('.');
-  // let sp = spMarker[3].split(':');
-  // console.log(spMarker)
-  // let result;
-  // for (let i = 0; i < spMarker.length - 1; i++) {
-  //   result += spMarker[i] + '//.';
-  // }
 
-  // console.log(markerId);
   document.querySelector(`${markerId}`).click();
+}
+
+// 예약하기 눌렀을때 충전기번호에 해당하는 예약 내역가져오기
+function ClickedReservation(chgerId) {
+  openReservationPage();
+}
+
+// 충전소 상세정보 창 닫고 예약페이지 여는 함수
+function openReservationPage() {
+  const stationInfoPage = document.querySelector('#info-wrap1');
+  const reservationPage = document.querySelector('#info-wrap2');
+  stationInfoPage.style.visibility = "hidden";
+  reservationPage.style.visibility = "visible";
+}
+
+// 현재 날짜 알아내기
+function getToday() {
+  let today = new Date();
+  let year = today.getFullYear();
+  let month = ('0' + (today.getMonth() + 1)).slice(-2);
+  let day = ('0' + today.getDate()).slice(-2);
+
+  let dateString = year + '-' + month + '-' + day;
+
+  let hours = ('0' + today.getHours()).slice(-2);
+  console.log(dateString);
+  console.log(hours);
+}
+
+// 예약되어 있을때는 비활성화
+function reservationCheck(reservationData, i) {
+  let reservation = '<button onclick="ClickedReservation(${e[i].chgerId})">{예약하기}</button>';
+  const others = '<button onclick="ClickedReservation(${e[i].chgerId})">{다른시간대}</button>';
+
+  if (!(reservationData[i])) {
+    reservation = '<span>예약불가</span>';
+  }
+
+  return reservation + others;
 }
