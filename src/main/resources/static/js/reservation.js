@@ -1,8 +1,7 @@
-
 document.addEventListener('DOMContentLoaded', function () {
   var calendarEl = document.getElementById('calendar');
   var calendar = new FullCalendar.Calendar(calendarEl, {
-    dateClick: function(info) {
+    dateClick: function (info) {
       alert('Date: ' + info.dateStr);
       alert('Resource ID: ' + info.resource.id);
     },
@@ -34,6 +33,38 @@ function is_checked() {
   // 3. 결과를 출력합니다.
   console.log(is_checked);
 
+}
+
+function carMenufacturer(e) {
+  let car = new Map();
+  car.set("테슬라", "테슬라");
+  car.set("현대", "현대");
+  car.set("기아", "기아");
+  car.set("폭스바겐", "폭스바겐");
+
+  let carModel = [1, 2, 3, 4];
+
+  car.forEach((value, key,) => console.log(key + ',' + value));
+  let target = document.getElementById("cars-sub-category");
+
+  if (e === "Hyundai") {
+    inputOption(carModel);
+  }
+
+  function inputOption(d) {
+    for (let i=0; i<d.length; i++){
+      let carMenu = document.createElement("option");
+      carMenu.value = d[i];
+      carMenu.innerText = value;
+      target.appendChild(carMenu);
+    }
+    for (let [key, value] of d) {
+      let carMenu = document.createElement("option");
+      carMenu.value = value;
+      carMenu.innerText = value;
+      target.appendChild(carMenu);
+    }
+  }
 }
 
 // let myelement = document.querySelector('input[name="my_check"]');

@@ -3,7 +3,7 @@ package project.oecr.dto;
 import lombok.Data;
 
 @Data
-public class ReservationInfo {
+public class ReservationInfoDto {
 
   private int rId;
   private String userId;
