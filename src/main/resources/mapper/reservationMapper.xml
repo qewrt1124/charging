@@ -1,3 +1,4 @@
+
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper
@@ -8,6 +9,13 @@
   <!--예약-->
   <insert id="enroll" parameterType="project.oecr.dto.ReservationDto">
     insert into reservation
-    VALUES (#{userId}, #{rId}, #{statId}, #{chargerId}, #{date}, #{startTime}, #{endTime}, #{coupon})
+    VALUES (null, 'qewrt1124', #{reservationDto.statNm}, #{reservationDto.resLocal}, #{reservationDto.chgerId}, #{reservation})
   </insert>
+
+  <!-- 예약리스트 가져오기 -->
+  <select id="getReservationList" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
+    select tid
+    from reservationInfo
+    where chgerId = #{reservationDto.chgerId} and resDate = #{reservationDto.resDate}
+  </select>
 </mapper>

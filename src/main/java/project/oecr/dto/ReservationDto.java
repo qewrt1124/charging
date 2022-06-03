@@ -1,19 +1,21 @@
 package project.oecr.dto;
 
 import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
-import lombok.ToString;
 
 @Data
 public class ReservationDto {
 
-  private String rId;
+  private Long rId;
   private String userId;
-  private String date;
-  private String startTime;
-  private String endTime;
-  private String chargerId;
-  private String statId;
-  private String coupon;
+  private String statNm;
+  private String resLocal;
+  private String chgerId;
+  private String resDate;
+  private int tId;
+  private String chgerType;
+  private String manuFac;
+  private String model;
+  private String batCap;
+  private String chgerCharge;
+  private String outPut;
 }

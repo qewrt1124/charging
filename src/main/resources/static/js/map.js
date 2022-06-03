@@ -219,8 +219,7 @@ function chageStatinInfo(e) {
     reservation.innerHTML += `
       <tr>
         <td class="stationInfo-reservation-check">
-        <button onclick="ClickedReservation(${e[i].chgerId})">{예약하기}</button>
-        <button onclick="ClickedReservation(${e[i].chgerId})">{다른시간대}</button>
+        <button onclick="ClickedReservation(${e[i].chgerId})">예약하기</button>
         </td>
         <td class="stationInfo-bottom-chargingStatus-adapter">
           <ul>
