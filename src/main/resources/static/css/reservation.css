@@ -24,4 +24,13 @@
 
 #reservation-table tr td {
   border: 1px solid black;
+  height: 35px;
+}
+
+#reservation-left-td {
+  width: 150px;
+}
+
+#reservation-right-td {
+  width: 498px;
 }

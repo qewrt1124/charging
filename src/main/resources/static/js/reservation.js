@@ -36,5 +36,13 @@ function is_checked() {
 
 }
 
+function checkTest (e) {
+  if (e.checked) {
+    e.parentNode.style.background = "red";
+  } else {
+    e.parentNode.style.background = "grey";
+  }
+}
+
 // let myelement = document.querySelector('input[name="my_check"]');
 // console.log(myelement.value);

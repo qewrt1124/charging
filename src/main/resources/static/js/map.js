@@ -155,20 +155,19 @@ function hideMarkers() {
 
 // 맵 센터좌표 주변 정보 가져오는 함수
 function getRangeList(rangeList) {
-  $.ajax({
-    async: true,
-    url: '/rangeList',
-    type: 'POST',
-    data: JSON.stringify(rangeList),
-    dataType: 'json',
-    contentType: 'application/json; charset=UTF-8',
-    success: (data) => {
-      overlays = [];
-      RepetitionAddMaker(data);
-      delChargingStationList();
-      addChargingStationList(data);
-    }
-  }).fail(() => {
+  fetch('/rangeList', {
+    method: 'post',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(rangeList)
+  }).then(res => res.json())
+    .then(data => {
+          overlays = [];
+          RepetitionAddMaker(data);
+          delChargingStationList();
+          addChargingStationList(data);
+    }).catch(() => {
     console.log('실패');
   });
 }
@@ -235,17 +234,14 @@ function chageStatinInfo(e) {
 }
 
 function getChargingInfo(statId) {
-  $.ajax({
-    async: true,
-    url: '/chargingInfo?statId=' + statId,
-    type: 'GET',
+  fetch('/chargingInfo?statId=' + statId, {
+    method: 'get',
     dataType: 'json',
-    contentType: 'application/json; charset=UTF-8',
-    success: (data) => {
-      chageStatinInfo(data);
-      getDetail();
-    }
-  }).fail(() => {
+  }).then(res => res.json())
+    .then(data => {
+          chageStatinInfo(data);
+          getDetail();
+    }).catch(() => {
     console.log('실패');
   });
 }
