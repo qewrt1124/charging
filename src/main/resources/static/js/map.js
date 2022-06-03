@@ -328,8 +328,7 @@ function getToday() {
 
 // 예약되어 있을때는 비활성화
 function reservationCheck(reservationData, i) {
-  let reservation = '<button onclick="ClickedReservation(${e[i].chgerId})">{예약하기}</button>';
-  const others = '<button onclick="ClickedReservation(${e[i].chgerId})">{다른시간대}</button>';
+  let reservation = '<button onclick="ClickedReservation(${e[i].chgerId})">예약하기</button>';
 
   if (!(reservationData[i])) {
     reservation = '<span>예약불가</span>';
