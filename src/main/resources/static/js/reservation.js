@@ -62,5 +62,8 @@ function checkTest(e) {
   }
 }
 
+function activate() {
+  const time1 = document.querySelector('#reservation-time1');
+}
 // let myelement = document.querySelector('input[name="my_check"]');
 // console.log(myelement.value);

@@ -15,8 +15,8 @@ public class ReservationDao {
 
   private String nameSpace = "mapper.reservation";
 
-  public List getReservationList(ReservationDto reservationDto) {
-
-    return sqlSession.selectOne(nameSpace + ".getReservationList", reservationDto);
-  }
+//  public List getReservationList(ReservationDto reservationDto) {
+//
+//    return sqlSession.selectOne(nameSpace + ".getReservationList", reservationDto);
+//  }
 }

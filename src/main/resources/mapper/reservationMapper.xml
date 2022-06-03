@@ -1,4 +1,3 @@
-
 <?xml version="1.0" encoding="UTF-8"?>
 
 <!DOCTYPE mapper
@@ -6,16 +5,5 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.reservation">
-  <!--예약-->
-  <insert id="enroll" parameterType="project.oecr.dto.ReservationDto">
-    insert into reservation
-    VALUES (null, 'qewrt1124', #{reservationDto.statNm}, #{reservationDto.resLocal}, #{reservationDto.chgerId}, #{reservation})
-  </insert>
 
-  <!-- 예약리스트 가져오기 -->
-  <select id="getReservationList" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
-    select tid
-    from reservationInfo
-    where chgerId = #{reservationDto.chgerId} and resDate = #{reservationDto.resDate}
-  </select>
 </mapper>

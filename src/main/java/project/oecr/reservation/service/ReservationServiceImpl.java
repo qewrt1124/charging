@@ -16,7 +16,7 @@ public class ReservationServiceImpl implements ReservationService {
   @Override
   public List getReservationList(ReservationDto reservationDto) {
 
-    reservationDao.getReservationList(reservationDto);
+//    reservationDao.getReservationList(reservationDto);
 
     return null;
   }
