@@ -232,6 +232,7 @@ function chageStatinInfo(e) {
   let asdid = markers[3].zd;
 }
 
+// 충전소의 번호로 충전소 정보 전부 다 가져오기
 function getChargingInfo(statId) {
   fetch('/chargingInfo?statId=' + statId, {
     method: 'get',
@@ -245,6 +246,7 @@ function getChargingInfo(statId) {
   });
 }
 
+// stationInfo의 충전기타입 체크
 function GetChargeInfo(chrgId){
   let ac = "<li><span style='color: blue'>AC3상</span></li>";
   let dcCombo = "<li><span style='color: blue'>DC콤보</span></li>";
