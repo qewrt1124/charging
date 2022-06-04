@@ -9,7 +9,7 @@ import java.util.List;
 
 @Repository
 public class ReservationDao {
-  
+
   @Autowired
   private SqlSessionTemplate sqlSession;
 
@@ -19,5 +19,4 @@ public class ReservationDao {
 
     return sqlSession.selectList(nameSpace + ".getReservationList", reservationDto);
   }
-
 }
