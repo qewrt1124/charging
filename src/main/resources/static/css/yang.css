@@ -553,7 +553,7 @@
 }
 
 .stationInfo-wrap h1 {
- font-size: 25px;
+  font-size: 25px;
 }
 
 .stationInfo-wrap ul {
@@ -677,3 +677,4 @@
   background-color: #fff;
   display: none;
 }
+
