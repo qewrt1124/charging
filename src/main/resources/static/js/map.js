@@ -1,3 +1,7 @@
+let selectChgerId;
+let selectStatId;
+let selectDate;
+
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
   mapOption = {
     center: new kakao.maps.LatLng(36.494692, 127.26536), // 지도의 중심좌표
@@ -5,6 +9,9 @@ let mapContainer = document.getElementById('map'), // 지도를 표시할 div
   };
 
 let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
+
+let addrInfo;
+let chargingNum;
 
 // 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
 // kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
@@ -213,6 +220,8 @@ function chageStatinInfo(e) {
   bnm.innerText = `${e[0].bnm}`;
   useTime.innerText = `${e[0].bnm}`;
 
+  addrInfo = e[0].statNm;
+
   reservation.innerHTML = '';
 
   for (let i = 0; i < e.length; i++) {
@@ -229,7 +238,7 @@ function chageStatinInfo(e) {
       </tr>
       `
   }
-  let asdid = markers[3].zd;
+  // let asdid = markers[3].zd;
 }
 
 function getChargingInfo(statId) {
@@ -302,6 +311,8 @@ function markerClick(i) {
 // 예약하기 눌렀을때 충전기번호에 해당하는 예약 내역가져오기
 function ClickedReservation(chgerId, date, statId) {
   getReservationList(chgerId, date, statId);
+  selectChgerId = chgerId;
+  selectStatId = statId;
 }
 
 // 충전소 상세정보 창 닫고 예약페이지 여는 함수
@@ -344,6 +355,8 @@ function getReservationList(chgerId, date, statId) {
     "statId": statId
   };
 
+  chargingNum = chgerId;
+
   fetch('/getReservationList', {
     method: 'post',
     headers: {
@@ -353,21 +366,63 @@ function getReservationList(chgerId, date, statId) {
   }).then(res => res.json())
     .then(data => {
       openReservationPage();
-      chageReservationPage(data);
-      console.log(data);
+      changeReservationPage(data);
     }).catch(() => {
     console.log('실패');
   });
 }
 
-function chageReservationPage(e) {
-  let selectAll = document.querySelectorAll('[input="tId"]');
+function changeReservationPage(e) {
+  let selectAll = document.querySelectorAll("[name='tId']");
   for (let i = 0; i < selectAll.length; i++) {
-    for(let i = 0; i < e.length; i++) {
-      if ((e[i].tId === selectAll[i].value)) {
-        selectAll[i].disabled;
-        selectAll[i].nextElementSibling.disabled;
+    if (e.length === 0) {
+      selectAll[i].disabled = "false";
+      selectAll[i].nextElementSibling.style.backgroundColor = 'white';
+      console.log("null");
+    } else {
+      for(let j = 0; j < e.length; j++) {
+        if ((e[j].tid == selectAll[i].value)) {
+          selectAll[i].disabled = "disabled";
+          selectAll[i].nextElementSibling.style.backgroundColor = 'grey';
+        } else {
+          selectAll[i].disabled = "false";
+          selectAll[i].nextElementSibling.style.backgroundColor = 'white';
+        }
       }
     }
   }
+  reservationStatus();
 }
+
+function reservationStatus() {
+  const statNm = document.querySelector('#reservation-statNm');
+  const chgerId = document.querySelector('#reservation-chgerId');
+  const resDate = document.querySelector('#reservation-resDate');
+  const resTime = document.querySelector('#reservation-resTime');
+  const fee = document.querySelector('#reservation-fee');
+
+  statNm.innerText = `${addrInfo}`;
+  chgerId.innerText = `${chargingNum}`;
+  resDate.innerText = `${selectDate}`;
+}
+
+function onClickDate(date) {
+  getReservationList(selectChgerId, date, selectStatId);
+  selectDate = date;
+}
+
+document.addEventListener('DOMContentLoaded', function () {
+  let calendarEl = document.getElementById('calendar');
+  let calendar = new FullCalendar.Calendar(calendarEl, {
+    dateClick: function (info) {
+      onClickDate(info.dateStr);
+    },
+    initialView: 'dayGridMonth',
+    editable: true,
+    selectable: true,
+    businessHours: true,
+    dayMaxEvents: true, // allow "more" link when too many events
+    height: 350,
+  });
+  calendar.render();
+});

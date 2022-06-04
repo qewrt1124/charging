@@ -1,18 +1,18 @@
-document.addEventListener('DOMContentLoaded', function () {
-  let calendarEl = document.getElementById('calendar');
-  let calendar = new FullCalendar.Calendar(calendarEl, {
-    dateClick: function (info) {
-      alert('Date: ' + info.dateStr);
-    },
-    initialView: 'dayGridMonth',
-    editable: true,
-    selectable: true,
-    businessHours: true,
-    dayMaxEvents: true, // allow "more" link when too many events
-    height: 350,
-  });
-  calendar.render();
-});
+// document.addEventListener('DOMContentLoaded', function () {
+//   let calendarEl = document.getElementById('calendar');
+//   let calendar = new FullCalendar.Calendar(calendarEl, {
+//     dateClick: function (info) {
+//       alert('Date: ' + info.dateStr);
+//     },
+//     initialView: 'dayGridMonth',
+//     editable: true,
+//     selectable: true,
+//     businessHours: true,
+//     dayMaxEvents: true, // allow "more" link when too many events
+//     height: 350,
+//   });
+//   calendar.render();
+// });
 
 function is_checked() {
 
