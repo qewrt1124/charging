@@ -8,20 +8,13 @@ import project.oecr.main.map.service.MapService;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class MapController {
 
   @Autowired
   private MapService mapService;
 
-  @GetMapping("/map")
-  public String getMap() {
-
-    return "/main/map/map";
-  }
-
   @PostMapping("/rangeList")
-  @ResponseBody
   public List getRangeList(@RequestBody ChargingInfoDto chargingInfoDto) {
 
     List list = mapService.getRangeList(chargingInfoDto);
@@ -30,7 +23,6 @@ public class MapController {
   }
 
   @GetMapping("/chargingInfo")
-  @ResponseBody
   public List getChargingInfo(@RequestParam("statId") String statId) {
 
     List list = mapService.getChargingInfo(statId);
