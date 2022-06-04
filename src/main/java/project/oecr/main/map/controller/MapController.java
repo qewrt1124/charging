@@ -20,12 +20,6 @@ public class MapController {
     return "/main/map/map";
   }
 
-  @GetMapping("/test")
-  public String getTest() {
-
-    return "/main/map/test";
-  }
-
   @PostMapping("/rangeList")
   @ResponseBody
   public List getRangeList(@RequestBody ChargingInfoDto chargingInfoDto) {

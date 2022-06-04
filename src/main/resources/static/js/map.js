@@ -376,11 +376,13 @@ function getReservationList(chgerId, date, statId) {
 
 function changeReservationPage(e) {
   let selectAll = document.querySelectorAll("[name='tId']");
+
+  console.log(e);
+
   for (let i = 0; i < selectAll.length; i++) {
     if (e.length === 0) {
       selectAll[i].disabled = "false";
       selectAll[i].nextElementSibling.style.backgroundColor = 'white';
-      console.log("null");
     } else {
       for(let j = 0; j < e.length; j++) {
         if ((e[j].tid == selectAll[i].value)) {
