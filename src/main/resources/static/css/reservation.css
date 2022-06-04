@@ -34,3 +34,10 @@
 #reservation-right-td {
   width: 498px;
 }
+/*input[type='checkbox'] {*/
+/*  display: none;*/
+/*}*/
+
+.reservation-time-wrap label {
+  border: 1px solid black;
+}

@@ -1,9 +1,8 @@
 document.addEventListener('DOMContentLoaded', function () {
-  var calendarEl = document.getElementById('calendar');
-  var calendar = new FullCalendar.Calendar(calendarEl, {
+  let calendarEl = document.getElementById('calendar');
+  let calendar = new FullCalendar.Calendar(calendarEl, {
     dateClick: function (info) {
       alert('Date: ' + info.dateStr);
-      alert('Resource ID: ' + info.resource.id);
     },
     initialView: 'dayGridMonth',
     editable: true,
@@ -54,12 +53,30 @@ function inputOption(d) {
   }
 }
 
-function checkTest(e) {
-  if (e.checked) {
-    e.parentNode.style.background = "red";
-  } else {
-    e.parentNode.style.background = "grey";
+function onClickCheckBox(e) {
+  // changeCheckBox(e);
+  continuousCheck(e);
+}
+
+function changeCheckBox(e) {
+  if (!(e.checked)) {
+    e.nextElementSibling.style.backgroundColor = "white";
   }
+}
+
+let preValue;
+let nextValue = 0;
+
+function continuousCheck(e) {
+    nextValue = e.value;
+    if ((nextValue - preValue) > 1) {
+      alert("연속된 시간을 선택하세요");
+      event.preventDefault();
+    } else {
+      preValue = e.value;
+      e.nextElementSibling.style.backgroundColor = "grey";
+    }
+  changeCheckBox(e);
 }
 
 // let myelement = document.querySelector('input[name="my_check"]');

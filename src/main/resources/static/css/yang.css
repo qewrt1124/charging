@@ -91,10 +91,6 @@
   float: right;
 }
 
-input[type="checkbox"] {
-  display: none;
-}
-
 .label__on-off {
   overflow: hidden;
   position: relative;
