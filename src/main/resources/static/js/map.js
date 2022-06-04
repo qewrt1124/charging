@@ -219,7 +219,7 @@ function chageStatinInfo(e) {
     reservation.innerHTML += `
       <tr>
         <td class="stationInfo-reservation-check">
-        <button onclick="ClickedReservation(${e[i].chgerId})">예약하기</button>
+        <button onclick="ClickedReservation('${e[i].chgerId}', getToday(), '${e[i].statId}')">예약하기</button>
         </td>
         <td class="stationInfo-bottom-chargingStatus-adapter">
           <ul>
@@ -300,8 +300,8 @@ function markerClick(i) {
 }
 
 // 예약하기 눌렀을때 충전기번호에 해당하는 예약 내역가져오기
-function ClickedReservation(chgerId) {
-  openReservationPage();
+function ClickedReservation(chgerId, date, statId) {
+  getReservationList(chgerId, date, statId);
 }
 
 // 충전소 상세정보 창 닫고 예약페이지 여는 함수
@@ -322,8 +322,8 @@ function getToday() {
   let dateString = year + '-' + month + '-' + day;
 
   let hours = ('0' + today.getHours()).slice(-2);
-  console.log(dateString);
-  console.log(hours);
+
+  return dateString;
 }
 
 // 예약되어 있을때는 비활성화
@@ -335,4 +335,39 @@ function reservationCheck(reservationData, i) {
   }
 
   return reservation + others;
+}
+
+function getReservationList(chgerId, date, statId) {
+  let ResParam = {
+    "chgerId": chgerId,
+    "resDate": date,
+    "statId": statId
+  };
+
+  fetch('/getReservationList', {
+    method: 'post',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(ResParam)
+  }).then(res => res.json())
+    .then(data => {
+      openReservationPage();
+      chageReservationPage(data);
+      console.log(data);
+    }).catch(() => {
+    console.log('실패');
+  });
+}
+
+function chageReservationPage(e) {
+  let selectAll = document.querySelectorAll('[input="tId"]');
+  for (let i = 0; i < selectAll.length; i++) {
+    for(let i = 0; i < e.length; i++) {
+      if ((e[i].tId === selectAll[i].value)) {
+        selectAll[i].disabled;
+        selectAll[i].nextElementSibling.disabled;
+      }
+    }
+  }
 }

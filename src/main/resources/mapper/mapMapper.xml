@@ -25,11 +25,4 @@
     group by statId
     order by distance;
   </select>
-
-  <!--    <select id="rangeLevel" parameterType="project.oecr.vo.RangeVo" resultType="project.oecr.vo.RangeVo">-->
-  <!--      SELECT u_st_distance_sphere(POINT(127.262851, 36.504682), POINT(lng, lat)) / 1000-->
-  <!--          AS distance, lng, lat, addr-->
-  <!--      FROM charginginfo-->
-  <!--    </select>-->
-
 </mapper>

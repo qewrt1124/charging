@@ -79,5 +79,6 @@ function continuousCheck(e) {
   changeCheckBox(e);
 }
 
-// let myelement = document.querySelector('input[name="my_check"]');
-// console.log(myelement.value);
+function getOptionValue(e) {
+
+}

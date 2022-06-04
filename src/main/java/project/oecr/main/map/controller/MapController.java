@@ -6,9 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import project.oecr.dto.ChargingInfoDto;
 import project.oecr.main.map.service.MapService;
 
-import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 @Controller
 public class MapController {
@@ -41,10 +39,7 @@ public class MapController {
   @ResponseBody
   public List getChargingInfo(@RequestParam("statId") String statId) {
 
-    System.out.println("cId -------------- " + statId);
-
     List list = mapService.getChargingInfo(statId);
-//    List list = new ArrayList();
 
     return list;
   }

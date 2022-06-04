@@ -58,7 +58,7 @@
 <form>
     <div class="car-manufactor-wrap">
       <label for="cars-manufacturer-select">Choose a car manufacturer:</label>
-      <select id="cars-manufacturer-select" onchange="carMenufacturer(this.value)">
+      <select id="cars-manufacturer-select" onchange="getOptionValue(this)">
         <option value="manufacturerchoose" disabled>---제조사를 선택해주세요---</option>
         <option value="Tesla">테슬라</option>
         <option value="Hyundai">현대</option>
@@ -118,5 +118,10 @@
       </div>
     </div>
   </form>
-
+  <div id="hidden-wrap">
+    <input type="text" id="reservation-hidden-resDate">
+    <input type="text" id="reservation-hidden-userId">
+    <input type="text" id="reservation-hidden-statId">
+    <input type="text" id="reservation-hidden-chgerId">
+  </div>
 </div>

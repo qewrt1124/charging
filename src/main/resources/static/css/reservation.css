@@ -41,3 +41,7 @@
 .reservation-time-wrap label {
   border: 1px solid black;
 }
+
+#hidden-wrap input {
+  display: none;
+}

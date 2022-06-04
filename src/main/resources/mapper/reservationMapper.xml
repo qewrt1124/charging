@@ -5,5 +5,13 @@
     "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="mapper.reservation">
-
+  <select id="getReservationList" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
+    select userId, statId, chgerId, resDate, reservation.tId, starTime, endTime
+    from reservation
+           left outer join time t
+                           on reservation.tId = t.tId
+    where statId = #{statId}
+      and chgerId = #{chgerId}
+      and resDate = #{resDate}
+  </select>
 </mapper>
