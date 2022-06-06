@@ -55,16 +55,65 @@
   <br><br>
   <div class="car-manufactor-wrap">
     <label for="cars-manufacturer-select">Choose a car manufacturer:</label>
-    <select id="cars-manufacturer-select" onchange="getOptionValue(this)">
+    <select id="cars-manufacturer-select" onchange="getManuFac()">
       <option value="manufacturerchoose" disabled>---제조사를 선택해주세요---</option>
       <option value="Tesla">테슬라</option>
       <option value="Hyundai">현대</option>
       <option value="Kia">기아</option>
       <option value="Volkswagen">폭스바겐</option>
     </select>
-    <select name="cars-category" id="cars-sub-category">
-
+    <select name="cars-category" id="cars-model-select">
+      <option value="modelchoose" disabled>---모델을 선택해주세요---</option>
+      <option value="Tesla">Model 3</option>
+      <option value="Tesla">Model Y</option>
+      <option value="Tesla">Model S</option>
+      <option value="Tesla">Model X</option>
+      <option value="Hyundai">그랜저 하이브리드</option>
+      <option value="Hyundai">코나 하이브리드</option>
+      <option value="Hyundai">아반떼 하이브리드</option>
+      <option value="Hyundai">포터2 일렉트</option>
+      <option value="Hyundai">싼타페 하이브리드</option>
+      <option value="Hyundai">쏘나타 하이브리드</option>
+      <option value="Hyundai">투싼 하이브리드</option>
+<!--      <option value="Hyundai">아이오닉 5</option>-->
+<!--      <option value="Kia">K8 하이브리드</option>-->
+<!--      <option value="Kia">K5 하이브리드</option>-->
+<!--      <option value="Kia">쏘렌토 하이브리드</option>-->
+<!--      <option value="Kia">스포티지 하이브리드</option>-->
+<!--      <option value="Kia">니로 하이브리드</option>-->
+<!--      <option value="Kia">니로 플러스</option>-->
+<!--      <option value="Kia">봉고 3 EV</option>-->
+<!--      <option value="Kia">EV 6</option>-->
+<!--      <option value="Vlokswagen">ID.4</option>-->
     </select>
+<!--    <label for="cars-model-select">Choose a car model</label>-->
+<!--    <select id="car-model-select" onchange="getModelList(this).children();">-->
+<!--      <option value="modelchoose" disabled>-&#45;&#45;모델을 선택해주세요-&#45;&#45;</option>-->
+<!--      <option value="Tesla">Model 3</option>-->
+<!--      <option value="Tesla">Model Y</option>-->
+<!--      <option value="Tesla">Model S</option>-->
+<!--      <option value="Tesla">Model X</option>-->
+<!--      <option value="Hyundai">그랜저 하이브리드</option>-->
+<!--      <option value="Hyundai">코나 하이브리드</option>-->
+<!--      <option value="Hyundai">아반떼 하이브리드</option>-->
+<!--      <option value="Hyundai">포터2 일렉트</option>-->
+<!--      <option value="Hyundai">싼타페 하이브리드</option>-->
+<!--      <option value="Hyundai">쏘나타 하이브리드</option>-->
+<!--      <option value="Hyundai">투싼 하이브리드</option>-->
+<!--      <option value="Hyundai">아이오닉 5</option>-->
+<!--      <option value="Kia">K8 하이브리드</option>-->
+<!--      <option value="Kia">K5 하이브리드</option>-->
+<!--      <option value="Kia">쏘렌토 하이브리드</option>-->
+<!--      <option value="Kia">스포티지 하이브리드</option>-->
+<!--      <option value="Kia">니로 하이브리드</option>-->
+<!--      <option value="Kia">니로 플러스</option>-->
+<!--      <option value="Kia">봉고 3 EV</option>-->
+<!--      <option value="Kia">EV 6</option>-->
+<!--      <option value="Vlokswagen">ID.4</option>-->
+<!--    </select>-->
+<!--    <select name="cars-model-category" id="cars-model-select">-->
+
+<!--    </select>-->
   </div>
   <div>
     <div class="reservation-charging-percent">

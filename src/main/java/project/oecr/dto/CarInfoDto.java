@@ -6,7 +6,7 @@ import lombok.Data;
 public class CarInfoDto {
 
   private int cId;
-  private String manuFac;
+  private String manufac;
   private String model;
   private String batCap;
   private String outPut;

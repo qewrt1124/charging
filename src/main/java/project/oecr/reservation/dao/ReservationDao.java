@@ -19,4 +19,16 @@ public class ReservationDao {
 
     return sqlSession.selectList(nameSpace + ".getReservationList", reservationDto);
   }
+
+
+  public List getManuFac(String ManuFac) {
+
+    return sqlSession.selectList(nameSpace + ".carInfo", ManuFac);
+  }
+
+
+//  public List getModel(String Model) {
+//
+//    return sqlSession.selectList(nameSpace + ".carInfo", Model);
+//  }
 }
