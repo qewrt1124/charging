@@ -319,6 +319,7 @@ function ClickedReservation(chgerId, date, statId) {
   getReservationList(chgerId, date, statId);
   selectChgerId = chgerId;
   selectStatId = statId;
+  getCarList();
 }
 
 // 충전소 상세정보 창 닫고 예약페이지 여는 함수
@@ -381,11 +382,9 @@ function getReservationList(chgerId, date, statId) {
 function changeReservationPage(e) {
   let selectAll = document.querySelectorAll("[name='tId']");
 
-  console.log(e);
-
   for (let i = 0; i < selectAll.length; i++) {
     if (e.length === 0) {
-      selectAll[i].disabled = "false";
+      selectAll[i].classList.remove();
       selectAll[i].nextElementSibling.style.backgroundColor = 'white';
     } else {
       for(let j = 0; j < e.length; j++) {
@@ -393,7 +392,7 @@ function changeReservationPage(e) {
           selectAll[i].disabled = "disabled";
           selectAll[i].nextElementSibling.style.backgroundColor = 'grey';
         } else {
-          selectAll[i].disabled = "false";
+          selectAll[i].classList.remove();
           selectAll[i].nextElementSibling.style.backgroundColor = 'white';
         }
       }
@@ -455,7 +454,7 @@ function reservationCheck(e) {
 // 예약데이터
 function reservationInsertList() {
   let resCherId = chargingNum;
-  let testTime = [1, 2];
+  let testTime = checkedList();
   let testFee = 12000;
   let reservationList =
     {
@@ -503,4 +502,14 @@ function insertReservation() {
     }).catch(() => {
     console.log('실패');
   });
+}
+
+function checkedList() {
+  let checked = document.querySelectorAll("input[type='checkbox']:checked");
+  let checkedValues = [];
+  for (let i = 0; i < checked.length; i++) {
+    checkedValues.push(checked[i].value);
+  }
+
+  return checkedValues;
 }

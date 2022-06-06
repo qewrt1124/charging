@@ -14,4 +14,19 @@
       and chgerId = #{chgerId}
       and resDate = #{resDate}
   </select>
+
+  <select id="getCarData" parameterType="project.oecr.dto.CarInfoDto" resultType="project.oecr.dto.CarInfoDto">
+    select *
+    from manufacturer
+  </select>
+
+  <select id="getCarModel" parameterType="project.oecr.dto.CarInfoDto" resultType="project.oecr.dto.CarInfoDto">
+    select *
+    from model
+  </select>
+
+  <insert id="insertReservation" parameterType="project.oecr.dto.ReservationDto">
+    insert into reservation
+    values (null, 'qweqwe', #{couponNum}, #{statId}, #{chgerId}, #{resDate}, #{tid}, #{chgerCharge});
+  </insert>
 </mapper>

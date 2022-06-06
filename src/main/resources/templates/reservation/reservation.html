@@ -1,73 +1,83 @@
 <div id="reservation-wrap">
   <div id='calendar'></div>
   <div class="exit-button" onclick="exitButton()">X</div>
-  <form class="reservation-form">
-    <br>
-    <div class="reservation-time-wrap">
-      <input type="checkbox" name="tId" id="reservation-time1" value="1" onclick="onClickCheckBox(this)">
-      <label for="reservation-time1">00:00 ~ 01:00</label>
-      <input type="checkbox" name="tId" id="reservation-time2" value="2" onclick="onClickCheckBox(this)">
-      <label for="reservation-time2">01:00 ~ 02:00</label>
-      <input type="checkbox" name="tId" id="reservation-time3" value="3" onclick="onClickCheckBox(this)">
-      <label for="reservation-time3">02:00 ~ 03:00</label>
-      <input type="checkbox" name="tId" id="reservation-time4" value="4" onclick="onClickCheckBox(this)">
-      <label for="reservation-time4">03:00 ~ 04:00</label>
-      <input type="checkbox" name="tId" id="reservation-time5" value="5" onclick="onClickCheckBox(this)">
-      <label for="reservation-time5">04:00 ~ 05:00</label>
-      <input type="checkbox" name="tId" id="reservation-time6" value="6" onclick="onClickCheckBox(this)">
-      <label for="reservation-time6">05:00 ~ 06:00</label>
-      <input type="checkbox" name="tId" id="reservation-time7" value="7" onclick="onClickCheckBox(this)">
-      <label for="reservation-time7">06:00 ~ 07:00</label>
-      <input type="checkbox" name="tId" id="reservation-time8" value="8" onclick="onClickCheckBox(this)">
-      <label for="reservation-time8">07:00 ~ 08:00</label>
-      <input type="checkbox" name="tId" id="reservation-time9" value="9" onclick="onClickCheckBox(this)">
-      <label for="reservation-time9">08:00 ~ 09:00</label>
-      <input type="checkbox" name="tId" id="reservation-time10" value="10" onclick="onClickCheckBox(this)">
-      <label for="reservation-time10">09:00 ~ 10:00</label>
-      <input type="checkbox" name="tId" id="reservation-time11" value="11" onclick="onClickCheckBox(this)">
-      <label for="reservation-time11">10:00 ~ 11:00</label>
-      <input type="checkbox" name="tId" id="reservation-time12" value="12" onclick="onClickCheckBox(this)">
-      <label for="reservation-time12">11:00 ~ 12:00</label>
-      <input type="checkbox" name="tId" id="reservation-time13" value="13" onclick="onClickCheckBox(this)">
-      <label for="reservation-time13">12:00 ~ 13:00</label>
-      <input type="checkbox" name="tId" id="reservation-time14" value="14" onclick="onClickCheckBox(this)">
-      <label for="reservation-time14">13:00 ~ 14:00</label>
-      <input type="checkbox" name="tId" id="reservation-time15" value="15" onclick="onClickCheckBox(this)">
-      <label for="reservation-time15">14:00 ~ 15:00</label>
-      <input type="checkbox" name="tId" id="reservation-time16" value="16" onclick="onClickCheckBox(this)">
-      <label for="reservation-time16">15:00 ~ 16:00</label>
-      <input type="checkbox" name="tId" id="reservation-time17" value="17" onclick="onClickCheckBox(this)">
-      <label for="reservation-time17">16:00 ~ 17:00</label>
-      <input type="checkbox" name="tId" id="reservation-time18" value="18" onclick="onClickCheckBox(this)">
-      <label for="reservation-time18">17:00 ~ 18:00</label>
-      <input type="checkbox" name="tId" id="reservation-time19" value="19" onclick="onClickCheckBox(this)">
-      <label for="reservation-time19">18:00 ~ 19:00</label>
-      <input type="checkbox" name="tId" id="reservation-time20" value="20" onclick="onClickCheckBox(this)">
-      <label for="reservation-time20">19:00 ~ 20:00</label>
-      <input type="checkbox" name="tId" id="reservation-time21" value="21" onclick="onClickCheckBox(this)">
-      <label for="reservation-time21">20:00 ~ 21:00</label>
-      <input type="checkbox" name="tId" id="reservation-time22" value="22" onclick="onClickCheckBox(this)">
-      <label for="reservation-time22">21:00 ~ 22:00</label>
-      <input type="checkbox" name="tId" id="reservation-time23" value="23" onclick="onClickCheckBox(this)">
-      <label for="reservation-time23">22:00 ~ 23:00</label>
-      <input type="checkbox" name="tId" id="reservation-time24" value="24" onclick="onClickCheckBox(this)">
-      <label for="reservation-time24">23:00 ~ 00:00</label>
-    </div>
-    <br><br>
-<form>
-    <div class="car-manufactor-wrap">
-      <label for="cars-manufacturer-select">Choose a car manufacturer:</label>
-      <select id="cars-manufacturer-select" onchange="getOptionValue(this)">
-        <option value="manufacturerchoose" disabled>---제조사를 선택해주세요---</option>
-        <option value="Tesla">테슬라</option>
-        <option value="Hyundai">현대</option>
-        <option value="Kia">기아</option>
-        <option value="Volkswagen">폭스바겐</option>
-      </select>
-      <select name="cars-category" id="cars-sub-category">
-
-      </select>
-    </div>
+  <br>
+  <div class="reservation-time-wrap">
+    <input type="checkbox" name="tId" id="reservation-time1" value="1" onclick="onClickCheckBox(this)">
+    <label for="reservation-time1">00:00 ~ 01:00</label>
+    <input type="checkbox" name="tId" id="reservation-time2" value="2" onclick="onClickCheckBox(this)">
+    <label for="reservation-time2">01:00 ~ 02:00</label>
+    <input type="checkbox" name="tId" id="reservation-time3" value="3" onclick="onClickCheckBox(this)">
+    <label for="reservation-time3">02:00 ~ 03:00</label>
+    <input type="checkbox" name="tId" id="reservation-time4" value="4" onclick="onClickCheckBox(this)">
+    <label for="reservation-time4">03:00 ~ 04:00</label>
+    <input type="checkbox" name="tId" id="reservation-time5" value="5" onclick="onClickCheckBox(this)">
+    <label for="reservation-time5">04:00 ~ 05:00</label>
+    <input type="checkbox" name="tId" id="reservation-time6" value="6" onclick="onClickCheckBox(this)">
+    <label for="reservation-time6">05:00 ~ 06:00</label>
+    <input type="checkbox" name="tId" id="reservation-time7" value="7" onclick="onClickCheckBox(this)">
+    <label for="reservation-time7">06:00 ~ 07:00</label>
+    <input type="checkbox" name="tId" id="reservation-time8" value="8" onclick="onClickCheckBox(this)">
+    <label for="reservation-time8">07:00 ~ 08:00</label>
+    <input type="checkbox" name="tId" id="reservation-time9" value="9" onclick="onClickCheckBox(this)">
+    <label for="reservation-time9">08:00 ~ 09:00</label>
+    <input type="checkbox" name="tId" id="reservation-time10" value="10" onclick="onClickCheckBox(this)">
+    <label for="reservation-time10">09:00 ~ 10:00</label>
+    <input type="checkbox" name="tId" id="reservation-time11" value="11" onclick="onClickCheckBox(this)">
+    <label for="reservation-time11">10:00 ~ 11:00</label>
+    <input type="checkbox" name="tId" id="reservation-time12" value="12" onclick="onClickCheckBox(this)">
+    <label for="reservation-time12">11:00 ~ 12:00</label>
+    <input type="checkbox" name="tId" id="reservation-time13" value="13" onclick="onClickCheckBox(this)">
+    <label for="reservation-time13">12:00 ~ 13:00</label>
+    <input type="checkbox" name="tId" id="reservation-time14" value="14" onclick="onClickCheckBox(this)">
+    <label for="reservation-time14">13:00 ~ 14:00</label>
+    <input type="checkbox" name="tId" id="reservation-time15" value="15" onclick="onClickCheckBox(this)">
+    <label for="reservation-time15">14:00 ~ 15:00</label>
+    <input type="checkbox" name="tId" id="reservation-time16" value="16" onclick="onClickCheckBox(this)">
+    <label for="reservation-time16">15:00 ~ 16:00</label>
+    <input type="checkbox" name="tId" id="reservation-time17" value="17" onclick="onClickCheckBox(this)">
+    <label for="reservation-time17">16:00 ~ 17:00</label>
+    <input type="checkbox" name="tId" id="reservation-time18" value="18" onclick="onClickCheckBox(this)">
+    <label for="reservation-time18">17:00 ~ 18:00</label>
+    <input type="checkbox" name="tId" id="reservation-time19" value="19" onclick="onClickCheckBox(this)">
+    <label for="reservation-time19">18:00 ~ 19:00</label>
+    <input type="checkbox" name="tId" id="reservation-time20" value="20" onclick="onClickCheckBox(this)">
+    <label for="reservation-time20">19:00 ~ 20:00</label>
+    <input type="checkbox" name="tId" id="reservation-time21" value="21" onclick="onClickCheckBox(this)">
+    <label for="reservation-time21">20:00 ~ 21:00</label>
+    <input type="checkbox" name="tId" id="reservation-time22" value="22" onclick="onClickCheckBox(this)">
+    <label for="reservation-time22">21:00 ~ 22:00</label>
+    <input type="checkbox" name="tId" id="reservation-time23" value="23" onclick="onClickCheckBox(this)">
+    <label for="reservation-time23">22:00 ~ 23:00</label>
+    <input type="checkbox" name="tId" id="reservation-time24" value="24" onclick="onClickCheckBox(this)">
+    <label for="reservation-time24">23:00 ~ 00:00</label>
+  </div>
+  <br><br>
+  <div class="car-manufactor-wrap">
+    <select id="cars-manufacturer-select" name="manufac" onchange="getCarList(this)">
+      <!--      <option value="manufacturerchoose" disabled>-&#45;&#45;제조사를 선택해주세요-&#45;&#45;</option>-->
+      <!--      <option value="Tesla">테슬라</option>-->
+      <!--      <option value="Hyundai">현대</option>-->
+      <!--      <option value="Kia">기아</option>-->
+      <!--      <option value="Volkswagen">폭스바겐</option>-->
+    </select>
+    <select id="cars-model-select" name="model" onchange="getCarList(this)">
+      <!--      <option value="modelchoose" disabled>-&#45;&#45;모델을 선택해주세요-&#45;&#45;</option>-->
+      <!--      <option value="Tesla">Model 3</option>-->
+      <!--      <option value="Tesla">Model Y</option>-->
+      <!--      <option value="Tesla">Model S</option>-->
+      <!--      <option value="Tesla">Model X</option>-->
+      <!--      <option value="Hyundai">그랜저 하이브리드</option>-->
+      <!--      <option value="Hyundai">코나 하이브리드</option>-->
+      <!--      <option value="Hyundai">아반떼 하이브리드</option>-->
+      <!--      <option value="Hyundai">포터2 일렉트</option>-->
+      <!--      <option value="Hyundai">싼타페 하이브리드</option>-->
+      <!--      <option value="Hyundai">쏘나타 하이브리드</option>-->
+      <!--      <option value="Hyundai">투싼 하이브리드</option>-->
+    </select>
+    <select id="cars-batCap-select" name="batCap"></select>
+    <select id="cars-outPut-select" name="outPut"></select>
+  </div>
   <div>
     <div class="reservation-charging-percent">
       <div class="charging-start-percent">
@@ -89,13 +99,13 @@
       </div>
       <br><br>
       <div class="Reservation status">
-        <table id="reservation-table">
+        <table class="reservation-table">
           <tr>
             <td colspan="2">예약 상황</td>
           </tr>
           <tr>
-            <td id="reservation-left-td">충전기 번호</td>
-            <td id="reservation-chgerId"></td>
+            <td class="reservation-left-td">충전기 번호</td>
+            <td class="reservation-right-td" id="reservation-chgerId"></td>
           </tr>
           <tr>
             <td>예약 장소</td>

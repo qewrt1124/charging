@@ -2,11 +2,13 @@ package project.oecr.reservation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.dao.ReservationDao;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -24,11 +26,19 @@ public class ReservationServiceImpl implements ReservationService {
   @Override
   public int insertReservation(ReservationDto reservationDto) {
 
-    System.out.println("serviceImpl : " + reservationDto);
     reservationDto.setCouponNum(makeCoupon(reservationDto));
-    System.out.println("afterCoupon : " + reservationDto);
+    List tidList = reservationDto.getTidList();
+    int result = 0;
 
-    return 0;
+    for (int i = 0; i < tidList.size(); i++) {
+      reservationDto.setTid((Integer) tidList.get(i));
+      result = reservationDao.insertReservation(reservationDto);
+      if (result == 0) {
+        break;
+      }
+    }
+
+    return result;
   }
 
   public String makeCoupon(ReservationDto reservationDto) {
@@ -66,5 +76,19 @@ public class ReservationServiceImpl implements ReservationService {
     String[] splitedDate = nowDate.split("-");
 
     return nowDate;
+  }
+
+  @Override
+  public List getCarData(CarInfoDto carInfoDto) {
+
+    List result = reservationDao.getCarManu(carInfoDto);
+
+    if (!(carInfoDto.getManufac() == null)) {
+      result = reservationDao.getCarModel(carInfoDto);
+    } else if (!(carInfoDto.getModel() == null)) {
+      System.out.println("model쪽");
+    }
+
+    return result;
   }
 }
