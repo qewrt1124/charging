@@ -7,4 +7,6 @@ import java.util.List;
 public interface ReservationService {
 
   public List getReservationList(ReservationDto reservationDto);
+
+  public int insertReservation(ReservationDto reservationDto);
 }

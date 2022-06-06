@@ -73,11 +73,10 @@ function activate() {
 // let myelement = document.querySelector('input[name="my_check"]');
 // console.log(myelement.value);
 
-function onClickReservationButton() {
-
-}
-
 // function insertReservation() {
 //   fetch()
 // }
 
+let ggop = {
+
+}

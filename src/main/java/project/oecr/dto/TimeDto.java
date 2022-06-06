@@ -5,7 +5,7 @@ import lombok.Data;
 @Data
 public class TimeDto {
 
-  private int tId;
+  private int tid;
   private int startTime;
   private int endTime;
 }

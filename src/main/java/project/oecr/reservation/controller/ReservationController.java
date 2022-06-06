@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import project.oecr.dto.ReservationDto;
+import project.oecr.dto.TimeDto;
 import project.oecr.reservation.service.ReservationService;
 
 import java.util.List;
@@ -21,5 +22,13 @@ public class ReservationController {
     List list = reservationService.getReservationList(reservationDto);
 
     return list;
+  }
+
+  @PostMapping("/insertReservation")
+  public int insertReservation(@RequestBody ReservationDto reservationDto) {
+
+    int result = reservationService.insertReservation(reservationDto);
+
+    return 1;
   }
 }

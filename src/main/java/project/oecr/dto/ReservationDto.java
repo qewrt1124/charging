@@ -2,6 +2,8 @@ package project.oecr.dto;
 
 import lombok.Data;
 
+import java.util.List;
+
 @Data
 public class ReservationDto {
 
@@ -11,8 +13,9 @@ public class ReservationDto {
   private String statId;
   private String chgerId;
   private String resDate;
-  private int tId;
-  private String chgerCharge;
+  private int tid;
+  private int chgerCharge;
   private String startTime;
   private String endTime;
+  private List<Integer> tidList;
 }

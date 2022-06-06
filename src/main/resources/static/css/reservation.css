@@ -35,7 +35,7 @@
 }
 
 input[type='checkbox'] {
-  display: none;
+  display: inline-block;
 }
 
 .reservation-time-wrap label {

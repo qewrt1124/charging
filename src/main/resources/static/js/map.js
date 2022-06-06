@@ -1,6 +1,6 @@
 let selectChgerId;
 let selectStatId;
-let selectDate;
+let selectDate = getToday();
 
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
   mapOption = {
@@ -12,6 +12,7 @@ let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니
 
 let addrInfo;
 let chargingNum;
+let resStatId;
 
 // 지도를 클릭했을때 클릭한 위치에 마커를 추가하도록 지도에 클릭이벤트를 등록합니다
 // kakao.maps.event.addListener(map, 'click', function(mouseEvent) {
@@ -221,6 +222,7 @@ function chageStatinInfo(e) {
   useTime.innerText = `${e[0].bnm}`;
 
   addrInfo = e[0].statNm;
+  resStatId = e[0].statId;
 
   reservation.innerHTML = '';
 
@@ -289,7 +291,9 @@ function visibleReloadButton() {
 
 // 새로고침 함수
 function ReloadButtonClick() {
-  setMarkers(null);
+  for (let i = 0; i < overlays.length; i++) {
+    overlays[i].setMap(null);
+  }
   getRangeList(rangeList);
 }
 
@@ -339,16 +343,16 @@ function getToday() {
   return dateString;
 }
 
-// 예약되어 있을때는 비활성화
-function reservationCheck(reservationData, i) {
-  let reservation = '<button onclick="ClickedReservation(${e[i].chgerId})">예약하기</button>';
-
-  if (!(reservationData[i])) {
-    reservation = '<span>예약불가</span>';
-  }
-
-  return reservation + others;
-}
+// // 예약되어 있을때는 비활성화
+// function reservationCheck(reservationData, i) {
+//   let reservation = '<button onclick="ClickedReservation(${e[i].chgerId})">예약하기</button>';
+//
+//   if (!(reservationData[i])) {
+//     reservation = '<span>예약불가</span>';
+//   }
+//
+//   return reservation + others;
+// }
 
 function getReservationList(chgerId, date, statId) {
   let ResParam = {
@@ -430,3 +434,73 @@ document.addEventListener('DOMContentLoaded', function () {
   });
   calendar.render();
 });
+
+function onClickReservationButton() {
+  console.log(reservationInsertList());
+  insertReservation();
+}
+
+// 예약됬는지 확인하고 되면 페이지 이동 안되면 경고창
+function reservationCheck(e) {
+  if (e === 1) {
+    const reservation = document.querySelector('#info-wrap2');
+    const complete = document.querySelector('#info-wrap3');
+    reservation.style.visibility = "hidden";
+    complete.style.visibility = "visible";
+  } else {
+    alert('잠시후 다시 시도해주세요');
+  }
+}
+
+// 예약데이터
+function reservationInsertList() {
+  let resCherId = chargingNum;
+  let testTime = [1, 2];
+  let testFee = 12000;
+  let reservationList =
+    {
+      'userId': 'qewrt1124',
+      'statId': resStatId,
+      'chgerId': chargingNum,
+      'resDate': selectDate,
+      'tidList': testTime,
+      'chgerCharge': testFee
+    };
+
+  return reservationList;
+}
+
+// function insertReservation() {
+//   $.ajax({
+//     async: true,
+//     url: '/insertReservation',
+//     type: 'POST',
+//     data: JSON.stringify(rangeList),
+//     dataType: 'json',
+//     contentType: 'application/json; charset=UTF-8',
+//     success: (data) => {
+//       overlays = [];
+//       RepetitionAddMaker(data);
+//       delChargingStationList();
+//       addChargingStationList(data);
+//     }
+//   }).fail(() => {
+//     console.log('실패');
+//   });
+// }
+
+function insertReservation() {
+  fetch('/insertReservation', {
+    method: 'post',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reservationInsertList())
+  }).then(res => res.json())
+    .then(data => {
+      console.log(data);
+      console.log(reservationInsertList());
+    }).catch(() => {
+    console.log('실패');
+  });
+}
