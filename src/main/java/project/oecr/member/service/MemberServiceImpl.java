@@ -13,7 +13,6 @@ public class MemberServiceImpl implements MemberService {
   @Autowired
   MemberDao memberDao;
 
-
   @Override
   public int join(MemberDto memberDto, Model model) {
     

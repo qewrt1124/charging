@@ -18,7 +18,6 @@ public class MapServiceImpl implements MapService {
   public List getChargingInfo(String statId) {
 
     List list = new ArrayList();
-//    mapDao.getChargingInfo(cId)
     return mapDao.getChargingInfo(statId);
   }
 

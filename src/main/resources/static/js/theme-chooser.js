@@ -1,4 +1,3 @@
-
 function initThemeChooser(settings) {
   var isInitialized = false;
   var currentThemeSystem; // don't set this directly. use setThemeSystem

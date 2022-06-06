@@ -6,12 +6,9 @@ import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.dao.ReservationDao;
 
-<<<<<<< HEAD
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-=======
->>>>>>> 8b4cf511731e88aa8c33cad77e171eca67d4917b
-import java.util.ArrayList;
+
 import java.util.List;
 
 @Service
@@ -27,7 +24,6 @@ public class ReservationServiceImpl implements ReservationService {
   }
 
   @Override
-<<<<<<< HEAD
   public int insertReservation(ReservationDto reservationDto) {
 
     reservationDto.setCouponNum(makeCoupon(reservationDto));
@@ -96,22 +92,3 @@ public class ReservationServiceImpl implements ReservationService {
     return result;
   }
 }
-=======
-  public List getMenuFacList(CarInfoDto ManuFac) {
-    System.out.println(ManuFac);
-
-    List list = new ArrayList();
-
-    return list;
-//    return reservationDao.getManuFac("ManuFac");
-  }
-
-  @Override
-  public List getModel(CarInfoDto Model) {
-    List list = new ArrayList();
-
-    return list;
-//    return reservationDao.getModel("Model");
-  }
-}
->>>>>>> 8b4cf511731e88aa8c33cad77e171eca67d4917b
