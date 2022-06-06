@@ -11,32 +11,6 @@ function is_checked() {
 
 }
 
-function carMenufacturer(e) {
-  let car = new Map();
-  car.set("테슬라", "테슬라");
-  car.set("현대", "현대");
-  car.set("기아", "기아");
-  car.set("폭스바겐", "폭스바겐");
-
-  let carModel = [1, 2, 3, 4];
-
-  car.forEach((value, key,) => console.log(key + ',' + value));
-  let target = document.getElementById("cars-sub-category");
-
-  if (e === "Hyundai") {
-    inputOption(carModel);
-  }
-}
-
-function inputOption(d) {
-  for (let [key, value] of d) {
-    let carMenu = document.createElement("option");
-    carMenu.value = value;
-    carMenu.innerText = value;
-    target.appendChild(carMenu);
-  }
-}
-
 function onClickCheckBox(e) {
   // changeCheckBox(e);
   continuousCheck(e);
@@ -63,20 +37,89 @@ function continuousCheck(e) {
   changeCheckBox(e);
 }
 
-function getOptionValue(e) {
+function getCarList(e) {
+  fetch('/getCarData', {
+    method: 'post',
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(selectValue(e))
+  }).then(res => res.json())
+    .then(data => {
+      changeOption(data);
+      console.log(data);
+    }).catch(() => {
+    console.log('실패');
+  });
+}
+
+function is_checked() {
+
+  // 1. checkbox element를 찾습니다.
+  const checkbox = document.getElementById('my_checkbox');
+
+  // 2. checked 속성을 체크합니다.
+  const is_checked = checkbox.checked;
+
+  // 3. 결과를 출력합니다.
+  console.log(is_checked);
 
 }
 
-function activate() {
-  const time1 = document.querySelector('#reservation-time1');
+function selectValue(e) {
+  let result;
+
+  if (e == null) {
+    result = {'null': null};
+  } else {
+    switch (e.name) {
+      case 'manufac':
+        result = {
+          'manufac': e.value
+        };
+        break;
+      case 'model':
+        result = {
+          'model': e.value
+        };
+        break;
+    }
+  }
+
+  return result;
 }
-// let myelement = document.querySelector('input[name="my_check"]');
-// console.log(myelement.value);
 
-// function insertReservation() {
-//   fetch()
-// }
+function changeOption(list) {
+  let targetNum;
 
-let ggop = {
+  if (!(list[0].manufac == null)) {
+    console.log("manufac");
+    targetNum = 0;
+    inputOption(list, targetNum);
+  } else if (!(list[0].model == null)) {
+    console.log("model");
+    targetNum = 1;
+    inputOption(list, targetNum);
+  }
+}
 
+function inputOption(list, targetNum) {
+  let target;
+
+  if (targetNum === 0) {
+    target = document.querySelector('#cars-manufacturer-select');
+  } else if (targetNum === 1) {
+    target = document.querySelector('#cars-model-select');
+  } else if (targetNum === 2) {
+    target = document.querySelector('#cars-batCap-select');
+  } else if (targetNum === 3) {
+    target = document.querySelector('#cars-outPut-select');
+  }
+
+  for (let i = 0; i < list.length; i++) {
+    let opt = document.createElement("option");
+    opt.value = list[i].target.name;
+    opt.innerText = list[i].target.name;
+    target.appendChild(opt);
+  }
 }
