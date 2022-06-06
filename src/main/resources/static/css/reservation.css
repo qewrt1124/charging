@@ -37,7 +37,11 @@
 <<<<<<< HEAD
 
 input[type='checkbox'] {
+<<<<<<< HEAD
   display: inline-block;
+=======
+  display: block;
+>>>>>>> 8b4cf511731e88aa8c33cad77e171eca67d4917b
 }
 =======
 /*input[type='checkbox'] {*/

@@ -21,6 +21,7 @@ public class ReservationDao {
     return sqlSession.selectList(nameSpace + ".getReservationList", reservationDto);
   }
 
+<<<<<<< HEAD
   public List getCarManu(CarInfoDto carInfoDto) {
 
     return sqlSession.selectList(nameSpace + ".getCarData", carInfoDto);
@@ -35,4 +36,17 @@ public class ReservationDao {
 
     return sqlSession.insert(nameSpace + ".insertReservation", reservationDto);
   }
+=======
+
+  public List getManuFac(String ManuFac) {
+
+    return sqlSession.selectList(nameSpace + ".carInfo", ManuFac);
+  }
+
+
+//  public List getModel(String Model) {
+//
+//    return sqlSession.selectList(nameSpace + ".carInfo", Model);
+//  }
+>>>>>>> 8b4cf511731e88aa8c33cad77e171eca67d4917b
 }
