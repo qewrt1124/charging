@@ -5,6 +5,7 @@ import org.springframework.stereotype.Service;
 import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.dao.ReservationDao;
+import project.oecr.vo.ResultVo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -18,27 +19,36 @@ public class ReservationServiceImpl implements ReservationService {
   private ReservationDao reservationDao;
 
   @Override
-  public List getReservationList(ReservationDto reservationDto) {
+  public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
 
     return reservationDao.getReservationList(reservationDto);
   }
 
   @Override
-  public int insertReservation(ReservationDto reservationDto) {
+  public List<ReservationDto> insertReservation(ReservationDto reservationDto) {
 
-    reservationDto.setCouponNum(makeCoupon(reservationDto));
-    List tidList = reservationDto.getTidList();
-    int result = 0;
+    String couponCode = makeCoupon(reservationDto);
+    List<ReservationDto> resultList = null;
+    reservationDto.setCouponNum(couponCode);
+    List<Integer> tidList = reservationDto.getTidList();
 
-    for (int i = 0; i < tidList.size(); i++) {
-      reservationDto.setTid((Integer) tidList.get(i));
-      result = reservationDao.insertReservation(reservationDto);
-      if (result == 0) {
+    ResultVo result = new ResultVo();
+    result.setResult(0);
+    result.setCouponNum(couponCode);
+
+    for (Integer integer : tidList) {
+      reservationDto.setTid(integer);
+      result.setResult(reservationDao.insertReservation(reservationDto));
+      if (result.getResult() == 0) {
         break;
       }
     }
 
-    return result;
+    if (result.getResult() == 1) {
+      resultList = reservationDao.getReservationCoupon(couponCode);
+    }
+
+    return resultList;
   }
 
   public String makeCoupon(ReservationDto reservationDto) {

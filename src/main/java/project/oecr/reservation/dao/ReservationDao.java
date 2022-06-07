@@ -16,22 +16,22 @@ public class ReservationDao {
 
   private final String nameSpace = "mapper.reservation";
 
-  public List getReservationList(ReservationDto reservationDto) {
+  public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
 
     return sqlSession.selectList(nameSpace + ".getReservationList", reservationDto);
   }
 
-  public List getCarManu(CarInfoDto carInfoDto) {
+  public List<CarInfoDto> getCarManu(CarInfoDto carInfoDto) {
 
     return sqlSession.selectList(nameSpace + ".getCarData", carInfoDto);
   }
 
-  public List getCarModel(CarInfoDto carInfoDto) {
+  public List<CarInfoDto> getCarModel(CarInfoDto carInfoDto) {
 
     return sqlSession.selectList(nameSpace + ".getCarModel", carInfoDto);
   }
 
-  public List getCarBatCap(CarInfoDto carInfoDto) {
+  public List<CarInfoDto> getCarBatCap(CarInfoDto carInfoDto) {
 
     return sqlSession.selectList(nameSpace + ".getCarBatCap", carInfoDto);
   }
@@ -39,5 +39,10 @@ public class ReservationDao {
   public int insertReservation(ReservationDto reservationDto) {
 
     return sqlSession.insert(nameSpace + ".insertReservation", reservationDto);
+  }
+
+  public List<ReservationDto> getReservationCoupon(String couponCode) {
+
+    return sqlSession.selectList(nameSpace + ".getReservationCoupon", couponCode);
   }
 }

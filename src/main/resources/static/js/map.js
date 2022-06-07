@@ -2,7 +2,7 @@ let selectChgerId;
 let selectStatId;
 let selectChgerType;
 let selectDate = getToday();
-
+let resultPrice;
 
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
   mapOption = {
@@ -396,7 +396,7 @@ function reservationStatus() {
   const chgerId = document.querySelector('#reservation-chgerId');
   const resDate = document.querySelector('#reservation-resDate');
   // const resTime = document.querySelector('#reservation-resTime');
-  const fee = document.querySelector('#reservation-fee');
+  // const fee = document.querySelector('#reservation-fee');
 
   statNm.innerText = `${addrInfo}`;
   chgerId.innerText = `${chargingNum}`;
@@ -425,7 +425,6 @@ document.addEventListener('DOMContentLoaded', function () {
 });
 
 function onClickReservationButton() {
-  console.log(reservationInsertList());
   insertReservation();
 }
 
@@ -443,6 +442,7 @@ function reservationCheck(e) {
 
 // 예약데이터
 function reservationInsertList() {
+  let charging = document.querySelector('#reservation-fee').textContent;
   let resCherId = chargingNum;
   let testTime = checkedList();
   let testFee = 12000;
@@ -453,32 +453,11 @@ function reservationInsertList() {
       'chgerId': chargingNum,
       'resDate': selectDate,
       'tidList': testTime,
-      'chgerCharge': testFee
+      'chgerCharge': resultPrice
     };
-
-  console.log(reservationList);
 
   return reservationList;
 }
-
-// function insertReservation() {
-//   $.ajax({
-//     async: true,
-//     url: '/insertReservation',
-//     type: 'POST',
-//     data: JSON.stringify(rangeList),
-//     dataType: 'json',
-//     contentType: 'application/json; charset=UTF-8',
-//     success: (data) => {
-//       overlays = [];
-//       RepetitionAddMaker(data);
-//       delChargingStationList();
-//       addChargingStationList(data);
-//     }
-//   }).fail(() => {
-//     console.log('실패');
-//   });
-// }
 
 function insertReservation() {
   fetch('/insertReservation', {
@@ -490,7 +469,6 @@ function insertReservation() {
   }).then(res => res.json())
     .then(data => {
       console.log(data);
-      console.log(reservationInsertList());
     }).catch(() => {
     console.log('실패');
   });
@@ -504,4 +482,15 @@ function checkedList() {
   }
 
   return checkedValues;
+}
+
+function changeCompletePage(data) {
+  const completeChgerId = document.querySelector('#complete-chgerId');
+  const completeStatNm = document.querySelector('#complete-statNm');
+  const completeResDate = document.querySelector('#complete-resDate');
+  const completeResTime = document.querySelector('#complete-resTime');
+  const completeFee = document.querySelector('#complete-fee');
+
+  completeChgerId.innerText = data.chgerId;
+  completeStatNm.innerText = data.statId;
 }

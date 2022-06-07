@@ -2,14 +2,15 @@ package project.oecr.reservation.service;
 
 import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
+import project.oecr.vo.ResultVo;
 
 import java.util.List;
 
 public interface ReservationService {
 
-  public List getReservationList(ReservationDto reservationDto);
+  public List<ReservationDto> getReservationList(ReservationDto reservationDto);
 
-  public int insertReservation(ReservationDto reservationDto);
+  public List<ReservationDto> insertReservation(ReservationDto reservationDto);
 
-  public List getCarData(CarInfoDto ManuFac);
+  public List<CarInfoDto> getCarData(CarInfoDto ManuFac);
 }

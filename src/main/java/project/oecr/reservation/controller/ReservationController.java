@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.RestController;
 import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.service.ReservationService;
+import project.oecr.vo.ResultVo;
 
 import java.util.List;
 
@@ -25,13 +26,9 @@ public class ReservationController {
   }
 
   @PostMapping("/insertReservation")
-  public int insertReservation(@RequestBody ReservationDto reservationDto) {
+  public List<ReservationDto> insertReservation(@RequestBody ReservationDto reservationDto) {
 
-    System.out.println("Controller : " + reservationDto);
-
-    int result = reservationService.insertReservation(reservationDto);
-
-    return 1;
+    return reservationService.insertReservation(reservationDto);
   }
 
   @PostMapping("/getCarData")

@@ -12,7 +12,6 @@ function is_checked() {
 }
 
 function onClickCheckBox(e) {
-  // changeCheckBox(e);
   getSelectedTimeStamp();
   continuousCheck(e);
 }
@@ -115,15 +114,16 @@ function inputOption(list, targetNum) {
 
   if (targetNum === 0) {
     target = document.querySelector('#cars-manufacturer-select');
+    target.innerHTML = `<option value="modelChoose">제조사 선택</option>`;
   } else if (targetNum === 1) {
     target = document.querySelector('#cars-model-select');
-    target.innerHTML = `<option value="modelChoose">---모델을 선택해주세요---</option>`;
+    target.innerHTML = `<option value="modelChoose">차량 선택</option>`;
   } else if (targetNum === 2) {
     target = document.querySelector('#cars-batCap-select');
-    target.innerHTML = `<option value="batCapChoose">---배터리용량을 선택해주세요---</option>`;
+    target.innerHTML = `<option value="batCapChoose">배터리용량 선택</option>`;
   } else if (targetNum === 3) {
     target = document.querySelector('#cars-outPut-select');
-    target.innerHTML = `<option value="outPutChoose">---충전속도를 선택해주세요---</option>`;
+    target.innerHTML = `<option value="outPutChoose">충전속도 선택</option>`;
 
     if (selectChgerType === 2) {
       list = [{'outPut': '완속'}];
@@ -151,21 +151,34 @@ function getSelectedTimeStamp() {
   resTime.innerText = resultTime;
 }
 
-function viewChargingPercentage(e) {
+function viewChargingPercentage() {
   const chargeType = document.querySelector('#cars-outPut-select');
   const out = document.querySelector('#cars-batCap-select');
-  let startValue = e;
+  const resultPercentage = document.querySelector('#reservation-endPercentage');
+  const payment = document.querySelector('#charging-payment');
+  const start = document.querySelector('#reservation-startPercentage');
+  const fee = document.querySelector('#reservation-fee');
+  let startValue = start.value;
   let param;
   let result;
   let outPutValue;
+  let price;
+  // let resultPrice;
 
   if (chargeType.value === '완속') {
     param = 7;
+    price = 259;
   } else {
     param = 50;
+    price = 292.9;
   }
-
   outPutValue = out.value;
-  result = parseInt(startValue + (param / outPutValue * 100));
-  console.log(result);
+  let p = parseInt((param / outPutValue) * 100);
+  let q = parseInt(startValue);
+  result = p + q;
+  resultPrice = parseInt(param * price);
+
+  resultPercentage.innerText = result + '분';
+  payment.innerText = resultPrice + '원';
+  fee.innerText = resultPrice + '원';
 }

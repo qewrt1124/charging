@@ -38,4 +38,11 @@
     insert into reservation
     values (null, 'qweqwe', #{couponNum}, #{statId}, #{chgerId}, #{resDate}, #{tid}, #{chgerCharge});
   </insert>
+
+  <select id="getReservationCoupon" parameterType="String" resultType="project.oecr.dto.ReservationDto">
+    select *
+    from reservation
+    where couponNum = #{couponCode}
+    order by tId;
+  </select>
 </mapper>

@@ -43,9 +43,7 @@
     <label for="reservation-time19">18:00 ~ 19:00</label>
     <input type="checkbox" name="tId" id="reservation-time20" value="20" onclick="onClickCheckBox(this)">
     <label for="reservation-time20">19:00 ~ 20:00</label>
-    <input type="checkbox" name="tId"
-
-           id="reservation-time21" value="21" onclick="onClickCheckBox(this)">
+    <input type="checkbox" name="tId" id="reservation-time21" value="21" onclick="onClickCheckBox(this)">
     <label for="reservation-time21">20:00 ~ 21:00</label>
     <input type="checkbox" name="tId" id="reservation-time22" value="22" onclick="onClickCheckBox(this)">
     <label for="reservation-time22">21:00 ~ 22:00</label>
@@ -57,10 +55,10 @@
   <br><br>
   <div class="car-manufactor-wrap">
     <select id="cars-manufacturer-select" name="manufac" onchange="getCarList(this)">
-      <option value="manufacturerchoose">---제조사를 선택해주세요---</option>
+      <option value="manufacturerchoose">제조사 선택</option>
     </select>
     <select id="cars-model-select" name="model" onchange="getCarList(this)">
-      <option value="modelchoose">---모델을 선택해주세요---</option>
+      <option value="modelchoose">차량 선택</option>
     </select>
     <select id="cars-batCap-select" name="batCap" onchange="getCarList(this)"></select>
     <select id="cars-outPut-select" name="outPut"></select>
@@ -70,7 +68,7 @@
       <div class="charging-start-percent">
         <div>충전 시작 퍼센트:</div>
         <input type="text" id="reservation-startPercentage">
-        <button onclick="viewChargingPercentage(this.value)"></button>
+        <button onclick="viewChargingPercentage()">입력완료</button>
       </div>
       <div class="estimated-percentage-of-completion-of-charging">
         <div>예상 충전 완료 퍼센트:</div>
@@ -109,7 +107,7 @@
           </tr>
           <tr>
             <td>예상 결제 금액</td>
-            <td id="reservation-fee">12,800원</td>
+            <td id="reservation-fee"></td>
           </tr>
         </table>
       </div>
