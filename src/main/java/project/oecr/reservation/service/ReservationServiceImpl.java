@@ -8,7 +8,7 @@ import project.oecr.reservation.dao.ReservationDao;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -79,14 +79,21 @@ public class ReservationServiceImpl implements ReservationService {
   }
 
   @Override
-  public List getCarData(CarInfoDto carInfoDto) {
+  public List<CarInfoDto> getCarData(CarInfoDto carInfoDto) {
 
-    List result = reservationDao.getCarManu(carInfoDto);
+    List<CarInfoDto> result = reservationDao.getCarManu(carInfoDto);
 
     if (!(carInfoDto.getManufac() == null)) {
       result = reservationDao.getCarModel(carInfoDto);
     } else if (!(carInfoDto.getModel() == null)) {
-      System.out.println("model쪽");
+      result = reservationDao.getCarBatCap(carInfoDto);
+    } else if (!(carInfoDto.getBatCap() == null)) {
+      result = new ArrayList<>();
+
+
+      CarInfoDto carInfoDto1 = new CarInfoDto();
+      carInfoDto1.setOutPut("dddd");
+      result.add(carInfoDto1);
     }
 
     return result;

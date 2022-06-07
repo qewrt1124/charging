@@ -57,42 +57,28 @@
   <br><br>
   <div class="car-manufactor-wrap">
     <select id="cars-manufacturer-select" name="manufac" onchange="getCarList(this)">
-      <!--      <option value="manufacturerchoose" disabled>-&#45;&#45;제조사를 선택해주세요-&#45;&#45;</option>-->
-      <!--      <option value="Tesla">테슬라</option>-->
-      <!--      <option value="Hyundai">현대</option>-->
-      <!--      <option value="Kia">기아</option>-->
-      <!--      <option value="Volkswagen">폭스바겐</option>-->
+      <option value="manufacturerchoose">---제조사를 선택해주세요---</option>
     </select>
     <select id="cars-model-select" name="model" onchange="getCarList(this)">
-      <!--      <option value="modelchoose" disabled>-&#45;&#45;모델을 선택해주세요-&#45;&#45;</option>-->
-      <!--      <option value="Tesla">Model 3</option>-->
-      <!--      <option value="Tesla">Model Y</option>-->
-      <!--      <option value="Tesla">Model S</option>-->
-      <!--      <option value="Tesla">Model X</option>-->
-      <!--      <option value="Hyundai">그랜저 하이브리드</option>-->
-      <!--      <option value="Hyundai">코나 하이브리드</option>-->
-      <!--      <option value="Hyundai">아반떼 하이브리드</option>-->
-      <!--      <option value="Hyundai">포터2 일렉트</option>-->
-      <!--      <option value="Hyundai">싼타페 하이브리드</option>-->
-      <!--      <option value="Hyundai">쏘나타 하이브리드</option>-->
-      <!--      <option value="Hyundai">투싼 하이브리드</option>-->
+      <option value="modelchoose">---모델을 선택해주세요---</option>
     </select>
-    <select id="cars-batCap-select" name="batCap"></select>
+    <select id="cars-batCap-select" name="batCap" onchange="getCarList(this)"></select>
     <select id="cars-outPut-select" name="outPut"></select>
   </div>
   <div>
     <div class="reservation-charging-percent">
       <div class="charging-start-percent">
         <div>충전 시작 퍼센트:</div>
+        <input type="text" id="reservation-startPercentage">
+        <button onclick="viewChargingPercentage(this.value)"></button>
       </div>
       <div class="estimated-percentage-of-completion-of-charging">
         <div>예상 충전 완료 퍼센트:</div>
-      </div>
-      <div class="Estimated-time-required">
-        <div>예상 소요 시간:</div>
+        <div id="reservation-endPercentage"></div>
       </div>
       <div class="Estimated-Payment-Amount">
         <div>결제 예상 금액:</div>
+        <div id="charging-payment"></div>
       </div>
       <br><br>
       <div id="reservation-button-wrap">
@@ -119,7 +105,7 @@
           </tr>
           <tr>
             <td>예약 시간</td>
-            <td id="reservation-resTime">15:00 ~ 17:00</td>
+            <td id="reservation-resTime"></td>
           </tr>
           <tr>
             <td>예상 결제 금액</td>

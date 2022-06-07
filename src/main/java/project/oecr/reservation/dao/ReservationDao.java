@@ -31,6 +31,11 @@ public class ReservationDao {
     return sqlSession.selectList(nameSpace + ".getCarModel", carInfoDto);
   }
 
+  public List getCarBatCap(CarInfoDto carInfoDto) {
+
+    return sqlSession.selectList(nameSpace + ".getCarBatCap", carInfoDto);
+  }
+
   public int insertReservation(ReservationDto reservationDto) {
 
     return sqlSession.insert(nameSpace + ".insertReservation", reservationDto);

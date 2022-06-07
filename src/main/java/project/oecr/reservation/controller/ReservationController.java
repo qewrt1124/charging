@@ -27,6 +27,8 @@ public class ReservationController {
   @PostMapping("/insertReservation")
   public int insertReservation(@RequestBody ReservationDto reservationDto) {
 
+    System.out.println("Controller : " + reservationDto);
+
     int result = reservationService.insertReservation(reservationDto);
 
     return 1;

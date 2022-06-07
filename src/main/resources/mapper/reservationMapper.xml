@@ -16,13 +16,22 @@
   </select>
 
   <select id="getCarData" parameterType="project.oecr.dto.CarInfoDto" resultType="project.oecr.dto.CarInfoDto">
-    select *
-    from manufacturer
+    select manufac
+    from carinfo
+    group by manufac
   </select>
 
   <select id="getCarModel" parameterType="project.oecr.dto.CarInfoDto" resultType="project.oecr.dto.CarInfoDto">
-    select *
-    from model
+    select model
+    from carinfo
+    where manufac = #{manufac}
+  </select>
+
+  <select id="getCarBatCap" parameterType="project.oecr.dto.CarInfoDto" resultType="project.oecr.dto.CarInfoDto">
+    select battery.batCap
+    from carinfo
+        inner join battery
+    where model = #{model} and carinfo.batCap = battery.bID
   </select>
 
   <insert id="insertReservation" parameterType="project.oecr.dto.ReservationDto">

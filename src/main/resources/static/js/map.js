@@ -1,6 +1,8 @@
 let selectChgerId;
 let selectStatId;
+let selectChgerType;
 let selectDate = getToday();
+
 
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
   mapOption = {
@@ -230,7 +232,7 @@ function chageStatinInfo(e) {
     reservation.innerHTML += `
       <tr>
         <td class="stationInfo-reservation-check">
-        <button onclick="ClickedReservation('${e[i].chgerId}', getToday(), '${e[i].statId}')">예약하기</button>
+        <button onclick="ClickedReservation('${e[i].chgerId}', getToday(), '${e[i].statId}', '${e[i].chgerType}')">예약하기</button>
         </td>
         <td class="stationInfo-bottom-chargingStatus-adapter">
           <ul>
@@ -240,7 +242,7 @@ function chageStatinInfo(e) {
       </tr>
       `
   }
-  // let asdid = markers[3].zd;
+
 }
 
 // 충전소의 번호로 충전소 정보 전부 다 가져오기
@@ -258,7 +260,7 @@ function getChargingInfo(statId) {
 }
 
 // stationInfo의 충전기타입 체크
-function GetChargeInfo(chrgId){
+function GetChargeInfo(chrgId) {
   let ac = "<li><span style='color: blue'>AC3상</span></li>";
   let dcCombo = "<li><span style='color: blue'>DC콤보</span></li>";
   let dcCha = "<li><span style='color: blue'>DC차데모</span></li>";
@@ -300,8 +302,6 @@ function ReloadButtonClick() {
 // 맵 리스트 충전소 이름 눌렀을때 함수
 function ClickedStationName(lat, lng, statId, i) {
   panTo(lat, lng);
-  // getChargingInfo(statId);
-  // markerClic k(i);
 
   overlays[i].setMap(map);
 }
@@ -315,11 +315,12 @@ function markerClick(i) {
 }
 
 // 예약하기 눌렀을때 충전기번호에 해당하는 예약 내역가져오기
-function ClickedReservation(chgerId, date, statId) {
+function ClickedReservation(chgerId, date, statId, chgerType) {
   getReservationList(chgerId, date, statId);
   selectChgerId = chgerId;
   selectStatId = statId;
   getCarList();
+  selectChgerType = chgerType;
 }
 
 // 충전소 상세정보 창 닫고 예약페이지 여는 함수
@@ -343,17 +344,6 @@ function getToday() {
 
   return dateString;
 }
-
-// // 예약되어 있을때는 비활성화
-// function reservationCheck(reservationData, i) {
-//   let reservation = '<button onclick="ClickedReservation(${e[i].chgerId})">예약하기</button>';
-//
-//   if (!(reservationData[i])) {
-//     reservation = '<span>예약불가</span>';
-//   }
-//
-//   return reservation + others;
-// }
 
 function getReservationList(chgerId, date, statId) {
   let ResParam = {
@@ -405,7 +395,7 @@ function reservationStatus() {
   const statNm = document.querySelector('#reservation-statNm');
   const chgerId = document.querySelector('#reservation-chgerId');
   const resDate = document.querySelector('#reservation-resDate');
-  const resTime = document.querySelector('#reservation-resTime');
+  // const resTime = document.querySelector('#reservation-resTime');
   const fee = document.querySelector('#reservation-fee');
 
   statNm.innerText = `${addrInfo}`;
@@ -465,6 +455,8 @@ function reservationInsertList() {
       'tidList': testTime,
       'chgerCharge': testFee
     };
+
+  console.log(reservationList);
 
   return reservationList;
 }
