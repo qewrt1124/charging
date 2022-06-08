@@ -17,8 +17,10 @@ function onClickCheckBox(e) {
 }
 
 function changeCheckBox(e) {
+  console.log(e);
+  let coom = e.nextElementSibling;
   if (!(e.checked)) {
-    e.nextElementSibling.style.backgroundColor = "white";
+    coom.style.backgroundColor = "white";
   }
 }
 
@@ -27,6 +29,8 @@ let nextValue = 0;
 
 function continuousCheck(e) {
   let checkedList = document.querySelectorAll("input[type='checkbox']:checked");
+
+  console.log(checkedList);
 
   if (checkedList.length > 1) {
     nextValue = e.value;

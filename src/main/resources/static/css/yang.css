@@ -527,7 +527,7 @@
   border: 1px solid black;
   background-color: #fff;
   text-align: center;
-  visibility: visible;
+  visibility: hidden;
 }
 
 /* 상세정보 */

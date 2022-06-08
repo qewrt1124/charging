@@ -174,10 +174,10 @@ function getRangeList(rangeList) {
     body: JSON.stringify(rangeList)
   }).then(res => res.json())
     .then(data => {
-          overlays = [];
-          RepetitionAddMaker(data);
-          delChargingStationList();
-          addChargingStationList(data);
+      overlays = [];
+      RepetitionAddMaker(data);
+      delChargingStationList();
+      addChargingStationList(data);
     }).catch(() => {
     console.log('실패');
   });
@@ -255,8 +255,8 @@ function getChargingInfo(statId) {
     dataType: 'json',
   }).then(res => res.json())
     .then(data => {
-          chageStatinInfo(data);
-          getDetail();
+      chageStatinInfo(data);
+      getDetail();
     }).catch(() => {
 
   });
@@ -270,24 +270,25 @@ function GetChargeInfo(chrgId) {
   let slow = "<li><span style='color: blue'>AC완속</span></li>";
 
   //dcCha
-  if(!"01|05|06".includes(chrgId)) {
+  if (!"01|05|06".includes(chrgId)) {
     dcCha = "<li><span style='color: gray;'>DC차데모</span></li>";
   }
   //dcCombo
-  if(!"04|05|06".includes(chrgId)) {
+  if (!"04|05|06".includes(chrgId)) {
     dcCombo = "<li><span style='color: gray;'>DC콤보</span></li>";
   }
   //ac
-  if(!"03|06|07".includes(chrgId)) {
+  if (!"03|06|07".includes(chrgId)) {
     ac = "<li><span style='color: gray;'>AC3상</span></li>";
   }
   //slow
-  if(!"02".includes(chrgId)) {
+  if (!"02".includes(chrgId)) {
     slow = "<li><span style='color: gray;'>AC완속</span></li>";
   }
 
   return dcCha + dcCombo + ac + slow;
 }
+
 // 위치 새로고침 버튼 보이게 하는 함수
 function visibleReloadButton() {
   let reload = document.querySelector('#reload-button');
@@ -365,22 +366,26 @@ function getReservationList(chgerId, date, statId) {
     body: JSON.stringify(ResParam)
   }).then(res => res.json())
     .then(data => {
+      console.log(data);
       openReservationPage();
       changeReservationPage(data);
-    }).catch(() => {
-    console.log('실패');
-  });
+    }).catch((e) => {
+      console.log(e);
+      console.log('실패');
+    });
 }
 
 function changeReservationPage(e) {
   let selectAll = document.querySelectorAll("[name='tId']");
-
-  for (let i = 0; i < selectAll.length; i++) {
-    if (e.length === 0) {
+  
+  if (e.length === 0) {
+    for(let i = 0; i < selectAll.length; i++) {
       selectAll[i].classList.remove();
       selectAll[i].nextElementSibling.style.backgroundColor = 'white';
-    } else {
-      for(let j = 0; j < e.length; j++) {
+    }
+  } else {
+    for (let i = 0; i < selectAll.length; i++) {
+      for (let j = 0; j < e.length; j++) {
         if ((e[j].tid == selectAll[i].value)) {
           selectAll[i].disabled = "disabled";
           selectAll[i].nextElementSibling.style.backgroundColor = 'grey';
@@ -486,7 +491,7 @@ function changeCompletePage(data) {
 
   let dataLength = data.length;
   let startTime = data[0].startTime;
-  let endTime = data[dataLength-1].endTime;
+  let endTime = data[dataLength - 1].endTime;
   let finalResTime = startTime + ' ~ ' + endTime;
 
   completeChgerId.innerText = `${data[0].chgerId}`;
