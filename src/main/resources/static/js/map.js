@@ -5,10 +5,10 @@ let selectDate = getToday();
 let resultPrice;
 let selectStatNm;
 
-let mapContainer = document.getElementById('map'), // 지도를 표시할 div
+let mapContainer = document.getElementById("map"), // 지도를 표시할 div
   mapOption = {
     center: new kakao.maps.LatLng(36.494692, 127.26536), // 지도의 중심좌표
-    level: 3 // 지도의 확대 레벨
+    level: 3, // 지도의 확대 레벨
   };
 
 let map = new kakao.maps.Map(mapContainer, mapOption); // 지도를 생성합니다
@@ -41,11 +41,10 @@ let zoomControl = new kakao.maps.ZoomControl();
 // 지도의 우측에 확대 축소 컨트롤을 추가한다
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-let rangeList = {"centerLat": 36.494692, "centerLng": 127.26536, "level": 3};
+let rangeList = { centerLat: 36.494692, centerLng: 127.26536, level: 3 };
 
 // 지도 레벨, 중심좌표 얻어 오기
-kakao.maps.event.addListener(map, 'center_changed', function () {
-
+kakao.maps.event.addListener(map, "center_changed", function () {
   // 지도의  레벨을 얻어옵니다
   let level = map.getLevel();
 
@@ -57,7 +56,7 @@ kakao.maps.event.addListener(map, 'center_changed', function () {
 
   // setMarkers(null);
 
-  rangeList = {"centerLat": centerLat, "centerLng": centerLng, "level": level};
+  rangeList = { centerLat: centerLat, centerLng: centerLng, level: level };
 
   visibleReloadButton();
 });
@@ -66,7 +65,7 @@ kakao.maps.event.addListener(map, 'center_changed', function () {
 getRangeList(rangeList);
 
 function addChargingStationList(e) {
-  let list = document.querySelector('#map-location-list-wrap');
+  let list = document.querySelector("#map-location-list-wrap");
   for (let i = 0; i < e.length; i++) {
     list.innerHTML += `<div class="map-location-list" onclick="panTo(${e[i].lat}, ${e[i].lng})">
         <a href='javascript:void(0);' onclick="ClickedStationName(${e[i].lat}, ${e[i].lng}, '${e[i].statId}', ${i})"><span class="map-location-list-title" style="font-size: 25px;">${e[i].statNm}</span></a>
@@ -78,16 +77,15 @@ function addChargingStationList(e) {
 
 // 맵 왼쪽 충전소 리스트 제거
 function delChargingStationList() {
-  let list = document.querySelector('#map-location-list-wrap');
+  let list = document.querySelector("#map-location-list-wrap");
   list.innerHTML = "";
 }
 
 // 마커를 생성하고 지도위에 표시하는 함수입니다
 function addMarker(position) {
-
   // 마커를 생성합니다
   let marker = new kakao.maps.Marker({
-    position: position
+    position: position,
   });
 
   // 마커가 지도 위에 표시되도록 설정합니다
@@ -128,13 +126,13 @@ function RepetitionAddMaker(e) {
     let overlay = new kakao.maps.CustomOverlay({
       content: content,
       map: map,
-      position: marker.getPosition()
+      position: marker.getPosition(),
     });
 
     overlay.setMap(null);
 
     // 마커 윈도우 추가
-    kakao.maps.event.addListener(marker, 'click', function () {
+    kakao.maps.event.addListener(marker, "click", function () {
       overlay.setMap(map);
     });
     overlays.push(overlay);
@@ -155,8 +153,7 @@ function setMarkers(map) {
 
 // "마커 보이기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에 표시하는 함수입니다
 function showMarkers() {
-
-  setMarkers(map)
+  setMarkers(map);
 }
 
 // "마커 감추기" 버튼을 클릭하면 호출되어 배열에 추가된 마커를 지도에서 삭제하는 함수입니다
@@ -166,21 +163,23 @@ function hideMarkers() {
 
 // 맵 센터좌표 주변 정보 가져오는 함수
 function getRangeList(rangeList) {
-  fetch('/rangeList', {
-    method: 'post',
+  fetch("/rangeList", {
+    method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(rangeList)
-  }).then(res => res.json())
-    .then(data => {
+    body: JSON.stringify(rangeList),
+  })
+    .then((res) => res.json())
+    .then((data) => {
       overlays = [];
       RepetitionAddMaker(data);
       delChargingStationList();
       addChargingStationList(data);
-    }).catch(() => {
-    console.log('실패');
-  });
+    })
+    .catch(() => {
+      console.log("실패");
+    });
 }
 
 // 이동할 위도 경도 위치 생성
@@ -195,27 +194,35 @@ function panTo(lat, lng) {
 
 // 상세정보 눌렀을때 창 나오게
 function getDetail() {
-  const infoWrap = document.querySelector('#info-wrap1');
-  infoWrap.style.visibility = 'visible';
+  const infoWrap = document.querySelector("#info-wrap1");
+  infoWrap.style.visibility = "visible";
 }
 
 // 닫기 버튼
 function exitButton() {
-  const stationInfoPage = document.querySelector('#info-wrap1');
-  const reservationPage = document.querySelector('#info-wrap2');
+  const stationInfoPage = document.querySelector("#info-wrap1");
+  const reservationPage = document.querySelector("#info-wrap2");
   stationInfoPage.style.visibility = "hidden";
   reservationPage.style.visibility = "hidden";
 }
 
 // stationInfo 내용 갈아 끼기
 function chageStatinInfo(e) {
-  const statNm = document.querySelector('#stationInfo-top-title-content');
-  const statUpdDt = document.querySelector('#stationInfo-top-title-update-content');
-  const addr = document.querySelector('#stationInfo-top-title-detail-addr');
-  const busiCall = document.querySelector('#stationInfo-top-title-detail-busiCall');
-  const bnm = document.querySelector('#stationInfo-middle-stationInfo-bnm');
-  const useTime = document.querySelector('#stationInfo-middle-stationInfo-useTime');
-  const reservation = document.querySelector('#stationInfo-bottom-chargingStatus-detail-table');
+  const statNm = document.querySelector("#stationInfo-top-title-content");
+  const statUpdDt = document.querySelector(
+    "#stationInfo-top-title-update-content"
+  );
+  const addr = document.querySelector("#stationInfo-top-title-detail-addr");
+  const busiCall = document.querySelector(
+    "#stationInfo-top-title-detail-busiCall"
+  );
+  const bnm = document.querySelector("#stationInfo-middle-stationInfo-bnm");
+  const useTime = document.querySelector(
+    "#stationInfo-middle-stationInfo-useTime"
+  );
+  const reservation = document.querySelector(
+    "#stationInfo-bottom-chargingStatus-detail-table"
+  );
 
   selectStatNm = e[0].statNm;
 
@@ -229,37 +236,39 @@ function chageStatinInfo(e) {
   addrInfo = e[0].statNm;
   resStatId = e[0].statId;
 
-  reservation.innerHTML = '';
+  reservation.innerHTML = "";
 
   for (let i = 0; i < e.length; i++) {
-    reservation.innerHTML += `
+    reservation.innerHTML +=
+      `
       <tr>
         <td class="stationInfo-reservation-check">
         <button onclick="ClickedReservation('${e[i].chgerId}', getToday(), '${e[i].statId}', '${e[i].chgerType}')">예약하기</button>
         </td>
         <td class="stationInfo-bottom-chargingStatus-adapter">
           <ul>
-            ` + GetChargeInfo(e[i].chgerType) + `
+            ` +
+      GetChargeInfo(e[i].chgerType) +
+      `
           </ul>
         </td>
       </tr>
-      `
+      `;
   }
-
 }
 
 // 충전소의 번호로 충전소 정보 전부 다 가져오기
 function getChargingInfo(statId) {
-  fetch('/chargingInfo?statId=' + statId, {
-    method: 'get',
-    dataType: 'json',
-  }).then(res => res.json())
-    .then(data => {
+  fetch("/chargingInfo?statId=" + statId, {
+    method: "get",
+    dataType: "json",
+  })
+    .then((res) => res.json())
+    .then((data) => {
       chageStatinInfo(data);
       getDetail();
-    }).catch(() => {
-
-  });
+    })
+    .catch(() => {});
 }
 
 // stationInfo의 충전기타입 체크
@@ -291,8 +300,8 @@ function GetChargeInfo(chrgId) {
 
 // 위치 새로고침 버튼 보이게 하는 함수
 function visibleReloadButton() {
-  let reload = document.querySelector('#reload-button');
-  reload.style.display = 'block';
+  let reload = document.querySelector("#reload-button");
+  reload.style.display = "block";
 }
 
 // 새로고침 함수
@@ -313,7 +322,8 @@ function ClickedStationName(lat, lng, statId, i) {
 // 마커 클릭 함수
 function markerClick(i) {
   let markerZd = markers[i].zd.id;
-  let markerId = '#' + markerZd.split('.').join('\\\\.').split(':').join('\\\\:');
+  let markerId =
+    "#" + markerZd.split(".").join("\\\\.").split(":").join("\\\\:");
 
   document.querySelector(`${markerId}`).click();
 }
@@ -329,8 +339,8 @@ function ClickedReservation(chgerId, date, statId, chgerType) {
 
 // 충전소 상세정보 창 닫고 예약페이지 여는 함수
 function openReservationPage() {
-  const stationInfoPage = document.querySelector('#info-wrap1');
-  const reservationPage = document.querySelector('#info-wrap2');
+  const stationInfoPage = document.querySelector("#info-wrap1");
+  const reservationPage = document.querySelector("#info-wrap2");
   stationInfoPage.style.visibility = "hidden";
   reservationPage.style.visibility = "visible";
 }
@@ -339,59 +349,59 @@ function openReservationPage() {
 function getToday() {
   let today = new Date();
   let year = today.getFullYear();
-  let month = ('0' + (today.getMonth() + 1)).slice(-2);
-  let day = ('0' + today.getDate()).slice(-2);
+  let month = ("0" + (today.getMonth() + 1)).slice(-2);
+  let day = ("0" + today.getDate()).slice(-2);
 
-  let dateString = year + '-' + month + '-' + day;
+  let dateString = year + "-" + month + "-" + day;
 
-  let hours = ('0' + today.getHours()).slice(-2);
+  let hours = ("0" + today.getHours()).slice(-2);
 
   return dateString;
 }
 
 function getReservationList(chgerId, date, statId) {
   let ResParam = {
-    "chgerId": chgerId,
-    "resDate": date,
-    "statId": statId
+    chgerId: chgerId,
+    resDate: date,
+    statId: statId,
   };
 
   chargingNum = chgerId;
 
-  fetch('/getReservationList', {
-    method: 'post',
+  fetch("/getReservationList", {
+    method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(ResParam)
-  }).then(res => res.json())
-    .then(data => {
+    body: JSON.stringify(ResParam),
+  })
+    .then((res) => res.json())
+    .then((data) => {
       console.log(data);
       openReservationPage();
+      console.log("middle");
       changeReservationPage(data);
-    }).catch((e) => {
+      console.log("bottom");
+    })
+    .catch((e) => {
       console.log(e);
-      console.log('실패');
+      console.log("실패");
     });
 }
 
 function changeReservationPage(e) {
   let selectAll = document.querySelectorAll("[name='tId']");
-  
-  if (e.length === 0) {
-    for(let i = 0; i < selectAll.length; i++) {
-      selectAll[i].classList.remove();
-      selectAll[i].nextElementSibling.style.backgroundColor = 'white';
-    }
-  } else {
+
+  for (let i = 0; i < selectAll.length; i++) {
+    selectAll[i].removeAttribute("disabled");
+    selectAll[i].nextElementSibling.style.backgroundColor = "white";
+  }
+  if (!(e.length === 0)) {
     for (let i = 0; i < selectAll.length; i++) {
       for (let j = 0; j < e.length; j++) {
-        if ((e[j].tid == selectAll[i].value)) {
+        if (e[j].tid == selectAll[i].value) {
           selectAll[i].disabled = "disabled";
-          selectAll[i].nextElementSibling.style.backgroundColor = 'grey';
-        } else {
-          selectAll[i].classList.remove();
-          selectAll[i].nextElementSibling.style.backgroundColor = 'white';
+          selectAll[i].nextElementSibling.style.backgroundColor = "grey";
         }
       }
     }
@@ -400,9 +410,9 @@ function changeReservationPage(e) {
 }
 
 function reservationStatus() {
-  const statNm = document.querySelector('#reservation-statNm');
-  const chgerId = document.querySelector('#reservation-chgerId');
-  const resDate = document.querySelector('#reservation-resDate');
+  const statNm = document.querySelector("#reservation-statNm");
+  const chgerId = document.querySelector("#reservation-chgerId");
+  const resDate = document.querySelector("#reservation-resDate");
   // const resTime = document.querySelector('#reservation-resTime');
   // const fee = document.querySelector('#reservation-fee');
 
@@ -416,13 +426,13 @@ function onClickDate(date) {
   selectDate = date;
 }
 
-document.addEventListener('DOMContentLoaded', function () {
-  let calendarEl = document.getElementById('calendar');
+document.addEventListener("DOMContentLoaded", function () {
+  let calendarEl = document.getElementById("calendar");
   let calendar = new FullCalendar.Calendar(calendarEl, {
     dateClick: function (info) {
       onClickDate(info.dateStr);
     },
-    initialView: 'dayGridMonth',
+    initialView: "dayGridMonth",
     editable: true,
     selectable: true,
     businessHours: true,
@@ -439,35 +449,36 @@ function onClickReservationButton() {
 // 예약데이터
 function reservationInsertList() {
   let timeList = checkedList();
-  let reservationList =
-    {
-      'userId': 'qewrt1124',
-      'statId': resStatId,
-      'chgerId': chargingNum,
-      'resDate': selectDate,
-      'tidList': timeList,
-      'chgerCharge': resultPrice,
-      'statNm': selectStatNm
-    };
+  let reservationList = {
+    userId: "qewrt1124",
+    statId: resStatId,
+    chgerId: chargingNum,
+    resDate: selectDate,
+    tidList: timeList,
+    chgerCharge: resultPrice,
+    statNm: selectStatNm,
+  };
 
   return reservationList;
 }
 
 function insertReservation() {
-  fetch('/insertReservation', {
-    method: 'post',
+  fetch("/insertReservation", {
+    method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reservationInsertList())
-  }).then(res => res.json())
-    .then(data => {
+    body: JSON.stringify(reservationInsertList()),
+  })
+    .then((res) => res.json())
+    .then((data) => {
       console.log(data);
       changeCompletePage(data);
       reservationCheck();
-    }).catch(() => {
-    console.log('실패');
-  });
+    })
+    .catch(() => {
+      console.log("실패");
+    });
 }
 
 function checkedList() {
@@ -481,18 +492,18 @@ function checkedList() {
 }
 
 function changeCompletePage(data) {
-  const completeChgerId = document.querySelector('#complete-chgerId');
-  const completeStatNm = document.querySelector('#complete-statNm');
-  const completeResDate = document.querySelector('#complete-resDate');
-  const completeResTime = document.querySelector('#complete-resTime');
-  const completeFee = document.querySelector('#complete-fee');
+  const completeChgerId = document.querySelector("#complete-chgerId");
+  const completeStatNm = document.querySelector("#complete-statNm");
+  const completeResDate = document.querySelector("#complete-resDate");
+  const completeResTime = document.querySelector("#complete-resTime");
+  const completeFee = document.querySelector("#complete-fee");
 
   console.log(data[0]);
 
   let dataLength = data.length;
   let startTime = data[0].startTime;
   let endTime = data[dataLength - 1].endTime;
-  let finalResTime = startTime + ' ~ ' + endTime;
+  let finalResTime = startTime + " ~ " + endTime;
 
   completeChgerId.innerText = `${data[0].chgerId}`;
   completeStatNm.innerText = `${data[0].statNm}`;
@@ -503,8 +514,8 @@ function changeCompletePage(data) {
 
 // 예약확인 페이지 이동
 function reservationCheck() {
-  const reservation = document.querySelector('#info-wrap2');
-  const complete = document.querySelector('#info-wrap3');
+  const reservation = document.querySelector("#info-wrap2");
+  const complete = document.querySelector("#info-wrap3");
   reservation.style.visibility = "hidden";
   complete.style.visibility = "visible";
 }
