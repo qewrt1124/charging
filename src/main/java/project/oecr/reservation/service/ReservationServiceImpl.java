@@ -2,6 +2,7 @@ package project.oecr.reservation.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.dao.ReservationDao;
@@ -25,10 +26,13 @@ public class ReservationServiceImpl implements ReservationService {
   }
 
   @Override
-  public List<ReservationDto> insertReservation(ReservationDto reservationDto) {
+  @Transactional
+  public List<ResultVo> insertReservation(ReservationDto reservationDto) {
+
+    List<Integer> resultImsi = new ArrayList<>();
 
     String couponCode = makeCoupon(reservationDto);
-    List<ReservationDto> resultList = null;
+    List<ResultVo> resultList = null;
     reservationDto.setCouponNum(couponCode);
     List<Integer> tidList = reservationDto.getTidList();
 
@@ -38,15 +42,18 @@ public class ReservationServiceImpl implements ReservationService {
 
     for (Integer integer : tidList) {
       reservationDto.setTid(integer);
-      result.setResult(reservationDao.insertReservation(reservationDto));
+      int res = reservationDao.insertReservation(reservationDto);
+      result.setResult(res);
+      resultImsi.add(res);
       if (result.getResult() == 0) {
-        break;
+        throw new RuntimeException();
       }
     }
 
-    if (result.getResult() == 1) {
-      resultList = reservationDao.getReservationCoupon(couponCode);
-    }
+    resultList = reservationDao.getReservationCoupon(couponCode);
+//    for (int i = 0; i < (resultList != null ? resultList.size() : 0); i++) {
+//      resultList.get(i).setResult(resultImsi.get(i));
+//    }
 
     return resultList;
   }
@@ -74,7 +81,7 @@ public class ReservationServiceImpl implements ReservationService {
     String strTime = millis.toString();
     String resultTime = strTime.substring(0, 7);
 
-    return resultTime;
+    return strTime;
   }
 
   public String getDate() {

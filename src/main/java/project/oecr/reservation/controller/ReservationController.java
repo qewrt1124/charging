@@ -26,7 +26,7 @@ public class ReservationController {
   }
 
   @PostMapping("/insertReservation")
-  public List<ReservationDto> insertReservation(@RequestBody ReservationDto reservationDto) {
+  public List<ResultVo> insertReservation(@RequestBody ReservationDto reservationDto) {
 
     return reservationService.insertReservation(reservationDto);
   }

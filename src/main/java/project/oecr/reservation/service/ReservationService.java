@@ -10,7 +10,7 @@ public interface ReservationService {
 
   public List<ReservationDto> getReservationList(ReservationDto reservationDto);
 
-  public List<ReservationDto> insertReservation(ReservationDto reservationDto);
+  public List<ResultVo> insertReservation(ReservationDto reservationDto);
 
   public List<CarInfoDto> getCarData(CarInfoDto ManuFac);
 }

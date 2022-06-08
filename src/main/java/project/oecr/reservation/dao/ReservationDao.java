@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
+import project.oecr.vo.ResultVo;
 
 import java.util.List;
 
@@ -17,6 +18,8 @@ public class ReservationDao {
   private final String nameSpace = "mapper.reservation";
 
   public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
+
+    System.out.println("reservationDao : " + reservationDto);
 
     return sqlSession.selectList(nameSpace + ".getReservationList", reservationDto);
   }
@@ -41,7 +44,7 @@ public class ReservationDao {
     return sqlSession.insert(nameSpace + ".insertReservation", reservationDto);
   }
 
-  public List<ReservationDto> getReservationCoupon(String couponCode) {
+  public List<ResultVo> getReservationCoupon(String couponCode) {
 
     return sqlSession.selectList(nameSpace + ".getReservationCoupon", couponCode);
   }

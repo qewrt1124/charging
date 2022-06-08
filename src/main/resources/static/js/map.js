@@ -3,6 +3,7 @@ let selectStatId;
 let selectChgerType;
 let selectDate = getToday();
 let resultPrice;
+let selectStatNm;
 
 let mapContainer = document.getElementById('map'), // 지도를 표시할 div
   mapOption = {
@@ -216,6 +217,8 @@ function chageStatinInfo(e) {
   const useTime = document.querySelector('#stationInfo-middle-stationInfo-useTime');
   const reservation = document.querySelector('#stationInfo-bottom-chargingStatus-detail-table');
 
+  selectStatNm = e[0].statNm;
+
   statNm.innerText = `${e[0].statNm}`;
   statUpdDt.innerText = `${e[0].statUpdDt}`;
   addr.innerText = `${e[0].addr}`;
@@ -255,7 +258,7 @@ function getChargingInfo(statId) {
           chageStatinInfo(data);
           getDetail();
     }).catch(() => {
-    console.log('실패');
+
   });
 }
 
@@ -428,32 +431,18 @@ function onClickReservationButton() {
   insertReservation();
 }
 
-// 예약됬는지 확인하고 되면 페이지 이동 안되면 경고창
-function reservationCheck(e) {
-  if (e === 1) {
-    const reservation = document.querySelector('#info-wrap2');
-    const complete = document.querySelector('#info-wrap3');
-    reservation.style.visibility = "hidden";
-    complete.style.visibility = "visible";
-  } else {
-    alert('잠시후 다시 시도해주세요');
-  }
-}
-
 // 예약데이터
 function reservationInsertList() {
-  let charging = document.querySelector('#reservation-fee').textContent;
-  let resCherId = chargingNum;
-  let testTime = checkedList();
-  let testFee = 12000;
+  let timeList = checkedList();
   let reservationList =
     {
       'userId': 'qewrt1124',
       'statId': resStatId,
       'chgerId': chargingNum,
       'resDate': selectDate,
-      'tidList': testTime,
-      'chgerCharge': resultPrice
+      'tidList': timeList,
+      'chgerCharge': resultPrice,
+      'statNm': selectStatNm
     };
 
   return reservationList;
@@ -469,6 +458,8 @@ function insertReservation() {
   }).then(res => res.json())
     .then(data => {
       console.log(data);
+      changeCompletePage(data);
+      reservationCheck();
     }).catch(() => {
     console.log('실패');
   });
@@ -491,6 +482,24 @@ function changeCompletePage(data) {
   const completeResTime = document.querySelector('#complete-resTime');
   const completeFee = document.querySelector('#complete-fee');
 
-  completeChgerId.innerText = data.chgerId;
-  completeStatNm.innerText = data.statId;
+  console.log(data[0]);
+
+  let dataLength = data.length;
+  let startTime = data[0].startTime;
+  let endTime = data[dataLength-1].endTime;
+  let finalResTime = startTime + ' ~ ' + endTime;
+
+  completeChgerId.innerText = `${data[0].chgerId}`;
+  completeStatNm.innerText = `${data[0].statNm}`;
+  completeResDate.innerText = `${data[0].resDate}`;
+  completeResTime.innerText = `${finalResTime}`;
+  completeFee.innerText = `${data[0].chgerCharge}`;
+}
+
+// 예약확인 페이지 이동
+function reservationCheck() {
+  const reservation = document.querySelector('#info-wrap2');
+  const complete = document.querySelector('#info-wrap3');
+  reservation.style.visibility = "hidden";
+  complete.style.visibility = "visible";
 }

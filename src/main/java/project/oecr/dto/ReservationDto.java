@@ -18,4 +18,5 @@ public class ReservationDto {
   private String startTime;
   private String endTime;
   private List<Integer> tidList;
+  private String statNm;
 }
