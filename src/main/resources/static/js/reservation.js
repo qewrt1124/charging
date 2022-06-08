@@ -1,14 +1,3 @@
-function is_checked() {
-  // 1. checkbox element를 찾습니다.
-  const checkbox = document.getElementById("my_checkbox");
-
-  // 2. checked 속성을 체크합니다.
-  const is_checked = checkbox.checked;
-
-  // 3. 결과를 출력합니다.
-  console.log(is_checked);
-}
-
 function onClickCheckBox(e) {
   getSelectedTimeStamp();
   continuousCheck(e);
@@ -37,13 +26,13 @@ function continuousCheck(e) {
       event.preventDefault();
     } else {
       preValue = e.value;
-      e.nextElementSibling.style.backgroundColor = "grey";
+      e.nextElementSibling.style.backgroundColor = "rgb(250, 43, 43)";
     }
   } else {
     preValue = 0;
     nextValue = 0;
     preValue = e.value;
-    e.nextElementSibling.style.backgroundColor = "grey";
+    e.nextElementSibling.style.backgroundColor = "rgb(250, 43, 43)";
   }
 
   changeCheckBox(e);
@@ -62,8 +51,9 @@ function getCarList(e) {
       console.log(data);
       changeOption(data);
     })
-    .catch(() => {
-      console.log("실패");
+    .catch((e) => {
+      console.log("차량정보 가져오기 실패");
+      console.log(e);
     });
 }
 
@@ -199,7 +189,7 @@ function viewChargingPercentage() {
   result = p + q;
   resultPrice = parseInt(param * price);
 
-  resultPercentage.innerText = result + "분";
+  resultPercentage.innerText = result + "%";
   payment.innerText = resultPrice + "원";
   fee.innerText = resultPrice + "원";
 }

@@ -177,8 +177,9 @@ function getRangeList(rangeList) {
       delChargingStationList();
       addChargingStationList(data);
     })
-    .catch(() => {
-      console.log("실패");
+    .catch((e) => {
+      console.log("주변 정보 가져오기 실패");
+      console.log(e);
     });
 }
 
@@ -268,7 +269,10 @@ function getChargingInfo(statId) {
       chageStatinInfo(data);
       getDetail();
     })
-    .catch(() => {});
+    .catch((e) => {
+      console.log("충전소 번호로 충전소 정보 가져오기 실패");
+      console.log(e);
+    });
 }
 
 // stationInfo의 충전기타입 체크
@@ -401,7 +405,8 @@ function changeReservationPage(e) {
       for (let j = 0; j < e.length; j++) {
         if (e[j].tid == selectAll[i].value) {
           selectAll[i].disabled = "disabled";
-          selectAll[i].nextElementSibling.style.backgroundColor = "grey";
+          selectAll[i].nextElementSibling.style.backgroundColor =
+            "rgb(201, 199, 199)";
         }
       }
     }
@@ -472,12 +477,13 @@ function insertReservation() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       changeCompletePage(data);
       reservationCheck();
     })
-    .catch(() => {
-      console.log("실패");
+    .catch((e) => {
+      alert("잠시 후 다시 시도해주세요.");
+      console.log("예약하기 실패");
+      console.log(e);
     });
 }
 
