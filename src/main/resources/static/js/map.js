@@ -4,6 +4,7 @@ let selectChgerType;
 let selectDate = getToday();
 let resultPrice;
 let selectStatNm;
+let selectCheck = 0;
 
 let mapContainer = document.getElementById("map"), // 지도를 표시할 div
   mapOption = {
@@ -133,6 +134,10 @@ function RepetitionAddMaker(e) {
 
     // 마커 윈도우 추가
     kakao.maps.event.addListener(marker, "click", function () {
+  
+  for (let i = 0; i < overlays.length; i++) {
+    overlays[i].setMap(null);
+  }
       overlay.setMap(map);
     });
     overlays.push(overlay);
@@ -448,7 +453,11 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 function onClickReservationButton() {
-  insertReservation();
+  if (selectCheck === 0) {
+    alert("다른 옵션들을 선택하고 입력완료를 눌러주세요");
+  } else {
+    insertReservation();
+  }
 }
 
 // 예약데이터

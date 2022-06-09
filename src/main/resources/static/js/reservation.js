@@ -146,15 +146,18 @@ function getSelectedTimeStamp() {
   console.log(selectedTime.length);
 
   if (!(selectedTime.length === 0)) {
+    console.log("0이 아닐때 동작");
     startTime = selectedTime[0].nextElementSibling.innerText.split(" ~ ");
     if (selectedTime.length > 1) {
+      console.log("1보다 클 때");
       endTime =
         selectedTime[
           selectedTime.length - 1
         ].nextElementSibling.innerText.split(" ~ ");
       resultTime = startTime[0] + " ~ " + endTime[1];
+    } else {
+      resultTime = startTime[0] + " ~ " + startTime[1];
     }
-    resultTime = startTime[0] + " ~ " + startTime[1];
   } else {
     resultTime = "";
   }
@@ -169,27 +172,56 @@ function viewChargingPercentage() {
   const payment = document.querySelector("#charging-payment");
   const start = document.querySelector("#reservation-startPercentage");
   const fee = document.querySelector("#reservation-fee");
+  let selectedTimePrice = document.querySelectorAll("input[type='checkbox']:checked");
   let startValue = start.value;
   let param;
   let result;
   let outPutValue;
   let price;
-  // let resultPrice;
+  let checkedLength = selectedTimePrice.length;
+  if (!(checkedLength === 0)) {
+    selectCheck = 1;
 
-  if (chargeType.value === "완속") {
-    param = 7;
-    price = 259;
+    let firstValue = selectedTimePrice[0].value;
+    let lastValue = selectedTimePrice[selectedTimePrice.length - 1].value;
+    let timeDiffernce = lastValue - firstValue;
+
+    if (chargeType.value === "완속") {
+      param = 7;
+      price = 259;
+    } else {
+      param = 50;
+      price = 292.9;
+    }
+  
+    resultPrice = totalPrice(price, timeDiffernce);
+  
+    outPutValue = out.value;
+    // let p = parseInt((param / outPutValue) * 100);
+    let startPercentage = parseInt(startValue);
+    // result = p + q;
+    result = chargingPercentage(param, outPutValue, timeDiffernce, startPercentage);
+ 
+    resultPercentage.innerText = result + "%";
+    payment.innerText = resultPrice + "원";
+    fee.innerText = resultPrice + "원";
   } else {
-    param = 50;
-    price = 292.9;
+    alert('시간을 선택해 주세요.');
   }
-  outPutValue = out.value;
-  let p = parseInt((param / outPutValue) * 100);
-  let q = parseInt(startValue);
-  result = p + q;
-  resultPrice = parseInt(param * price);
-
-  resultPercentage.innerText = result + "%";
-  payment.innerText = resultPrice + "원";
-  fee.innerText = resultPrice + "원";
 }
+
+function totalPrice(price, timeDiffernce) {
+  let resultPrice = 0;
+
+    resultPrice = timeDiffernce * 60 * price;
+
+  return resultPrice;
+}
+
+function chargingPercentage(param, outPutValue, timeDiffernce, startPercentage) {
+  let resultPercentage = parseInt((param / outPutValue) * timeDiffernce * 100);
+  let percentage = resultPercentage + startPercentage;
+
+  return percentage;
+}
+
