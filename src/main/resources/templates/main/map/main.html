@@ -4,12 +4,14 @@
 <head>
   <meta charset="UTF-8">
   <title>Title</title>
-  <script src="/js/yang.js"></script>
   <link rel="shortcut icon" href="#">
-  <link rel="stylesheet" href="/css/yang.css">
   <link rel="stylesheet" href="/css/reservation.css">
   <link rel="stylesheet" href="/css/main.css">
   <link rel="stylesheet" href="/css/complete.css">
+  <link rel="stylesheet" href="/css/button.css">
+  <link rel="stylesheet" href="/css/locationList.css">
+  <link rel="stylesheet" href="/css/map.css">
+  <link rel="stylesheet" href="/css/stationInfo.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 
@@ -28,17 +30,20 @@
   </div>
   <div id="info-wrap3" th:include="reservation/complete.html">
   </div>
-  <div id="infoList-close-button">
+  <div id="infoList-close-button" onclick="closeLocationList()">
     <span><</span>
   </div>
-  <div id="infoList-open-button">
-  </h1>></h1>
+  <div id="infoList-open-button" onclick="openLocationList()">
+    <span>></span>
   </div>
 </div>
 </body>
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b4872a9b5acb5ecc63be75e1c4458374"></script>
+<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/stationInfo.js"></script>
 <script type="text/javascript" src="/js/map.js"></script>
 <script type="text/javascript" src="/js/reservation.js"></script>
-<script type="text/javascript" src="/js/main.js"></script>
+<script type="text/javascript" src="/js/complete.js"></script>
+
 </html>

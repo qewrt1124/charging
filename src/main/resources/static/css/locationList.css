@@ -1,0 +1,29 @@
+#map-location-list-wrap {
+  position: absolute;
+  top: 8px;
+  left: 1px;
+  overflow: hidden;
+  width: 359px;
+  height: 95%;
+  overflow: auto;
+  margin: 0;
+  z-index: 1;
+  font-size: 12px;
+  border: 1px solid black;
+  background-color: #fff;
+  text-align: center;
+  visibility: hidden;
+}
+
+.map-location-list {
+  border: 1px solid black;
+  width: 300px;
+  height: 100px;
+  margin: auto;
+  padding: 20px;
+}
+
+.map-location-list > span {
+  font-size: 15px;
+  display: block;
+}
