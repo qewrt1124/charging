@@ -48,7 +48,6 @@ function getCarList(e) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       changeOption(data);
     })
     .catch((e) => {
@@ -184,7 +183,7 @@ function viewChargingPercentage() {
 
     let firstValue = selectedTimePrice[0].value;
     let lastValue = selectedTimePrice[selectedTimePrice.length - 1].value;
-    let timeDiffernce = lastValue - firstValue;
+    let timeDiffernce = checkedLength;
 
     if (chargeType.value === "완속") {
       param = 7;
@@ -225,3 +224,14 @@ function chargingPercentage(param, outPutValue, timeDiffernce, startPercentage) 
   return percentage;
 }
 
+function removerOption() {
+  const selectTagList = document.querySelectorAll('select');
+  for (let i = 0; i < selectTagList.length; i++) {
+    selectTagList[i].innerHTML = "";
+  }
+}
+
+function removeReservationTime() {
+  const targetTime = document.querySelector('#reservation-resTime');
+  targetTime.innerText = "";
+}

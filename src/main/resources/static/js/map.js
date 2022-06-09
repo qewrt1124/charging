@@ -339,6 +339,8 @@ function markerClick(i) {
 
 // 예약하기 눌렀을때 충전기번호에 해당하는 예약 내역가져오기
 function ClickedReservation(chgerId, date, statId, chgerType) {
+  removerOption();
+  removeReservationTime();
   getReservationList(chgerId, date, statId);
   selectChgerId = chgerId;
   selectStatId = statId;
@@ -386,11 +388,8 @@ function getReservationList(chgerId, date, statId) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       openReservationPage();
-      console.log("middle");
       changeReservationPage(data);
-      console.log("bottom");
     })
     .catch((e) => {
       console.log(e);
@@ -403,6 +402,7 @@ function changeReservationPage(e) {
 
   for (let i = 0; i < selectAll.length; i++) {
     selectAll[i].removeAttribute("disabled");
+    selectAll[i].checked = false;
     selectAll[i].nextElementSibling.style.backgroundColor = "white";
   }
   if (!(e.length === 0)) {
