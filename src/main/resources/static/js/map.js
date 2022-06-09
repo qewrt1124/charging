@@ -393,7 +393,7 @@ function getReservationList(chgerId, date, statId) {
     })
     .catch((e) => {
       console.log(e);
-      console.log("실패");
+      console.log("예약시간 가져오기");
     });
 }
 

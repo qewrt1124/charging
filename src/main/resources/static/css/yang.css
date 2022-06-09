@@ -530,6 +530,40 @@
   visibility: hidden;
 }
 
+#infoList-close-button {
+  position: absolute;
+  top: 420px;
+  left: 362px;
+  overflow: hidden;
+  width: 20px;
+  height: 30px;
+  overflow: hidden;
+  margin: 0;
+  z-index: 1;
+  font-size: 12px;
+  border: 1px solid black;
+  background-color: #fff;
+  text-align: center;
+  visibility: visible;
+  display: table;
+}
+
+#infoList-open-button {
+  position: absolute;
+  top: 60px;
+  right: 200px;
+  overflow: hidden;
+  width: 20px;
+  height: 50px;
+  overflow: hidden;
+  margin: 0;
+  z-index: 1;
+  font-size: 12px;
+  border: 1px solid black;
+  background-color: #fff;
+  text-align: center;
+  visibility: visible;
+}
 /* 상세정보 */
 .exit-button {
   text-align: center;
@@ -676,4 +710,14 @@
   font-size: 12px;
   background-color: #fff;
   display: none;
+}
+
+/* 리스트 닫기 버튼 */
+#infoList-close-button span {
+  /* display: table-cell; */
+  /* vertical-align: middle; */
+  margin: auto;
+  font-weight: bold;
+  font-size: 20px;
+  cursor: pointer;
 }
