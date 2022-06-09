@@ -525,3 +525,8 @@ function reservationCheck() {
   reservation.style.visibility = "hidden";
   complete.style.visibility = "visible";
 }
+
+function completePageExit() {
+  const complete = document.querySelector("#info-wrap3");
+  complete.style.visibility = "hidden";
+}
