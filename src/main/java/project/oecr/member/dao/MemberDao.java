@@ -14,13 +14,13 @@ public class MemberDao {
 
   private static String nameSpace = "mapper.member";
 
-  public int join(MemberDto memberDto) {
-
-    return sqlSession.insert(nameSpace + ".join", memberDto);
+  public MemberDto loginCheck(MemberDto memberDto) {
+    
+    return sqlSession.selectOne(nameSpace + ".loginCheck", memberDto);
   }
 
-  public MemberDto select(MemberDto memberDto) {
+  public int insertJoin(MemberDto memberDto) {
 
-    return sqlSession.selectOne(nameSpace + ".login", memberDto);
+    return sqlSession.insert(nameSpace + ".insertJoin", memberDto);
   }
 }

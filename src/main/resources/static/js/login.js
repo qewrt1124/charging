@@ -28,15 +28,23 @@ function getLoginInfo() {
   let loginPass = passElement.value;
 
   let loginInfo = {
-    'id': loginId,
+    'userId': loginId,
     'pass': loginPass
   }
 
   return loginInfo;
 }
 
-function loginIdPassCheck() {
+function loginOk(e) {
+  if (e === 1) {
+    loginPage.style.visibility = 'hidden';
+    joinPage.style.visibility = 'visible';
+  } else {
+    alert('아이디 또는 비밀번호가 맞지 않습니다.');
+  }
+}
 
+function loginIdPassCheck() {
   fetch("/login", {
     method: "post",
     headers: {
@@ -46,7 +54,7 @@ function loginIdPassCheck() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      loginOk(data);
     })
     .catch((e) => {
       console.log("로그인 체크 실패");

@@ -1,33 +1,35 @@
 package project.oecr.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import project.oecr.dto.MemberDto;
 import project.oecr.member.service.MemberService;
 
-import java.util.ArrayList;
-import java.util.List;
+import javax.servlet.http.HttpSession;
 
 @RestController
 public class MemberController {
 
   @Autowired
-  MemberService memberService;
+  private MemberService memberService;
 
   @PostMapping("/login")
-  public List<Integer> login(@RequestBody MemberDto memberDto) {
+  public int login(@RequestBody MemberDto memberDto, HttpSession session) {
 
     System.out.println(memberDto);
 
-    List<Integer> list = new ArrayList<>();
-    list.add(1);
+    int result = memberService.loginCheck(memberDto, session);
 
-    return list;
+    return result;
+  }
+
+  @PostMapping("/join")
+  public int join(@RequestBody MemberDto memberDto) {
+
+    memberService.insertJoin(memberDto);
+
+    return 1;
   }
 }
