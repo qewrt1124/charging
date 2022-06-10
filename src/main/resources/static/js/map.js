@@ -25,10 +25,10 @@ let map = new kakao.maps.Map(mapContainer, mapOption);
 let markers = [];
 
 // 지도 타입 변경 컨트롤을 생성한다
-let mapTypeControl = new kakao.maps.MapTypeControl();
+// let mapTypeControl = new kakao.maps.MapTypeControl();
 
 // 지도의 상단 우측에 지도 타입 변경 컨트롤을 추가한다
-map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
+// map.addControl(mapTypeControl, kakao.maps.ControlPosition.TOPRIGHT);
 
 // 지도에 확대 축소 컨트롤을 생성한다
 let zoomControl = new kakao.maps.ZoomControl();

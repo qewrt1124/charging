@@ -12,6 +12,7 @@
   <link rel="stylesheet" href="/css/locationList.css">
   <link rel="stylesheet" href="/css/map.css">
   <link rel="stylesheet" href="/css/stationInfo.css">
+  <link rel="stylesheet" href="/css/login.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 
@@ -30,6 +31,13 @@
   </div>
   <div id="info-wrap3" th:include="reservation/complete.html">
   </div>
+  <div id="info-wrap4" th:include="member/login.html">
+  </div>
+  <div id="info-wrap5" th:include="member/join.html">
+  </div>
+  <div id="profile-button" onclick="onClickProfile()">
+    <span>강</span>
+  </div>
   <div id="infoList-close-button" onclick="closeLocationList()">
     <span><</span>
   </div>
@@ -45,5 +53,6 @@
 <script type="text/javascript" src="/js/map.js"></script>
 <script type="text/javascript" src="/js/reservation.js"></script>
 <script type="text/javascript" src="/js/complete.js"></script>
+<script type="text/javascript" src="/js/login.js"></script>
 
 </html>
