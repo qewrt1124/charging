@@ -36,7 +36,7 @@
 
   <insert id="insertReservation" parameterType="project.oecr.dto.ReservationDto">
     insert into reservation
-    values (null, 'qweqwe', #{couponNum}, #{statId}, #{chgerId}, #{resDate}, #{tid}, #{chgerCharge}, #{statNm});
+    values (null, 4, #{couponNum}, #{statId}, #{chgerId}, #{resDate}, #{tid}, #{chgerCharge}, #{statNm});
   </insert>
 
   <select id="getReservationCoupon" parameterType="String" resultType="project.oecr.vo.ResultVo">

@@ -10,7 +10,7 @@
     select *
     from charginginfo
     where statId = #{statId}
-    order by chgerId;
+    order by chgerId
   </select>
 
   <!-- 거리에 따라서 좌표 가져오기 -->
@@ -23,6 +23,6 @@
         from charginginfo)
     <![CDATA[as x where distance<#{distance}]]>
     group by statId
-    order by distance;
+    order by distance
   </select>
 </mapper>

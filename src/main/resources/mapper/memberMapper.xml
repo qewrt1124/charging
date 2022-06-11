@@ -7,7 +7,7 @@
 <mapper namespace="mapper.member">
 
   <select id="loginCheck" parameterType="project.oecr.dto.MemberDto" resultType="project.oecr.dto.MemberDto">
-    select userId, pass
+    select mId, userId, pass
     from member
     where member.userId = #{userId} and member.pass = #{pass}
   </select>

@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="mapper.reservationView">
+  <select id="getReservationViewList" resultType="project.oecr.dto.ReservationDto" parameterType="project.oecr.dto.ReservationDto">
+    select *
+    from reservation
+    where mid = #{mid}
+  </select>
+
+</mapper>

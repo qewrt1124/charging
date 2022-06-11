@@ -8,7 +8,7 @@ import java.util.List;
 public class ReservationDto {
 
   private Long rId;
-  private String userId;
+  private int mid;
   private String couponNum;
   private String statId;
   private String chgerId;

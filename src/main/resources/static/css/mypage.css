@@ -1,4 +1,4 @@
-#info-wrap5 {
+#info-wrap6 {
   position: absolute;
   top: 42px;
   right: 50px;
@@ -15,6 +15,12 @@
   visibility: hidden;
 }
 
-#joinSpan {
+#mypage-reservation {
+  width: 100%;
+  height: 100px;
+  border: 1px solid black;
+}
+
+#mypage-reservation h1 {
   cursor: pointer;
 }

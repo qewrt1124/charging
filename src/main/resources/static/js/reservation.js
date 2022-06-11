@@ -124,6 +124,12 @@ function continuousCheck(e) {
 // 예약데이터 json
 function reservationInsertList() {
   let timeList = checkedList();
+  console.log(resStatId);
+  console.log(chargingNum);
+  console.log(selectDate);
+  console.log(resultPrice);
+  console.log(selectStatNm);
+
   let reservationList = {
     userId: "qewrt1124",
     statId: resStatId,
@@ -133,6 +139,8 @@ function reservationInsertList() {
     chgerCharge: resultPrice,
     statNm: selectStatNm,
   };
+
+  console.log(reservationList);
 
   return reservationList;
 }

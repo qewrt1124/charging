@@ -14,6 +14,8 @@
   <link rel="stylesheet" href="/css/stationInfo.css">
   <link rel="stylesheet" href="/css/login.css">
   <link rel="stylesheet" href="/css/join.css">
+  <link rel="stylesheet" href="/css/mypage.css">
+  <link rel="stylesheet" href="/css/reservationView.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 
@@ -32,11 +34,16 @@
   </div>
   <div id="info-wrap3" th:include="reservation/complete.html">
   </div>
-  <div id="info-wrap4" th:include="member/login.html" th:if="${userId} == null">
+  <div id="info-wrap4" th:include="member/login.html" th:if="${session.userId} == null">
   </div>
-  <div id="info-wrap5" th:include="member/join.html" th:if="${userId} == null">
+  <div id="info-wrap5" th:include="member/join.html" th:if="${session.userId} == null">
   </div>
-  <div id="profile-button" onclick="onClickProfile()">
+  <div id="info-wrap6" th:include="mypage/mypage.html" th:if="${session.userId} != null">
+  </div>
+  <div id="info-wrap7" th:include="mypage/reservationView.html">
+  </div>
+<!--  <div id="profile-button" th:attr="onclick=|console.log('${session.userId}')|">-->
+  <div id="profile-button" th:onclick="|onClickProfile('${session.mId}')|">
     <span>강</span>
   </div>
   <div id="infoList-close-button" onclick="closeLocationList()">
@@ -56,5 +63,7 @@
 <script type="text/javascript" src="/js/complete.js"></script>
 <script type="text/javascript" src="/js/login.js"></script>
 <script type="text/javascript" src="/js/join.js"></script>
+<script type="text/javascript" src="/js/mypage.js"></script>
+<script type="text/javascript" src="/js/reservationView.js"></script>
 
 </html>

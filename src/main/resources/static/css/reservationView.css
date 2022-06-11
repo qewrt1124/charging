@@ -1,0 +1,25 @@
+#info-wrap7 {
+  position: absolute;
+  top: 8px;
+  left: 26%;
+  overflow: hidden;
+  width: 800px;
+  height: 95%;
+  overflow: auto;
+  margin: 0;
+  z-index: 1;
+  font-size: 12px;
+  border: 1px solid black;
+  background-color: #fff;
+  text-align: center;
+  visibility: hidden;
+}
+
+#reservationView-wrap {
+  width: 600px;
+  height: 792px;
+  margin: 40px auto;
+  padding: 0;
+  font-family: Arial, Helvetica Neue, Helvetica, sans-serif;
+  font-size: 14px;
+}
