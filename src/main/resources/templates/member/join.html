@@ -8,25 +8,29 @@
         아이디
       </li>
       <li>
-        <input type="text" id="joinUserId">
+        <input type="text" id="joinUserId" onblur="isId(this.value)" minlength="6" maxlength="16">
+        <span id="idAlert"></span>
       </li>
       <li>
         비밀번호
       </li>
       <li>
-        <input type="password" id="joinUserPass">
+        <input type="password" id="joinUserPass" onblur="isPassword(this.value)" minlength="9" maxlength="16">
+        <span id="passAlert"></span>
       </li>
       <li>
         비밀번호 확인
       </li>
       <li>
-        <input type="password" id="joinConfirmUserPass">
+        <input type="password" id="joinConfirmUserPass" onblur="passwordConfirm(this.value)" minlength="9" maxlength="16">
+        <span id="passConfirmAlert"></span>
       </li>
       <li>
         이름
       </li>
       <li>
-        <input type="text" id="joinUserName">
+        <input type="text" id="joinUserName" onblur="isName(this.value)">
+        <span id="nameAlert"></span>
       </li>
       <li>
         연락처

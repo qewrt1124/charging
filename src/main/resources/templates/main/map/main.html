@@ -32,9 +32,9 @@
   </div>
   <div id="info-wrap3" th:include="reservation/complete.html">
   </div>
-  <div id="info-wrap4" th:include="member/login.html">
+  <div id="info-wrap4" th:include="member/login.html" th:if="${userId} == null">
   </div>
-  <div id="info-wrap5" th:include="member/join.html">
+  <div id="info-wrap5" th:include="member/join.html" th:if="${userId} == null">
   </div>
   <div id="profile-button" onclick="onClickProfile()">
     <span>강</span>

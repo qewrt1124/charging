@@ -3,6 +3,7 @@ const joinPassElement = document.querySelector('#joinUserPass');
 const joinPassConfirm = document.querySelector('#joinConfirmUserPass');
 const joinName = document.querySelector('#joinUserName');
 const joinPhNum = document.querySelector('#joinPhNum');
+const idAlert = document.querySelector('#idAlert');
 
 function hiddenPage() {
   loginPage.style.visibility = 'hidden';
@@ -50,16 +51,14 @@ function onClickJoin() {
 /*아이디 체크*/
 function isId(asValue) {
   let regExp = /^[a-z]+[a-z0-9]{5,19}$/g;
-  let inputSpace = document.getElementById("id");
-  let alertSpace = document.getElementById("idAlert");
 
   if (regExp.test(asValue)) {
-    inputSpace.style.border = "1px solid black";
-    alertSpace.innerHTML = "";
+    joinIdElement.style.border = "1px solid black";
+    idAlert.innerHTML = "";
     return true;
   } else {
-    inputSpace.style.border = "2px solid red";
-    alertSpace.innerHTML = "<br>영어와 숫자를 6~19자리까지 입력하세요.";
+    joinIdElement.style.border = "2px solid red";
+    idAlert.innerHTML = "<br>영어와 숫자를 6~19자리까지 입력하세요.";
     return false
   }
 
@@ -69,15 +68,14 @@ function isId(asValue) {
 /*비밀번호 체크*/
 function isPassword(asValue) {
   let regExp = /^(?=.*[a-zA-z])(?=.*[0-9])(?=.*[$`~!@$!%*#^?&\\(\\)\-_=+]).{8,16}$/;
-  let inputSpace = document.getElementById("pass");
   let alertSpace = document.getElementById("passAlert");
 
   if (regExp.test(asValue)) {
-    inputSpace.style.border = "1px solid black";
+    joinPassElement.style.border = "1px solid black";
     alertSpace.innerHTML = "";
     return true;
   } else {
-    inputSpace.style.border = "2px solid red";
+    joinPassElement.style.border = "2px solid red";
     alertSpace.innerHTML = "<br>영어, 숫자, 특수 문자(1개이상) 혼합해서 9~16자리까지 입력하세요.";
     return false
   }
@@ -87,12 +85,16 @@ function isPassword(asValue) {
 
 /*비밀번호 체크*/
 function passwordConfirm() {
-  let passConfirm = document.getElementById("passConfirm");
-  let pass1 = document.getElementById("pass").value;
+  let passConfirm = document.getElementById("joinConfirmUserPass");
+  let pass1 = document.getElementById("joinUserPass").value;
   let pass2 = passConfirm.value;
   let alertSpace = document.getElementById("passConfirmAlert");
 
-  if (pass1 !== pass2) {
+  if (pass1 === pass2) {
+    passConfirm.style.border = "1px solid black";
+    alertSpace.innerHTML = "";
+    return true;
+  } else {
     passConfirm.style.border = "2px solid red";
     alertSpace.innerHTML = "<br>비밀번호가 일치하지 않습니다.";
     return false
@@ -102,7 +104,7 @@ function passwordConfirm() {
 /*이름 체크*/
 function isName(asValue) {
   let regExp = /^[a-zA-Z가-힣][a-zA-Z가-힣]*$/;
-  let inputSpace = document.getElementById("name");
+  let inputSpace = document.getElementById("joinUserName");
   let alertSpace = document.getElementById("nameAlert");
 
   if (regExp.test(asValue)) {
