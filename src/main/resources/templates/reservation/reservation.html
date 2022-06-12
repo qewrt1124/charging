@@ -80,7 +80,7 @@
       </div>
       <br><br>
       <div id="reservation-button-wrap">
-        <button id="reservation-button" onclick="onClickReservationButton()">예약하기</button>
+        <button id="reservation-button" th:onclick="|onClickReservationButton('${session.mId}')|">예약하기</button>
         <button id="reservation-cancle-button">취소하기</button>
       </div>
       <br><br>

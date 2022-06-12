@@ -1,25 +1,22 @@
 let pageOpenCheck = 0;
+let midNum;
 
 function onClickProfile(mid) {
-  console.log("onclick : " + mid);
+  midNum = mid;
+
   if (mid === 'null') {
     const loginPage = document.querySelector('#info-wrap4');
     const joinPage = document.querySelector('#info-wrap5');
 
-    console.log("if : " + mid);
-
     if (pageOpenCheck === 0) {
       loginPage.style.visibility = 'visible';
       pageOpenCheck = 1;
-      console.log("innerIf : " + pageOpenCheck);
     } else {
       loginPage.style.visibility = 'hidden';
       joinPage.style.visibility = 'hidden';
       pageOpenCheck = 0;
-      console.log("innerElse : " + pageOpenCheck);
     }
   } else {
-    console.log(mid);
     onClinkMyPageReservation(mid);
   }
 }

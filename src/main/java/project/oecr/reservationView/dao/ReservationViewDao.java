@@ -17,8 +17,11 @@ public class ReservationViewDao {
 
   public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
 
-    System.out.println("Dao , Dao : " + reservationDto);
-
     return sqlSession.selectList(nameSpace + ".getReservationViewList", reservationDto);
+  }
+
+  public int getReservationCount(ReservationDto reservationDto) {
+
+    return sqlSession.selectOne(nameSpace + ".getTotalCount", reservationDto);
   }
 }

@@ -16,7 +16,27 @@ public class ReservationViewServiceImpl implements ReservationViewService {
   @Override
   public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
 
-//    System.out.println("ServiceImpl : " + reservationDto);
+    System.out.println(reservationDto);
+    int pageNumber = reservationDto.getPageNumber();
+    int startPage = 0;
+
+    if (pageNumber > 0) {
+      startPage = (pageNumber - 1) * 10;
+    }
+
+    reservationDto.setPageNumber(startPage);
+
+    return reservationViewDao.getReservationList(reservationDto);
+  }
+
+  @Override
+  public int reservationViewCount(ReservationDto reservationDto) {
+
+    return reservationViewDao.getReservationCount(reservationDto);
+  }
+
+  @Override
+  public List<ReservationDto> getReservationNowPage(ReservationDto reservationDto) {
 
     return reservationViewDao.getReservationList(reservationDto);
   }

@@ -19,4 +19,6 @@ public class ReservationDto {
   private String endTime;
   private List<Integer> tidList;
   private String statNm;
+  private int pageNumber;
+  private int totalPageCount;
 }

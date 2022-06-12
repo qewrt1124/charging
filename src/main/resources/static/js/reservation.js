@@ -122,16 +122,11 @@ function continuousCheck(e) {
 
 /* 예약내역 데이터 가져오기 */
 // 예약데이터 json
-function reservationInsertList() {
+function reservationInsertList(mid) {
   let timeList = checkedList();
-  console.log(resStatId);
-  console.log(chargingNum);
-  console.log(selectDate);
-  console.log(resultPrice);
-  console.log(selectStatNm);
 
   let reservationList = {
-    userId: "qewrt1124",
+    mid: mid,
     statId: resStatId,
     chgerId: chargingNum,
     resDate: selectDate,
@@ -159,13 +154,13 @@ function checkedList() {
 // 예약 데이터 DB에 집어 넣기
 // -- 성공하면 예약확인 페이지 내용이 바뀌고 페이지 이동
 // -- 실패하면 데이터는 들어가지 않고 실패이유가 console에 뜨고 경고창 나옴 / 페이지 이동 및 내용 갈아끼우기 실행 되지 않음
-function insertReservation() {
+function insertReservation(mid) {
   fetch("/insertReservation", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reservationInsertList()),
+    body: JSON.stringify(reservationInsertList(mid)),
   })
     .then((res) => res.json())
     .then((data) => {
@@ -180,11 +175,11 @@ function insertReservation() {
 }
 
 // 시간이 선택되지 않으면 경고창 뜨고 시간이 하나 이상 선택되어 있을때만 데이터가 DB에 들어가도록 실행
-function onClickReservationButton() {
+function onClickReservationButton(mid) {
   if (selectCheck === 0) {
     alert("다른 옵션들을 선택하고 입력완료를 눌러주세요");
   } else {
-    insertReservation();
+    insertReservation(mid);
   }
 }
 /* 제조사/차량/배터리/충전기속도 옵션 */
