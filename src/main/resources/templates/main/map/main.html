@@ -42,9 +42,7 @@
   </div>
   <div id="info-wrap7" th:include="mypage/reservationView.html">
   </div>
-<!--  <div id="profile-button" th:attr="onclick=|console.log('${session.userId}')|">-->
   <div id="profile-button" th:onclick="|onClickProfile('${session.mId}')|">
-    <span>강</span>
   </div>
   <div id="infoList-close-button" onclick="closeLocationList()">
     <span><</span>

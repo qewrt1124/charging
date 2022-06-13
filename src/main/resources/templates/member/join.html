@@ -5,35 +5,35 @@
   <div id="join-input-wrap">
     <ul>
       <li>
-        아이디
+        <label for="joinUserId">아이디</label>
       </li>
       <li>
         <input type="text" id="joinUserId" onblur="isId(this.value)" minlength="6" maxlength="16">
         <span id="idAlert"></span>
       </li>
       <li>
-        비밀번호
+        <label for="joinUserPass">비밀번호</label>
       </li>
       <li>
         <input type="password" id="joinUserPass" onblur="isPassword(this.value)" minlength="9" maxlength="16">
         <span id="passAlert"></span>
       </li>
       <li>
-        비밀번호 확인
+        <label for="joinConfirmUserPass">비밀번호 확인</label>
       </li>
       <li>
         <input type="password" id="joinConfirmUserPass" onblur="passwordConfirm(this.value)" minlength="9" maxlength="16">
         <span id="passConfirmAlert"></span>
       </li>
       <li>
-        이름
+        <label for="joinUserName">이름</label>
       </li>
       <li>
         <input type="text" id="joinUserName" onblur="isName(this.value)">
         <span id="nameAlert"></span>
       </li>
       <li>
-        연락처
+        <label for="joinPhNum">연락처</label>
       </li>
       <li>
         <input type="tel" id="joinPhNum">
@@ -41,7 +41,7 @@
     </ul>
     <div>
       <button onclick="onClickJoin()">회원가입</button>
-      <button onclick="">취소</button>
+      <button onclick="changeLoginPage()">취소</button>
     </div>
   </div>
 </div>

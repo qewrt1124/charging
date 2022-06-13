@@ -23,4 +23,9 @@ public class MemberDao {
 
     return sqlSession.insert(nameSpace + ".insertJoin", memberDto);
   }
+
+  public int deleteMember(MemberDto memberDto) {
+
+    return sqlSession.delete(nameSpace + ".deleteMember", memberDto);
+  }
 }

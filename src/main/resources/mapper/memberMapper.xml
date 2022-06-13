@@ -7,7 +7,7 @@
 <mapper namespace="mapper.member">
 
   <select id="loginCheck" parameterType="project.oecr.dto.MemberDto" resultType="project.oecr.dto.MemberDto">
-    select mId, userId, pass
+    select mid, userId, pass
     from member
     where member.userId = #{userId} and member.pass = #{pass}
   </select>
@@ -16,4 +16,9 @@
     insert into member
     values (null, #{userId}, #{pass}, #{hpNum}, #{userName})
   </insert>
+
+  <delete id="deleteMember" parameterType="project.oecr.dto.MemberDto">
+    delete from member
+    where mid = #{mid};
+  </delete>
 </mapper>

@@ -2,10 +2,9 @@
   position: absolute;
   top: 8px;
   left: 26%;
-  overflow: hidden;
   width: 800px;
   height: 95%;
-  overflow: auto;
+  overflow: scroll;
   margin: 0;
   z-index: 1;
   font-size: 12px;

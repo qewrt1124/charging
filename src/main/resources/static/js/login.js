@@ -3,6 +3,7 @@ let midNum;
 
 function onClickProfile(mid) {
   midNum = mid;
+  clearInput();
 
   if (mid === 'null') {
     const loginPage = document.querySelector('#info-wrap4');
@@ -17,7 +18,9 @@ function onClickProfile(mid) {
       pageOpenCheck = 0;
     }
   } else {
-    onClinkMyPageReservation(mid);
+    const myPage = document.querySelector('#info-wrap6');
+    myPage.style.visibility = 'visible';
+    // onClinkMyPageReservation(mid);
   }
 }
 

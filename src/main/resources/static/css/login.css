@@ -2,7 +2,6 @@
   position: absolute;
   top: 42px;
   right: 50px;
-  overflow: hidden;
   width: 300px;
   height: 500px;
   overflow: auto;
@@ -13,4 +12,58 @@
   background-color: #fff;
   text-align: center;
   visibility: hidden;
+}
+
+#login-wrap {
+  margin: 20px 65px;
+}
+
+#login-wrap ul {
+  list-style: none;
+  padding: 0;
+}
+
+#login-top {
+  margin: 20px 0;
+}
+
+#login-top span {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+#login-input-wrap ul li {
+  margin-bottom: 10px;
+  font-size: 18px;
+  text-align: left;
+}
+
+#login-input-wrap input {
+  margin-bottom: 20px;
+  font-size: 18px;
+  padding: 5px;
+  width: 150px;
+}
+
+#login-button-wrap {
+  margin-top: 20px;
+  padding-bottom: 30px;
+}
+
+#login-button-wrap button {
+  cursor: pointer;
+  font-size: 20px;
+}
+
+#login-join-comment {
+  font-size: 15px;
+}
+
+#joinSpan {
+  border: 1px solid black;
+  background: #dddddd;
+  display: block;
+  margin-top: 10px;
+  cursor: pointer;
+  font-size: 18px;
 }

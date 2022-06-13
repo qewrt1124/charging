@@ -1,7 +1,6 @@
 <div id="reservation-wrap">
   <div id='calendar'></div>
   <div class="exit-button" onclick="exitButton()">X</div>
-  <br>
   <div class="reservation-time-wrap">
     <ul>
       <li>
@@ -87,12 +86,10 @@
         <div>결제 예상 금액:</div>
         <div id="charging-payment"></div>
       </div>
-      <br><br>
       <div id="reservation-button-wrap">
         <button id="reservation-button" th:onclick="|onClickReservationButton('${session.mId}')|">예약하기</button>
         <button id="reservation-cancle-button">취소하기</button>
       </div>
-      <br><br>
       <div class="reservation-status">
         <table class="reservation-table">
           <tr>

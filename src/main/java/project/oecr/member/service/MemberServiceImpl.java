@@ -24,7 +24,7 @@ public class MemberServiceImpl implements MemberService {
     if (check != null) {
       result = 1;
       session.setAttribute("userId", check.getUserId());
-      session.setAttribute("mId", check.getMId());
+      session.setAttribute("mId", check.getMid());
     }
 
     return result;
@@ -35,5 +35,24 @@ public class MemberServiceImpl implements MemberService {
   public int insertJoin(MemberDto memberDto) {
 
     return memberDao.insertJoin(memberDto);
+  }
+
+  @Override
+  public void logout(HttpSession session) {
+
+    session.invalidate();
+  }
+
+  @Override
+  @Transactional
+  public int deleteMember(MemberDto memberDto, HttpSession session) {
+
+    int result = memberDao.deleteMember(memberDto);
+
+    if (result == 1) {
+      session.invalidate();
+    }
+
+    return result;
   }
 }

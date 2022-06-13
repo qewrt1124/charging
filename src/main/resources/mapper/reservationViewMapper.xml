@@ -10,7 +10,7 @@
     from reservation
            inner join time
     where mid = #{mid} and reservation.tId = time.tId
-    order by rid
+    order by rid desc
     limit #{pageNumber}, 10
   </select>
 

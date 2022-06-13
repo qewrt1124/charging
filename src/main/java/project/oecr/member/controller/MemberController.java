@@ -1,6 +1,7 @@
 package project.oecr.member.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -28,8 +29,18 @@ public class MemberController {
   @PostMapping("/join")
   public int join(@RequestBody MemberDto memberDto) {
 
-    memberService.insertJoin(memberDto);
+    return memberService.insertJoin(memberDto);
+  }
 
-    return 1;
+  @PostMapping("/logout")
+  public void logout(HttpSession session) {
+
+    memberService.logout(session);
+  }
+
+  @DeleteMapping("/deleteMember")
+  public int deleteMember(@RequestBody MemberDto memberDto, HttpSession session) {
+
+    return memberService.deleteMember(memberDto, session);
   }
 }

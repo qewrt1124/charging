@@ -37,19 +37,19 @@ function makeReservationList(e) {
 
   reservationViewTable.innerHTML = `
       <tr>
-        <td>글번호</td>
-        <td>충전소이름</td>
-        <td>충전기번호</td>
-        <td>예약날짜</td>
-        <td>예약시간</td>
-        <td>쿠폰번호</td>
+        <th style="width: 70px; height: 32px">글번호</th>
+        <th style="width: 240px">충전소이름</th>
+        <th style="width: 80px">충전기</th>
+        <th style="width: 130px">예약날짜</th>
+        <th style="width: 110px">예약시간</th>
+        <th style="width: 300px">쿠폰번호</th>
       </tr>
   `;
 
   for (let i = 0; i < e.length; i++) {
     reservationViewTable.innerHTML += `
       <tr>
-        <td>${e[i].rid}</td>
+        <td style="height: 30px">${e[i].rid}</td>
         <td>${e[i].statNm}</td>
         <td>${e[i].chgerId}</td>
         <td>${e[i].resDate}</td>
@@ -66,6 +66,7 @@ function makeReservationList(e) {
 
 function showReservationTime(e) {
   let time = e.startTime + ' ~ ' + e.endTime + '시';
+  // let time = e.startTime + ' ~ ' + e.endTime;
 
   return time;
 }
@@ -167,10 +168,24 @@ function getNowPageList(mid, pageNumber) {
   })
     .then((res) => res.json())
     .then((data) => {
+      makeReservationList(data);
       console.log(data);
     })
     .catch((e) => {
       console.log("예약리스트 가져오기 실패");
       console.log(e);
     });
+}
+
+function onClickShowReservationList(mid) {
+  getReservationView(mid);
+  const completePage = document.querySelector('#info-wrap3');
+  const reservationListPage = document.querySelector('#info-wrap7');
+  completePage.style.visibility = 'hidden';
+  reservationListPage.style.visibility = 'visible';
+}
+
+function reservationViewCloseButton() {
+  const reservationListPage = document.querySelector('#info-wrap7');
+  reservationListPage.style.visibility = 'hidden';
 }

@@ -5,7 +5,10 @@ const joinName = document.querySelector('#joinUserName');
 const joinPhNum = document.querySelector('#joinPhNum');
 const idAlert = document.querySelector('#idAlert');
 
-function hiddenPage() {
+function moveJoinPage() {
+  const loginPage = document.querySelector('#info-wrap4');
+  const joinPage = document.querySelector('#info-wrap5');
+  clearInput();
   loginPage.style.visibility = 'hidden';
   joinPage.style.visibility = 'visible';
 }
@@ -123,5 +126,29 @@ function endCheck() {
     alert("아이디체크");
   } else if (isPassword(document.getElementById("pass").value) == false) {
     alert("비밀번호체크");
+  }
+}
+
+function changeLoginPage() {
+  const loginPage = document.querySelector('#info-wrap4');
+  const joinPage = document.querySelector('#info-wrap5');
+  clearInput();
+  loginPage.style.visibility = 'visible';
+  joinPage.style.visibility = 'hidden';
+}
+
+function clearInput() {
+  let text = document.querySelectorAll("input[type='text']");
+  let pass = document.querySelectorAll("input[type='password']");
+  let tel = document.querySelectorAll("input[type='tel']");
+
+  for (let i = 0; i < text.length; i++) {
+    text[i].value = "";
+  }
+  for (let i = 0; i < pass.length; i++) {
+    pass[i].value = "";
+  }
+  for (let i = 0; i < tel.length; i++) {
+    tel[i].value = "";
   }
 }
