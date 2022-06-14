@@ -125,9 +125,16 @@ input[type='checkbox'] {
 .estimated-percentage-of-completion-of-charging {
   margin-top: 15px;
 }
+.estimated-percentage-of-completion-of-charging div {
+  display: inline-block;
+}
 
 .Estimated-Payment-Amount {
   margin-top: 15px;
+}
+
+.Estimated-Payment-Amount div {
+  display: inline-block;
 }
 
 .charging-start-percent button {
@@ -136,8 +143,9 @@ input[type='checkbox'] {
 }
 
 #reservation-startPercentage {
+  width: 50px;
   font-size: 18px;
-  padding: 5px;
+  padding: 5px 10px;
 }
 
 #reservation-button-wrap {
@@ -147,4 +155,20 @@ input[type='checkbox'] {
 #reservation-button-wrap button {
   cursor: pointer;
   font-size: 18px;
+}
+
+#reservation-endPercentage {
+  color: blue;
+}
+
+#reservation-overPercentage {
+  color: red;
+}
+
+#charging-payment {
+  color: blue;
+}
+
+#over-charging-payment {
+  color: red;
 }

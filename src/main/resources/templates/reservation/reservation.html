@@ -75,16 +75,18 @@
     <div class="reservation-charging-percent">
       <div class="charging-start-percent">
         <div>충전 시작 퍼센트:</div>
-        <input type="text" id="reservation-startPercentage">
+        <input type="number" id="reservation-startPercentage" min="0" max="100" minlength="1" maxlength="2">
         <button onclick="viewChargingPercentage()">입력완료</button>
       </div>
       <div class="estimated-percentage-of-completion-of-charging">
-        <div>예상 충전 완료 퍼센트:</div>
-        <div id="reservation-endPercentage"></div>
+        <div>예상 충전 완료 퍼센트: </div>
+        <span id="reservation-endPercentage"></span>
+        <span id="reservation-overPercentage"></span>
       </div>
       <div class="Estimated-Payment-Amount">
-        <div>결제 예상 금액:</div>
-        <div id="charging-payment"></div>
+        <div>결제 예상 금액: </div>
+        <span id="charging-payment"></span>
+        <span id="over-charging-payment"></span>
       </div>
       <div id="reservation-button-wrap">
         <button id="reservation-button" th:onclick="|onClickReservationButton('${session.mId}')|">예약하기</button>

@@ -65,6 +65,7 @@ function joinFetch() {
     });
 }
 
+/* 회원가입버튼 누르면 다 통과했는지 체크하고 집어 넣음 */
 function onClickJoin() {
   let result = booleanCheck();
 
@@ -165,14 +166,6 @@ function isHpNum() {
     alertSpace.innerHTML = "10~11자리의 숫자를 입력하세요.";
     phNumBoolean = false;
     return false;
-  }
-}
-
-function endCheck() {
-  if (isId(document.getElementById("id").value) == false) {
-    alert("아이디체크");
-  } else if (isPassword(document.getElementById("pass").value) == false) {
-    alert("비밀번호체크");
   }
 }
 
