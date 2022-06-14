@@ -40,7 +40,8 @@ function getReservationList(chgerId, date, statId) {
     .then((res) => res.json())
     .then((data) => {
       openReservationPage();
-      clearReferencesText();
+      // getCarList();
+      clearReservationPage();
       changeReservationPage(data);
     })
     .catch((e) => {
@@ -234,17 +235,27 @@ function selectValue(e) {
 
 // 옵션에 내용 채우기 - onchange 됬을 때 동작함
 function changeOption(list) {
+  const model = document.querySelector('#cars-model-select');
+  const batCap = document.querySelector('#cars-batCap-select');
+  const outPut = document.querySelector('#cars-outPut-select');
+
   let targetNum;
 
   if (!(list[0].manufac == null)) {
     targetNum = 0;
     inputOption(list, targetNum);
+    model.innerHTML = `<option>제조사 선택</option>`;
+    batCap.innerHTML = `<option>제조사 선택</option>`;
+    outPut.innerHTML = `<option>제조사 선택</option>`;
   } else if (!(list[0].model == null)) {
     targetNum = 1;
     inputOption(list, targetNum);
+    batCap.innerHTML = `<option>모델 선택</option>`;
+    outPut.innerHTML = `<option>모델 선택</option>`;
   } else if (!(list[0].batCap == null)) {
     targetNum = 2;
     inputOption(list, targetNum);
+    outPut.innerHTML = `<option>배터리용량 선택</option>`;
   } else if (!(list[0].outPut == null)) {
     targetNum = 3;
     inputOption(list, targetNum);
@@ -444,13 +455,17 @@ function clearStartPercentage() {
   startPercentageInput.value = "";
 }
 
-function clearReferencesText() {
+function clearReservationPage() {
   const resultPercentage = document.querySelector("#reservation-endPercentage");
   const overPercentage = document.querySelector("#reservation-overPercentage");
   const payment = document.querySelector("#charging-payment");
   const overPayment = document.querySelector("#over-charging-payment");
+  const fee = document.querySelector("#reservation-fee");
+  const startPercentage = document.querySelector("#reservation-startPercentage");
   resultPercentage.innerText = "";
   overPercentage.innerText = "";
   payment.innerText = "";
   overPayment.innerText = "";
+  fee.innerText = "";
+  startPercentage.value = "";
 }
