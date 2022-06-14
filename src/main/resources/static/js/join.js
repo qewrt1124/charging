@@ -39,11 +39,12 @@ function joinFetch() {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
+      changeLoginPage();
     })
     .catch((e) => {
-      console.log("로그인 체크 실패");
+      console.log("회원가입 실패");
       console.log(e);
+      alert("잠시 후 다시 시도해 주세요");
     });
 }
 

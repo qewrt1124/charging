@@ -309,6 +309,11 @@ function removeReservationTime() {
   targetTime.innerText = "";
 }
 
+function clearTimeStamp() {
+  const resTime = document.querySelector("#reservation-resTime");
+  resTime.innerText = "";
+}
+
 // 예약시간 체크박스를 선택하면 예약상황의 시간이 바뀜
 // - 선택된 시간이 없을 때는 시간이 표시되지 않음
 function getSelectedTimeStamp() {
@@ -329,12 +334,14 @@ function getSelectedTimeStamp() {
         selectedTime[
         selectedTime.length - 1
           ].nextElementSibling.innerText.split(" ~ ");
+      clearTimeStamp();
       resultTime = startTime[0] + " ~ " + endTime[1] + "시";
     } else {
+      clearTimeStamp();
       resultTime = startTime[0] + " ~ " + startTime[1] + "시";
     }
   } else {
-    resultTime = "";
+    clearTimeStamp();
   }
 
   resTime.innerText = resultTime;

@@ -25,6 +25,7 @@
     select model
     from carinfo
     where manufac = #{manufac}
+    group by model
   </select>
 
   <select id="getCarBatCap" parameterType="project.oecr.dto.CarInfoDto" resultType="project.oecr.dto.CarInfoDto">

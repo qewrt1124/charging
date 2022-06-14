@@ -46,7 +46,6 @@ function loginOk(e) {
   const loginPage = document.querySelector('#info-wrap4');
   if (e === 1) {
     loginPage.style.visibility = 'hidden';
-    // joinPage.style.visibility = 'visible';
     pageReload();
   } else {
     alert('아이디 또는 비밀번호가 맞지 않습니다.');
