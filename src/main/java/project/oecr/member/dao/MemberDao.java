@@ -3,8 +3,9 @@ package project.oecr.member.dao;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-
 import project.oecr.dto.MemberDto;
+
+import java.util.List;
 
 @Repository
 public class MemberDao {
@@ -27,5 +28,10 @@ public class MemberDao {
   public int deleteMember(MemberDto memberDto) {
 
     return sqlSession.delete(nameSpace + ".deleteMember", memberDto);
+  }
+
+  public List<MemberDto> duplicateCheck(MemberDto memberDto) {
+
+    return sqlSession.selectOne(nameSpace + ".duplicateCheck", memberDto);
   }
 }

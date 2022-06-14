@@ -21,4 +21,10 @@
     delete from member
     where mid = #{mid};
   </delete>
+
+  <select id="duplicateCheck" parameterType="project.oecr.dto.MemberDto" resultType="project.oecr.dto.MemberDto">
+    select userId
+    from member
+    where userId = #{userId}
+  </select>
 </mapper>

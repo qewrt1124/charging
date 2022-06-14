@@ -8,7 +8,8 @@
         <label for="joinUserId">아이디</label>
       </li>
       <li>
-        <input type="text" id="joinUserId" onblur="isId(this.value)" minlength="6" maxlength="16">
+        <input type="text" id="joinUserId" minlength="6" maxlength="16">
+        <button onclick="duplicationIdCheckButton()">중복체크</button>
         <span id="idAlert"></span>
       </li>
       <li>
@@ -37,6 +38,7 @@
       </li>
       <li>
         <input type="tel" id="joinPhNum">
+        <span id="phNumAlert"></span>
       </li>
     </ul>
     <div>

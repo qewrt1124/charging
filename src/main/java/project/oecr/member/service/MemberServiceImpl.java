@@ -7,6 +7,7 @@ import project.oecr.dto.MemberDto;
 import project.oecr.member.dao.MemberDao;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -54,5 +55,11 @@ public class MemberServiceImpl implements MemberService {
     }
 
     return result;
+  }
+
+  @Override
+  public List<MemberDto> duplicateCheck(MemberDto memberDto) {
+
+    return memberDao.duplicateCheck(memberDto);
   }
 }

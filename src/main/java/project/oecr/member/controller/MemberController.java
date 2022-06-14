@@ -43,4 +43,18 @@ public class MemberController {
 
     return memberService.deleteMember(memberDto, session);
   }
+
+  @PostMapping("/idDuplicateCheck")
+  public int duplicateCheck(@RequestBody MemberDto memberDto) {
+
+    int result = 1;
+
+    if (memberService.duplicateCheck(memberDto) != null) {
+      result = 0;
+    }
+
+    System.out.println(result);
+
+    return result;
+  }
 }
