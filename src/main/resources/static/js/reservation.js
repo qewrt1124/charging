@@ -335,13 +335,13 @@ function getSelectedTimeStamp() {
         selectedTime.length - 1
           ].nextElementSibling.innerText.split(" ~ ");
       clearTimeStamp();
-      resultTime = startTime[0] + " ~ " + endTime[1] + "시";
+      resultTime = startTime[0] + " ~ " + endTime[1];
     } else {
       clearTimeStamp();
-      resultTime = startTime[0] + " ~ " + startTime[1] + "시";
+      resultTime = startTime[0] + " ~ " + startTime[1];
     }
   } else {
-    clearTimeStamp();
+    resultTime = "";
   }
 
   resTime.innerText = resultTime;
@@ -416,4 +416,18 @@ function chargingPercentage(
   let percentage = resultPercentage + startPercentage;
 
   return percentage;
+}
+
+// 예약페이지의 취소버튼 info페이지로 이동
+function reservationCancelButton() {
+  const info = document.querySelector('#info-wrap1');
+  const reservation = document.querySelector('#info-wrap2');
+  info.style.visibility = "visible";
+  reservation.style.visibility = "hidden";
+}
+
+// 충전시작퍼센트 입력하는 input=text 비우기
+function clearStartPercentage() {
+  const startPercentageInput = document.querySelector('#reservation-startPercentage');
+  startPercentageInput.value = "";
 }

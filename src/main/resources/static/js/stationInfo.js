@@ -111,6 +111,7 @@ function ClickedStationName(lat, lng, statId, i) {
 
 // 예약하기 눌렀을때 충전기번호에 해당하는 예약 내역가져오기
 function ClickedReservation(chgerId, date, statId, chgerType) {
+  clearStartPercentage();
   removerOption();
   removeReservationTime();
   getReservationList(chgerId, date, statId);
