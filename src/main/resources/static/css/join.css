@@ -39,3 +39,13 @@
   cursor: pointer;
   font-size: 18px;
 }
+
+#idAlert {
+  display: block;
+}
+
+#join-wrap span {
+  font-size: 14px;
+  color: red;
+  margin-top: 3px;
+}

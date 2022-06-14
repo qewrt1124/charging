@@ -152,7 +152,7 @@ function isName(asValue) {
 
 // 핸드폰 번호 체크
 function isHpNum() {
-  let regExp = /[0-9]/g;
+  let regExp = /[0-9]{9,11}/g;
   let asValue = joinPhNum.value;
   let alertSpace = document.getElementById("phNumAlert");
   if (regExp.test(asValue)) {
@@ -162,7 +162,7 @@ function isHpNum() {
     return true;
   } else {
     joinPhNum.style.border = "2px solid red";
-    alertSpace.innerHTML = "숫자만 입력하세요.";
+    alertSpace.innerHTML = "10~11자리의 숫자를 입력하세요.";
     phNumBoolean = false;
     return false;
   }
