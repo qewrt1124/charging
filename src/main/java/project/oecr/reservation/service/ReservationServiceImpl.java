@@ -107,7 +107,6 @@ public class ReservationServiceImpl implements ReservationService {
     } else if (!(carInfoDto.getBatCap() == null)) {
       result = new ArrayList<>();
 
-
       CarInfoDto carInfoDto1 = new CarInfoDto();
       carInfoDto1.setOutPut("dddd");
       result.add(carInfoDto1);

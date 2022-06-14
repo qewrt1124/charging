@@ -116,7 +116,6 @@ function continuousCheck(e) {
     preValue = e.value;
     e.nextElementSibling.style.backgroundColor = "rgb(250, 43, 43)";
   }
-
   changeCheckBox(e);
 }
 
@@ -276,9 +275,11 @@ function inputOption(list, targetNum) {
     target = document.querySelector("#cars-outPut-select");
     target.innerHTML = `<option value="outPutChoose">충전속도 선택</option>`;
 
-    if (selectChgerType === 2) {
+    if (selectChgerType === '02') {
+      console.log("완속 : " + selectChgerType);
       list = [{ outPut: "완속" }];
     } else {
+      console.log("급속 : " + selectChgerType);
       list = [{ outPut: "급속" }];
     }
   }
@@ -324,8 +325,6 @@ function getSelectedTimeStamp() {
   let startTime;
   let endTime;
   let resultTime;
-
-  console.log(selectedTime.length);
 
   if (!(selectedTime.length === 0)) {
     startTime = selectedTime[0].nextElementSibling.innerText.split(" ~ ");

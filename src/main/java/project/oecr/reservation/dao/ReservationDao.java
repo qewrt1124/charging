@@ -39,6 +39,11 @@ public class ReservationDao {
     return sqlSession.selectList(nameSpace + ".getCarBatCap", carInfoDto);
   }
 
+//  public List<CarInfoDto> getChgerType(CarInfoDto carInfoDto) {
+//
+//    return sqlSession.selectList(nameSpace + ".getChgerType", carInfoDto);
+//  }
+
   public int insertReservation(ReservationDto reservationDto) {
 
     return sqlSession.insert(nameSpace + ".insertReservation", reservationDto);
