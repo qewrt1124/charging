@@ -86,8 +86,6 @@ function onClickCheckBox(e) {
 }
 
 function changeCheckBox(e) {
-  console.log(e);
-
   let coom = e.nextElementSibling;
 
   if (!e.checked) {
@@ -135,8 +133,6 @@ function reservationInsertList(mid) {
     chgerCharge: resultPrice,
     statNm: selectStatNm,
   };
-
-  console.log(reservationList);
 
   return reservationList;
 }
@@ -288,10 +284,8 @@ function inputOption(list, targetNum) {
     target.innerHTML = `<option value="outPutChoose">충전속도 선택</option>`;
 
     if (selectChgerType === '02') {
-      console.log("완속 : " + selectChgerType);
       list = [{ outPut: "완속" }];
     } else {
-      console.log("급속 : " + selectChgerType);
       list = [{ outPut: "급속" }];
     }
   }
@@ -347,6 +341,7 @@ function getSelectedTimeStamp() {
           ].nextElementSibling.innerText.split(" ~ ");
       clearTimeStamp();
       resultTime = startTime[0] + " ~ " + endTime[1];
+      resultTime = startTime[0] + " ~ " + endTime[1];
     } else {
       clearTimeStamp();
       resultTime = startTime[0] + " ~ " + startTime[1];
@@ -398,13 +393,14 @@ function viewChargingPercentage() {
     let startPercentage = parseInt(startValue);
     result = chargingPercentage(param, outPutValue, timeDiffernce, startPercentage);
     if (result > 100) {
+      overClear();
       resultPercentage.innerText = 100 + "%";
       overPercentage.innerText = " + (" + (result - 100) + "%)";
       overPrice = overChargingPrice(param, outPutValue, timeDiffernce, startPercentage, price, (result - 100));
-      console.log(overPrice);
       payment.innerText = (resultPrice - overPrice) + "원";
       overPayment.innerText = " + (" + (overPrice) + "원)";
     } else {
+      overClear();
       payment.innerText = resultPrice + "원";
       resultPercentage.innerText = result + "%";
     }
@@ -413,6 +409,17 @@ function viewChargingPercentage() {
   } else {
     alert("시간을 선택해 주세요.");
   }
+}
+
+function overClear() {
+  const resultPercentage = document.querySelector("#reservation-endPercentage");
+  const overPercentage = document.querySelector("#reservation-overPercentage");
+  const payment = document.querySelector("#charging-payment");
+  const overPayment = document.querySelector("#over-charging-payment");
+  resultPercentage.innerText = "";
+  overPercentage.innerText = "";
+  overPayment.innerText ="";
+  payment.innerText ="";
 }
 
 // 통합 가격 계산 함수(예약시간 * 선택 충전 속도의 가격)
@@ -435,7 +442,6 @@ function chargingPercentage(param, outPutValue, timeDiffernce, startPercentage) 
 // 초과 가격 계산 함수
 function overChargingPrice(param, outPutValue, timeDiffernce, startPercentage, price, overCharging) {
  let t = overCharging / 100 * outPutValue / param;
- console.log(overCharging);
  let overPrice = parseInt(t * price * 60);
 
  return overPrice;

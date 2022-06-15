@@ -13,7 +13,7 @@ let resStatId;
 let mapContainer = document.getElementById("map"),
   mapOption = {
     // 지도의 중심좌표
-    center: new kakao.maps.LatLng(36.494692, 127.26536),
+    center: new kakao.maps.LatLng(36.501704698064316, 127.26378170671532),
     // 지도의 확대 레벨
     level: 3,
   };
@@ -36,7 +36,7 @@ let zoomControl = new kakao.maps.ZoomControl();
 // 지도의 우측에 확대 축소 컨트롤을 추가한다
 map.addControl(zoomControl, kakao.maps.ControlPosition.RIGHT);
 
-let rangeList = { centerLat: 36.494692, centerLng: 127.26536, level: 3 };
+let rangeList = { centerLat: 36.501704698064316, centerLng: 127.26378170671532, level: 3 };
 
 // 지도 레벨, 중심좌표 얻어 오기
 kakao.maps.event.addListener(map, "center_changed", function () {

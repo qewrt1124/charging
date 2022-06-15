@@ -8,6 +8,9 @@ function exitButton() {
 
 // 충전소 정보(stationInfo) 내용 갈아 끼기
 function chageStatinInfo(e) {
+  let able = 0;
+  const totalCharging = document.querySelector("#totalCharging");
+  const chargingAble = document.querySelector("#chargingAble");
   const statNm = document.querySelector("#stationInfo-top-title-content");
   const statUpdDt = document.querySelector(
     "#stationInfo-top-title-update-content"
@@ -25,7 +28,7 @@ function chageStatinInfo(e) {
   );
 
   selectStatNm = e[0].statNm;
-
+  totalCharging.innerText = `전체 ${e.length}대`;
   statNm.innerText = `${e[0].statNm}`;
   statUpdDt.innerText = `${e[0].statUpdDt}`;
   addr.innerText = `${e[0].addr}`;
@@ -37,6 +40,14 @@ function chageStatinInfo(e) {
   resStatId = e[0].statId;
 
   reservation.innerHTML = "";
+
+  for (let i = 0; i < e.length; i++) {
+    if (!(e[i].stat === 2 || e[i].stat === 3)) {
+      able++;
+    }
+  }
+
+  chargingAble.innerText = `충전가능 ${able}대`;
 
   // 충전소 정보(stationInfo) 표시하는 쪽의 충전기 예약버튼
   for (let i = 0; i < e.length; i++) {
@@ -104,6 +115,10 @@ function getChargingInfo(statId) {
 
 // 맵 리스트 충전소 이름 눌렀을때 함수
 function ClickedStationName(lat, lng, statId, i) {
+  for (let j = 0; j < overlays.length; j++) {
+    closeOverlay(j);
+  }
+
   panTo(lat, lng);
 
   overlays[i].setMap(map);

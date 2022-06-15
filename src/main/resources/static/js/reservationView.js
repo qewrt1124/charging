@@ -2,6 +2,7 @@ let nowPage = 1;
 let totalPage = 0;
 let pageNumHtml;
 const pageButton = document.querySelector('#reservationView-Button-wrap');
+let contentNumber = 1;
 
 function getReservationView(mid) {
   fetch("/reservationView", {
@@ -49,7 +50,7 @@ function makeReservationList(e) {
   for (let i = 0; i < e.length; i++) {
     reservationViewTable.innerHTML += `
       <tr>
-        <td style="height: 30px">${e[i].rid}</td>
+        <td style="height: 30px">${contentNumber}</td>
         <td>${e[i].statNm}</td>
         <td>${e[i].chgerId}</td>
         <td>${e[i].resDate}</td>
@@ -61,12 +62,12 @@ function makeReservationList(e) {
         <td>${e[i].couponNum}</td>
       </tr>
   `;
+    contentNumber ++;
   }
 }
 
 function showReservationTime(e) {
   let time = e.startTime + ' ~ ' + e.endTime + '시';
-  // let time = e.startTime + ' ~ ' + e.endTime;
 
   return time;
 }
