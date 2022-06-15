@@ -40,7 +40,6 @@ function getReservationList(chgerId, date, statId) {
     .then((res) => res.json())
     .then((data) => {
       openReservationPage();
-      // getCarList();
       clearReservationPage();
       changeReservationPage(data);
     })
@@ -100,12 +99,13 @@ let nextValue = 0;
 // -- 연속되지 않은 시간을 체크하면 경고창을 띄움
 function continuousCheck(e) {
   let checkedList = document.querySelectorAll("input[type='checkbox']:checked");
-
   if (checkedList.length > 1) {
     nextValue = e.value;
     if (nextValue - preValue > 1 || preValue - nextValue > 1) {
       alert("연속된 시간을 선택하세요");
       event.preventDefault();
+      clearTimeStamp();
+      getSelectedTimeStamp();
     } else {
       preValue = e.value;
       e.nextElementSibling.style.backgroundColor = "rgb(250, 43, 43)";
@@ -328,23 +328,29 @@ function getSelectedTimeStamp() {
   let selectedTime = document.querySelectorAll(
     "input[type='checkbox']:checked"
   );
-  let startTime;
-  let endTime;
-  let resultTime;
+  let startTime = "";
+  let endTime = "";
+  let resultTime = "";
 
   if (!(selectedTime.length === 0)) {
     startTime = selectedTime[0].nextElementSibling.innerText.split(" ~ ");
     if (selectedTime.length > 1) {
-      endTime =
-        selectedTime[
-        selectedTime.length - 1
-          ].nextElementSibling.innerText.split(" ~ ");
+      endTime = selectedTime[selectedTime.length - 1].nextElementSibling.innerText.split(" ~ ");
       clearTimeStamp();
-      resultTime = startTime[0] + " ~ " + endTime[1];
       resultTime = startTime[0] + " ~ " + endTime[1];
     } else {
       clearTimeStamp();
       resultTime = startTime[0] + " ~ " + startTime[1];
+    }
+
+    if(selectedTime.length > 1 && selectedTime[1].value - selectedTime[0].value > 1) {
+      startTime = selectedTime[1].nextElementSibling.innerText.split(" ~ ");
+      resultTime = startTime[0] + " ~ " + endTime[1];
+    }
+
+    if (selectedTime.length > 1 && selectedTime[selectedTime.length - 2].value - selectedTime[selectedTime.length - 1].value < -1) {
+      endTime = selectedTime[selectedTime.length - 2].nextElementSibling.innerText.split(" ~ ");
+      resultTime = startTime[0] + " ~ " + endTime[1];
     }
   } else {
     resultTime = "";

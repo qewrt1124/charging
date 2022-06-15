@@ -5,7 +5,7 @@ let selectDate = getToday();
 let resultPrice;
 let selectStatNm;
 let selectCheck = 0;
-
+let contentNumber = 1;
 let addrInfo;
 let chargingNum;
 let resStatId;

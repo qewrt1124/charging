@@ -2,7 +2,6 @@ let nowPage = 1;
 let totalPage = 0;
 let pageNumHtml;
 const pageButton = document.querySelector('#reservationView-Button-wrap');
-let contentNumber = 1;
 
 function getReservationView(mid) {
   fetch("/reservationView", {
@@ -170,7 +169,6 @@ function getNowPageList(mid, pageNumber) {
     .then((res) => res.json())
     .then((data) => {
       makeReservationList(data);
-      console.log(data);
     })
     .catch((e) => {
       console.log("예약리스트 가져오기 실패");
@@ -179,6 +177,7 @@ function getNowPageList(mid, pageNumber) {
 }
 
 function onClickShowReservationList(mid) {
+  contentNumber = 1;
   getReservationView(mid);
   const completePage = document.querySelector('#info-wrap3');
   const reservationListPage = document.querySelector('#info-wrap7');
