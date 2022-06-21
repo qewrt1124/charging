@@ -48,14 +48,13 @@ function chageStatinInfo(e) {
   }
 
   chargingAble.innerText = `충전가능 ${able}대`;
-
   // 충전소 정보(stationInfo) 표시하는 쪽의 충전기 예약버튼
   for (let i = 0; i < e.length; i++) {
     reservation.innerHTML +=
       `
       <tr>
         <td class="stationInfo-reservation-check">
-        <button onclick="ClickedReservation('${e[i].chgerId}', getToday(), '${e[i].statId}', '${e[i].chgerType}')">예약하기</button>
+        <button onclick="ClickedReservation('${e[i].chgerId}', getToday(), '${e[i].statId}', '${e[i].chgerType}', '${mId}')">예약하기</button>
         </td>
         <td class="stationInfo-bottom-chargingStatus-adapter">
           <ul>
@@ -125,15 +124,19 @@ function ClickedStationName(lat, lng, statId, i) {
 }
 
 // 예약하기 눌렀을때 충전기번호에 해당하는 예약 내역가져오기
-function ClickedReservation(chgerId, date, statId, chgerType) {
-  clearStartPercentage();
-  removerOption();
-  removeReservationTime();
-  getReservationList(chgerId, date, statId);
-  selectChgerId = chgerId;
-  selectStatId = statId;
-  getCarList();
-  selectChgerType = chgerType;
+function ClickedReservation(chgerId, date, statId, chgerType, mId) {
+  if (mId !== "null") {
+    clearStartPercentage();
+    removerOption();
+    removeReservationTime();
+    getReservationList(chgerId, date, statId);
+    selectChgerId = chgerId;
+    selectStatId = statId;
+    getCarList();
+    selectChgerType = chgerType;
+  } else {
+    alert("로그인 후 예약이 가능합니다.")
+  }
 }
 
 // 충전소 상세정보 창 닫고 예약페이지 여는 함수

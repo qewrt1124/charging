@@ -57,7 +57,12 @@
 
 <script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=b4872a9b5acb5ecc63be75e1c4458374"></script>
 <script type="text/javascript" src="/js/main.js"></script>
-<script type="text/javascript" src="/js/stationInfo.js"></script>
+<script th:inline="javascript">
+  /*<![CDATA[*/
+  let mId =[[ ${session.mId} ]];
+  /*]]*/
+</script>
+<script th:inline="javascript" type="text/javascript" src="/js/stationInfo.js"></script>
 <script type="text/javascript" src="/js/map.js"></script>
 <script type="text/javascript" src="/js/reservation.js"></script>
 <script type="text/javascript" src="/js/complete.js"></script>

@@ -176,6 +176,7 @@ function changeLoginPage() {
   clearInput();
   loginPage.style.visibility = 'visible';
   joinPage.style.visibility = 'hidden';
+  alert("축하합니다. 회원이 되신걸 환영합니다.");
 }
 
 // 인풋창 비우기
