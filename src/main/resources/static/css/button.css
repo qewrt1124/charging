@@ -79,13 +79,13 @@
 }
 
 /* 프로필 버튼 */
-#profile-button {
+.profile-button {
   position: absolute;
   top: 8px;
   right: 50px;
   overflow: hidden;
-  width: 30px;
-  height: 30px;
+  width: 60px;
+  height: 60px;
   margin: 0;
   z-index: 1;
   font-size: 12px;
@@ -95,4 +95,9 @@
   visibility: visible;
   cursor: pointer;
   border-radius: 50%;
+}
+
+.profile-span {
+  line-height: 60px;
+  font-size: medium;
 }

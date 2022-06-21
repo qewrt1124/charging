@@ -92,30 +92,59 @@ function changeCheckBox(e) {
   }
 }
 
-let preValue;
-let nextValue = 0;
+function checkBoxChangeRed(e) {
+  e.nextElementSibling.style.backgroundColor = "rgb(250, 43, 43)";
+}
 
 // 연속된 시간대만 체크할 수 있고 눌렀을 때 색이 변함
 // -- 연속되지 않은 시간을 체크하면 경고창을 띄움
 function continuousCheck(e) {
   let checkedList = document.querySelectorAll("input[type='checkbox']:checked");
-  if (checkedList.length > 1) {
-    nextValue = e.value;
-    if (nextValue - preValue > 1 || preValue - nextValue > 1) {
+  let length = checkedList.length;
+
+  if (length === 2) {
+    let first = checkedList[0].value;
+    let second = checkedList[1].value;
+
+    if ((first == 24 && first - second == 23) || (first == 1 && second - first == 23)) {
+      checkBoxChangeRed(e);
+    } else if ((second - first) > 1 || (second - first) < 0) {
       alert("연속된 시간을 선택하세요");
       event.preventDefault();
       clearTimeStamp();
       getSelectedTimeStamp();
     } else {
-      preValue = e.value;
-      e.nextElementSibling.style.backgroundColor = "rgb(250, 43, 43)";
+      checkBoxChangeRed(e);
+    }
+  } else if (length > 2) {
+    let first = checkedList[0].value;
+    let second = checkedList[1].value;
+    let preLast = checkedList[length - 2].value;
+    let last = checkedList[length - 1].value;
+    
+    for (let i = 0; i < length; i++ ) {
+      console.log("전전 " + i + "번째 : " + checkedList[i].value);
+    }
+    if ((first == 1 && last - first == 23)) {
+      checkBoxChangeRed(e);
+    } else if ((second - first) > 1 || (last - preLast) > 1) {
+      alert("연속된 시간을 선택하세요");
+      for (let i = 0; i < length; i++ ) {
+        console.log("전 " + i + "번째 : " + checkedList[i].value);
+      }
+      event.preventDefault();
+      clearTimeStamp();
+      getSelectedTimeStamp();
+      for (let i = 0; i < length; i++ ) {
+        console.log("후 " + i + "번째 : " + checkedList[i].value);
+      }
+    } else {
+      checkBoxChangeRed(e);
     }
   } else {
-    preValue = 0;
-    nextValue = 0;
-    preValue = e.value;
-    e.nextElementSibling.style.backgroundColor = "rgb(250, 43, 43)";
+    checkBoxChangeRed(e);
   }
+
   changeCheckBox(e);
 }
 

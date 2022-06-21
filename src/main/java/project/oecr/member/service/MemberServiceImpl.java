@@ -26,6 +26,7 @@ public class MemberServiceImpl implements MemberService {
       result = 1;
       session.setAttribute("userId", check.getUserId());
       session.setAttribute("mId", check.getMid());
+      session.setAttribute("userName", check.getUserName());
     }
 
     return result;

@@ -7,7 +7,7 @@
 <mapper namespace="mapper.api">
   <!-- 전기차 데이터 넣기 -->
   <insert id="insertInfo" parameterType="hashmap">
-    insert into charginginfo
-    values (null, #{addr}, #{bnm}, #{busiCall}, #{busiId}, #{busiNm}, #{chgerId}, #{chgerType}, #{delDetail}, #{delYn}, #{lastTedt}, #{lastTsdt}, #{lat}, #{limitDetail}, #{limitYn}, #{lng}, #{location}, #{method}, #{note}, #{nowTsdt}, #{output}, #{parkingFree}, #{powerType}, #{stat}, #{statId}, #{statNm}, #{statUpdDt}, #{useTime}, #{zcode})
+    insert into stationInfo
+    values (null, #{statNm}, #{addr}, #{location}, #{lat}, #{lng}, #{useTime}, #{busiId}, #{bnm}, #{busiCall}, #{statUpdDt}, #{lastTsdt}, #{lastTedt}, #{nowTsdt}, #{powerType}, #{output}, #{method}, #{zcode}, #{parkingFree}, #{note}, #{limitYn}, #{limitDetail})
   </insert>
 </mapper>

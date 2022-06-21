@@ -42,7 +42,9 @@
   </div>
   <div id="info-wrap7" th:include="mypage/reservationView.html">
   </div>
-  <div id="profile-button" th:onclick="|onClickProfile('${session.mId}')|">
+  <div class="profile-button" th:onclick="|onClickProfile('${session.mId}')|">
+    <span class="profile-span" th:if="${session.userName} == null">로그인</span>
+    <span class="profile-span" th:unless="${session.userName} == null" th:text="${session.userName} + '님'"></span>
   </div>
   <div id="infoList-close-button" onclick="closeLocationList()">
     <span><</span>

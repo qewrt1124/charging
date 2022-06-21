@@ -1,10 +1,14 @@
 package project.oecr.api.service;
 
-import java.io.IOException;
-import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import org.json.JSONArray;
+import org.json.JSONObject;
+import org.json.XML;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.w3c.dom.Document;
+import org.xml.sax.SAXException;
+import project.oecr.api.dao.ApiDao;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -15,18 +19,11 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import com.fasterxml.jackson.databind.ObjectMapper;
-
-import org.json.JSONArray;
-import org.json.JSONObject;
-import org.json.XML;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.w3c.dom.Document;
-import org.xml.sax.SAXException;
-
-import project.oecr.api.dao.ApiDao;
+import java.io.IOException;
+import java.io.StringWriter;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 @Service
 public class ApiServiceImpl
@@ -179,7 +176,7 @@ public class ApiServiceImpl
     @Override
     public void inputData() {
 
-        for (int i = 51; i <= 60; i++) {
+        for (int i = 1; i <= 10; i++) {
             String url = "http://apis.data.go.kr/B552584/EvCharger/getChargerInfo?serviceKey=APLWQgi4YJF4psxWPW%2BUuDpvq46J8yiGFt0AYGIToTw28Y37qTWA2vDreeRoRO7JbnZITOw3NqRKa8rGnfqdEg%3D%3D&numOfRows=10&zcode=36"
                     + "&pageNo=" + i;
 
