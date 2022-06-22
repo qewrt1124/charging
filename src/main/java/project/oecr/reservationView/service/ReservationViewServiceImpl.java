@@ -48,7 +48,6 @@ public class ReservationViewServiceImpl implements ReservationViewService {
       }
     }
 
-
     return duplicateList;
   }
 
