@@ -44,8 +44,13 @@ public class ReservationDao {
     return sqlSession.insert(nameSpace + ".insertReservation", reservationDto);
   }
 
-  public List<ResultVo> getReservationCoupon(String couponCode) {
+  public ResultVo getReservationCoupon(String couponCode) {
 
-    return sqlSession.selectList(nameSpace + ".getReservationCoupon", couponCode);
+    return sqlSession.selectOne(nameSpace + ".getReservationCoupon", couponCode);
+  }
+
+  public List<Integer> getSameCouponNum(String couponCode) {
+
+    return sqlSession.selectList(nameSpace + ".getSameCouponNum", couponCode);
   }
 }

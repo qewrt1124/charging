@@ -6,16 +6,17 @@ function changeCompletePage(data) {
   const completeResTime = document.querySelector("#complete-resTime");
   const completeFee = document.querySelector("#complete-fee");
 
-  let dataLength = data.length;
-  let startTime = data[0].startTime;
-  let endTime = data[dataLength - 1].endTime;
+  console.log("completePage : " + data);
+
+  let startTime = data.startTime;
+  let endTime = data.endTime;
   let finalResTime = startTime + " ~ " + endTime + '시';
 
-  completeChgerId.innerText = `${data[0].chgerId}`;
-  completeStatNm.innerText = `${data[0].statNm}`;
-  completeResDate.innerText = `${data[0].resDate}`;
+  completeChgerId.innerText = `${data.chgerId}`;
+  completeStatNm.innerText = `${data.statNm}`;
+  completeResDate.innerText = `${data.resDate}`;
   completeResTime.innerText = `${finalResTime}`;
-  completeFee.innerText = `${data[0].chgerCharge}원`;
+  completeFee.innerText = `${data.chgerCharge}원`;
 }
 
 // 예약확인 페이지 이동

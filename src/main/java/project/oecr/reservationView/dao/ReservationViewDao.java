@@ -20,8 +20,18 @@ public class ReservationViewDao {
     return sqlSession.selectList(nameSpace + ".getReservationViewList", reservationDto);
   }
 
+  public List<ReservationDto> getDuplicateReservationList(ReservationDto reservationDto) {
+
+    return sqlSession.selectList(nameSpace + ".getDuplicateReservationViewList", reservationDto);
+  }
+
   public int getReservationCount(ReservationDto reservationDto) {
 
     return sqlSession.selectOne(nameSpace + ".getTotalCount", reservationDto);
+  }
+
+  public List<Integer> getSameCouponNum(String couponNum) {
+
+    return sqlSession.selectList(nameSpace + ".getSameCouponNum", couponNum);
   }
 }

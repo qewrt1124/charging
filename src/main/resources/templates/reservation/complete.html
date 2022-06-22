@@ -1,33 +1,33 @@
 <div id="complete-wrap">
-<div id="complete-middle-wrap">
-  <div class="exit-button" onclick="completePageExit()">X</div>
-  <table class="reservation-table" id="complete-table">
-    <tr>
-      <td colspan="2">예약 내역</td>
-    </tr>
-    <tr>
-      <td class="reservation-left-td">충전기 번호</td>
-      <td class="reservation-right-td" id="complete-chgerId"></td>
-    </tr>
-    <tr>
-      <td>예약 장소</td>
-      <td id="complete-statNm"></td>
-    </tr>
-    <tr>
-      <td>예약 날짜</td>
-      <td id="complete-resDate"></td>
-    </tr>
-    <tr>
-      <td>예약 시간</td>
-      <td id="complete-resTime">15:00 ~ 17:00</td>
-    </tr>
-    <tr>
-      <td>예상 결제 금액</td>
-      <td id="complete-fee">12,800원</td>
-    </tr>
-  </table>
-  <div class="button-wrap">
-    <button th:onclick="|onClickShowReservationList('${session.mId}')|">예약내역 보기</button>
+  <div id="complete-middle-wrap">
+    <div class="exit-button" onclick="completePageExit()">X</div>
+    <table class="reservation-table" id="complete-table">
+      <tr>
+        <td colspan="2">예약 내역</td>
+      </tr>
+      <tr>
+        <td class="reservation-left-td">충전기 번호</td>
+        <td class="reservation-right-td" id="complete-chgerId"></td>
+      </tr>
+      <tr>
+        <td>예약 장소</td>
+        <td id="complete-statNm"></td>
+      </tr>
+      <tr>
+        <td>예약 날짜</td>
+        <td id="complete-resDate"></td>
+      </tr>
+      <tr>
+        <td>예약 시간</td>
+        <td id="complete-resTime">15:00 ~ 17:00</td>
+      </tr>
+      <tr>
+        <td>예상 결제 금액</td>
+        <td id="complete-fee">12,800원</td>
+      </tr>
+    </table>
+    <div class="button-wrap">
+      <button th:onclick="|onClickShowReservationList('${session.mId}')|">예약내역 보기</button>
+    </div>
   </div>
-</div>
 </div> 

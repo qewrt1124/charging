@@ -15,8 +15,8 @@ public class ReservationDto {
   private String resDate;
   private int tid;
   private int chgerCharge;
-  private String startTime;
-  private String endTime;
+  private int startTime;
+  private int endTime;
   private List<Integer> tidList;
   private String statNm;
   private int pageNumber;

@@ -61,7 +61,7 @@ function changeReservationPage(e) {
   if (!(e.length === 0)) {
     for (let i = 0; i < selectAll.length; i++) {
       for (let j = 0; j < e.length; j++) {
-        if (e[j].tid == selectAll[i].value) {
+        if (e[j].endTime == selectAll[i].value) {
           selectAll[i].disabled = "disabled";
           selectAll[i].nextElementSibling.style.backgroundColor =
             "rgb(201, 199, 199)";
@@ -162,6 +162,8 @@ function reservationInsertList(mid) {
     chgerCharge: resultPrice,
     statNm: selectStatNm,
   };
+
+  console.log("예약리스트 : " + reservationList);
 
   return reservationList;
 }

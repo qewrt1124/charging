@@ -13,20 +13,42 @@ public class ReservationViewServiceImpl implements ReservationViewService {
   @Autowired
   private ReservationViewDao reservationViewDao;
 
+  public int getEndTime(int i, List<ReservationDto> list) {
+
+    return list.get(i).getEndTime();
+  }
+
   @Override
   public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
 
-    System.out.println(reservationDto);
-    int pageNumber = reservationDto.getPageNumber();
-    int startPage = 0;
+    List<ReservationDto> duplicateList = reservationViewDao.getDuplicateReservationList(reservationDto);
 
-    if (pageNumber > 0) {
-      startPage = (pageNumber - 1) * 10;
+    if (duplicateList.size() != 0) {
+      for (int i = 0; i < duplicateList.size(); i++) {
+        duplicateList.get(i).setStartTime(getEndTime(i, duplicateList) - 1);
+        List<Integer> list = reservationViewDao.getSameCouponNum(duplicateList.get(i).getCouponNum());
+        if (list.contains(1) && list.contains(24)) {
+          int max = list.get(list.size() - 1);
+          for (int k = 1; k < list.size(); k++) {
+            if (list.get(k) < 10) {
+              if (max < list.get(k)) {
+                duplicateList.get(i).setEndTime(list.get(k));
+                max = list.get(k);
+              }
+            } else {
+              duplicateList.get(i).setStartTime(list.get(k) - 1);
+            }
+          }
+        } else {
+          duplicateList.get(i).setStartTime(list.get(0) - 1);
+          for (int j = 0; j < list.size(); j++) {
+            duplicateList.get(i).setEndTime(list.get(j));
+          }
+        }
+      }
     }
 
-    reservationDto.setPageNumber(startPage);
-
-    return reservationViewDao.getReservationList(reservationDto);
+    return duplicateList;
   }
 
   @Override

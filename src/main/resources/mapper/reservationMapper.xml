@@ -6,10 +6,8 @@
 
 <mapper namespace="mapper.reservation">
   <select id="getReservationList" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
-    select mId, statId, chgerId, resDate, reservation.tId, startTime, endTime
+    select *
     from reservation
-           left outer join time t
-                           on reservation.tId = t.tId
     where statId = #{statId}
       and chgerId = #{chgerId}
       and resDate = #{resDate}
@@ -41,10 +39,17 @@
   </insert>
 
   <select id="getReservationCoupon" parameterType="String" resultType="project.oecr.vo.ResultVo">
-    select statId, chgerId, resDate, startTime, endTime, statNm, chgerCharge
+    select statId, chgerId, resDate, endTime, statNm, chgerCharge
     from reservation
-        inner join time
-    where couponNum = #{couponCode} and time.tId = reservation.tId
-    order by startTime
+    where couponNum = #{couponCode}
+    group by couponNum
+    order by endTime desc
+  </select>
+
+  <select id="getSameCouponNum" parameterType="String" resultType="int">
+    select endTime
+    from reservation
+    where couponNum = #{couponCode}
+    order by endTime desc
   </select>
 </mapper>

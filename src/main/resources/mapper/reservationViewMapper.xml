@@ -6,17 +6,30 @@
 
 <mapper namespace="mapper.reservationView">
   <select id="getReservationViewList" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
-    select reservation.rId, reservation.statNm, reservation.chgerId, reservation.resDate, time.startTime, time.endTime, reservation.couponNum
+    select *
     from reservation
-           inner join time
-    where mid = #{mid} and reservation.tId = time.tId
+    where mid = 4
+    order by rid desc;
+  </select>
+
+  <select id="getDuplicateReservationViewList" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
+    select *
+    from reservation
+    where mid = 4
+    group by couponNum
     order by rid desc
-    limit #{pageNumber}, 10
   </select>
 
   <select id="getTotalCount" parameterType="project.oecr.dto.ReservationDto" resultType="int">
     select count(*)
     from reservation
     where mid = #{mid}
+  </select>
+
+  <select id="getSameCouponNum" parameterType="project.oecr.dto.ReservationDto" resultType="int">
+    select endTime
+    from reservation
+    where couponNum = #{couponNum}
+    order by endTime desc
   </select>
 </mapper>

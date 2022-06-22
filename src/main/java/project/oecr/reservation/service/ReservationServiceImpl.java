@@ -6,6 +6,7 @@ import org.springframework.transaction.annotation.Transactional;
 import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.dao.ReservationDao;
+import project.oecr.reservationView.dao.ReservationViewDao;
 import project.oecr.vo.ResultVo;
 
 import java.time.LocalDate;
@@ -19,6 +20,9 @@ public class ReservationServiceImpl implements ReservationService {
   @Autowired
   private ReservationDao reservationDao;
 
+  @Autowired
+  private ReservationViewDao reservationViewDao;
+
   @Override
   public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
 
@@ -27,35 +31,43 @@ public class ReservationServiceImpl implements ReservationService {
 
   @Override
   @Transactional
-  public List<ResultVo> insertReservation(ReservationDto reservationDto) {
-
-    List<Integer> resultImsi = new ArrayList<>();
+  public ResultVo insertReservation(ReservationDto reservationDto) {
 
     String couponCode = makeCoupon(reservationDto);
-    List<ResultVo> resultList = null;
     reservationDto.setCouponNum(couponCode);
     List<Integer> tidList = reservationDto.getTidList();
 
-    ResultVo result = new ResultVo();
-    result.setResult(0);
-    result.setCouponNum(couponCode);
-
     for (Integer integer : tidList) {
       reservationDto.setTid(integer);
-      int res = reservationDao.insertReservation(reservationDto);
-      result.setResult(res);
-      resultImsi.add(res);
-      if (result.getResult() == 0) {
-        throw new RuntimeException();
+      reservationDao.insertReservation(reservationDto);
+    }
+
+    ResultVo result = reservationDao.getReservationCoupon(couponCode);
+
+    List<Integer> endTimeList = reservationDao.getSameCouponNum(couponCode);
+
+    if (result != null) {
+      if (endTimeList.contains(1) && endTimeList.contains(24)) {
+        int max = endTimeList.get(endTimeList.size() - 1);
+        for (int k = 1; k < endTimeList.size(); k++) {
+          if (endTimeList.get(k) < 10) {
+            if (max < endTimeList.get(k)) {
+              result.setEndTime(endTimeList.get(k));
+              max = endTimeList.get(k);
+            }
+          } else {
+            result.setStartTime(endTimeList.get(k) - 1);
+          }
+        }
+      } else {
+        result.setStartTime(endTimeList.get(0) - 1);
+        for (int j = 0; j < endTimeList.size(); j++) {
+          result.setEndTime(endTimeList.get(j));
+        }
       }
     }
 
-    resultList = reservationDao.getReservationCoupon(couponCode);
-//    for (int i = 0; i < (resultList != null ? resultList.size() : 0); i++) {
-//      resultList.get(i).setResult(resultImsi.get(i));
-//    }
-
-    return resultList;
+    return result;
   }
 
   public String makeCoupon(ReservationDto reservationDto) {

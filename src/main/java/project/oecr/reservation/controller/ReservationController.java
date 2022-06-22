@@ -20,15 +20,15 @@ public class ReservationController {
   @PostMapping("/getReservationList")
   public List getReservationList(@RequestBody ReservationDto reservationDto) {
 
-    System.out.println("getReservationList : " + reservationDto);
-
     List list = reservationService.getReservationList(reservationDto);
 
     return list;
   }
 
   @PostMapping("/insertReservation")
-  public List<ResultVo> insertReservation(@RequestBody ReservationDto reservationDto) {
+  public ResultVo insertReservation(@RequestBody ReservationDto reservationDto) {
+
+    System.out.println("예약하기 : " + reservationDto);
 
     return reservationService.insertReservation(reservationDto);
   }
