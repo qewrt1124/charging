@@ -15,13 +15,14 @@
   <select id="getDuplicateReservationViewList" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
     select *
     from reservation
-    where mid = 4
+    where mid = #{mid}
     group by couponNum
     order by rid desc
+    limit #{pageNumber}, 10
   </select>
 
   <select id="getTotalCount" parameterType="project.oecr.dto.ReservationDto" resultType="int">
-    select count(*)
+    select count(distinct couponNum)
     from reservation
     where mid = #{mid}
   </select>

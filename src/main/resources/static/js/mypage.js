@@ -1,7 +1,8 @@
 function onClinkMyPageReservation(mId) {
   contentNumber = 1;
   const reservationView = document.querySelector('#info-wrap7');
-  getReservationView(mId);
+  const pageNumber = 1;
+  getReservationView(mId, pageNumber);
   reservationView.style.visibility = 'visible';
 }
 

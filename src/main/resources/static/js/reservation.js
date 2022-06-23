@@ -125,6 +125,9 @@ function continuousCheck(e) {
     for (let i = 0; i < length; i++ ) {
       console.log("전전 " + i + "번째 : " + checkedList[i].value);
     }
+
+    console.log(checkedList);
+
     if ((first == 1 && last - first == 23)) {
       checkBoxChangeRed(e);
     } else if ((second - first) > 1 || (last - preLast) > 1) {

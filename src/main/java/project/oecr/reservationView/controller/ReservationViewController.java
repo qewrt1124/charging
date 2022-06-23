@@ -18,6 +18,8 @@ public class ReservationViewController {
   @PostMapping("/reservationView")
   public List<ReservationDto> getReservationList(@RequestBody ReservationDto reservationDto) {
 
+    System.out.println("reservationDto : " + reservationDto);
+
     return reservationViewService.getReservationList(reservationDto);
   }
 

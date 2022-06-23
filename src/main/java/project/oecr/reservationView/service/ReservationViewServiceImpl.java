@@ -21,8 +21,17 @@ public class ReservationViewServiceImpl implements ReservationViewService {
   @Override
   public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
 
-    List<ReservationDto> duplicateList = reservationViewDao.getDuplicateReservationList(reservationDto);
+    int startPage = startPageNumber(reservationDto.getPageNumber());
 
+    reservationDto.setPageNumber(startPage);
+    List<ReservationDto> duplicateList = reservationViewDao.getDuplicateReservationList(reservationDto);
+    reservationTime(duplicateList);
+
+    return duplicateList;
+  }
+
+  // 시간 맞게 띄우게
+  public void reservationTime(List<ReservationDto> duplicateList) {
     if (duplicateList.size() != 0) {
       for (int i = 0; i < duplicateList.size(); i++) {
         duplicateList.get(i).setStartTime(getEndTime(i, duplicateList) - 1);
@@ -47,8 +56,18 @@ public class ReservationViewServiceImpl implements ReservationViewService {
         }
       }
     }
+  }
 
-    return duplicateList;
+  public int startPageNumber(int pageNumber) {
+    int startPage;
+
+    if (pageNumber == 0) {
+      startPage = pageNumber;
+    } else {
+      startPage = (pageNumber - 1) * 10;
+    }
+
+    return startPage;
   }
 
   @Override

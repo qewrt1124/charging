@@ -58,3 +58,7 @@
 #reservationView-table {
   margin: auto;
 }
+
+.pageNumberButton {
+  background-color: white;
+}
