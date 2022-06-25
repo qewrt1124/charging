@@ -303,6 +303,7 @@ function insertReservation(mid) {
 // 시간이 선택되지 않으면 경고창 뜨고 시간이 하나 이상 선택되어 있을때만 데이터가 DB에 들어가도록 실행
 function onClickReservationButton(mid) {
   let checkedList = document.querySelectorAll("input[type='checkbox']:checked");
+  let overPrice = document.querySelector("#over-charging-payment");
 
   if (timeResult === false) {
     alert("시간을 선택하고 선택완료를 눌러주세요.")
@@ -315,7 +316,12 @@ function onClickReservationButton(mid) {
     timeResultList = 1;
     clearTimeStamp();
     alert("시간이 수정 되었습니다. 선택완료를 다시 눌러주세요.")
-  } else if (timeResult === true && selectCheck === true && JSON.stringify(timeResultList) === JSON.stringify(checkedList)){
+    console.log(overPrice.innerText);
+  } else if (timeResult === true && selectCheck === true && JSON.stringify(timeResultList) === JSON.stringify(checkedList) && overPrice.innerText !== "") {
+    if(confirm("초과 금액이 발생했습니다.")) {
+      insertReservation(mid);
+    }
+  } else if (timeResult === true && selectCheck === true && JSON.stringify(timeResultList) === JSON.stringify(checkedList)) {
     insertReservation(mid);
   }
 }
