@@ -263,8 +263,6 @@ function reservationInsertList(mid) {
     statNm: selectStatNm,
   };
 
-  console.log("예약리스트 : " + reservationList);
-
   return reservationList;
 }
 
