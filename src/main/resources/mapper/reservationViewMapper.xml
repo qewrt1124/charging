@@ -17,7 +17,7 @@
     from reservation
     where mid = #{mid}
     group by couponNum
-    order by rid desc
+    order by resDate desc
     limit #{pageNumber}, 10
   </select>
 
@@ -32,5 +32,16 @@
     from reservation
     where couponNum = #{couponNum}
     order by endTime desc
+  </select>
+
+  <delete id="deleteReservation" parameterType="project.oecr.dto.ReservationDto">
+    delete from reservation
+    where couponNum = #{couponNum}
+  </delete>
+
+  <select id="getSameCouponNumList" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
+    select *
+    from reservation
+    where couponNum = #{couponNum}
   </select>
 </mapper>

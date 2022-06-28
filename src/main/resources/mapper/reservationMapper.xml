@@ -35,21 +35,26 @@
 
   <insert id="insertReservation" parameterType="project.oecr.dto.ReservationDto">
     insert into reservation
-    values (null, #{mid}, #{couponNum}, #{statId}, #{chgerId}, #{resDate}, #{tid}, #{chgerCharge}, #{statNm});
+    values (null, #{mid}, #{couponNum}, #{statId}, #{chgerId}, #{resDate}, #{tid}, #{chgerCharge}, #{statNm}, #{chgerType});
   </insert>
 
   <select id="getReservationCoupon" parameterType="String" resultType="project.oecr.vo.ResultVo">
-    select statId, chgerId, resDate, endTime, statNm, chgerCharge
+    select statId, chgerId, resDate, endTime, statNm, chgerCharge, chgerType
     from reservation
     where couponNum = #{couponCode}
     group by couponNum
-    order by endTime desc
   </select>
 
   <select id="getSameCouponNum" parameterType="String" resultType="int">
     select endTime
     from reservation
     where couponNum = #{couponCode}
-    order by endTime desc
+  </select>
+
+  <select id="getReservationStatIdInfo" parameterType="project.oecr.dto.ReservationDto" resultType="project.oecr.dto.ReservationDto">
+    select *
+    from charginginfo
+    where statId = #{statId}
+      and chgerId = #{chgerId}
   </select>
 </mapper>

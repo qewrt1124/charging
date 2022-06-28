@@ -18,26 +18,26 @@ public class ReservationController {
   private ReservationService reservationService;
 
   @PostMapping("/getReservationList")
-  public List getReservationList(@RequestBody ReservationDto reservationDto) {
+  public List<ReservationDto> getReservationList(@RequestBody ReservationDto reservationDto) {
 
-    List list = reservationService.getReservationList(reservationDto);
-
-    return list;
+    return reservationService.getReservationList(reservationDto);
   }
 
   @PostMapping("/insertReservation")
   public ResultVo insertReservation(@RequestBody ReservationDto reservationDto) {
 
-    System.out.println("예약하기 : " + reservationDto);
-
     return reservationService.insertReservation(reservationDto);
   }
 
   @PostMapping("/getCarData")
-  public List getCarData(@RequestBody CarInfoDto carInfoDto) {
+  public List<CarInfoDto> getCarData(@RequestBody CarInfoDto carInfoDto) {
 
-    List list = reservationService.getCarData(carInfoDto);
+    return  reservationService.getCarData(carInfoDto);
+  }
 
-    return list;
+  @PostMapping("/getReservationStatIdInfo")
+  public ReservationDto getReservationStatIdInfo(@RequestBody ReservationDto reservationDto) {
+
+    return reservationService.getReservationStatIdInfo(reservationDto);
   }
 }

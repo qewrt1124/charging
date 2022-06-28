@@ -21,4 +21,5 @@ public class ReservationDto {
   private String statNm;
   private int pageNumber;
   private int totalPageCount;
+  private String chgerType;
 }

@@ -1,12 +1,15 @@
 let selectChgerId;
 let selectStatId;
 let selectChgerType;
+let selectCouponNum;
 let selectDate = getToday();
 let resultPrice;
 let selectStatNm;
 let selectCheck = false;
 let timeResult = false;
 let timeResultList;
+// 수정하기 누른 상태인지 체크하는 변수
+let modifyCheck = false;
 let contentNumber = 1;
 let addrInfo;
 let chargingNum;

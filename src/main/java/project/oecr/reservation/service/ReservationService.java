@@ -14,4 +14,5 @@ public interface ReservationService {
 
   public List<CarInfoDto> getCarData(CarInfoDto ManuFac);
 
+  public ReservationDto getReservationStatIdInfo(ReservationDto reservationDto);
 }

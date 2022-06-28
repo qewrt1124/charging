@@ -11,4 +11,10 @@ public interface ReservationViewService {
   public int reservationViewCount(ReservationDto reservationDto);
 
   public List<ReservationDto> getReservationNowPage(ReservationDto reservationDto);
+
+  public void deleteReservation(ReservationDto reservationDto);
+
+  public List<ReservationDto> modifyReservation(ReservationDto reservationDto);
+
+  public List<ReservationDto> getSameCouponNumList(ReservationDto reservationDto);
 }

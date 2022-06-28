@@ -43,29 +43,31 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     ResultVo result = reservationDao.getReservationCoupon(couponCode);
-
     List<Integer> endTimeList = reservationDao.getSameCouponNum(couponCode);
 
     if (result != null) {
       if (endTimeList.contains(1) && endTimeList.contains(24)) {
-        int max = endTimeList.get(endTimeList.size() - 1);
+        int max = endTimeList.get(0);
         for (int k = 1; k < endTimeList.size(); k++) {
           if (endTimeList.get(k) < 10) {
-            if (max < endTimeList.get(k)) {
+            if(max < endTimeList.get(k) && endTimeList.get(k) - max == 1) {
               result.setEndTime(endTimeList.get(k));
               max = endTimeList.get(k);
+              result.setStartTime(endTimeList.get(k + 1) - 1);
+              break;
             }
-          } else {
-            result.setStartTime(endTimeList.get(k) - 1);
           }
         }
       } else {
         result.setStartTime(endTimeList.get(0) - 1);
-        for (int j = 0; j < endTimeList.size(); j++) {
-          result.setEndTime(endTimeList.get(j));
-        }
+        result.setEndTime(endTimeList.get(endTimeList.size() - 1));
+//        for (int j = 0; j < endTimeList.size(); j++) {
+//          result.setEndTime(endTimeList.get(j));
+//        }
       }
     }
+
+    System.out.println("timeResult마지막 : " + result);
 
     return result;
   }
@@ -125,5 +127,11 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     return result;
+  }
+
+  @Override
+  public ReservationDto getReservationStatIdInfo(ReservationDto reservationDto) {
+
+    return reservationDao.getReservationStatIdInfo(reservationDto);
   }
 }

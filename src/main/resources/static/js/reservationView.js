@@ -22,8 +22,10 @@ function getReservationView(mid, pageNumber) {
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log("getReservation 동작 확인 0")
       getEndPage(mid, pageNumber);
       makeReservationList(data, pageNumber);
+      console.log("getReservation 동작 확인 1");
     })
     .catch((e) => {
       console.log("예약리스트 가져오기 실패");
@@ -40,8 +42,8 @@ function makeReservationViewParam(mid, pageNumber) {
   return list;
 }
 
+// 예약내역확인 리스트 만들기
 function makeReservationList(e, pageNumber) {
-
   const reservationViewTable = document.querySelector('#reservationView-table');
 
   reservationViewTable.innerHTML = `
@@ -52,6 +54,7 @@ function makeReservationList(e, pageNumber) {
         <th style="width: 130px">예약날짜</th>
         <th style="width: 110px">예약시간</th>
         <th style="width: 300px">쿠폰번호</th>
+        <th style="width: 100px">수정/삭제</th>
       </tr>
   `;
 
@@ -72,6 +75,10 @@ function makeReservationList(e, pageNumber) {
       `
         </td>
         <td>${e[i].couponNum}</td>
+        <td>
+          <button class="reservationView-common-button" onclick="onClickModifyReservationButton(${mId}, '${e[i].chgerId}', '${e[i].resDate}', '${e[i].statId}', '${e[i].statNm}','${e[i].couponNum}')">예약수정</button>
+          <button class="reservationView-common-button" style="margin-top: 8px" onclick="deleteReservationButton('${mId}', '${e[i].couponNum}')">예약취소</button>
+        </td>
       </tr>
   `;
   }
@@ -111,6 +118,7 @@ function getEndPage(mid, pageNumber) {
     .then((data) => {
       endPage = endPageValue(data);
       makePagingButton(data, pageNumber);
+      pageButtonChangeColor(pageNumber);
     })
     .catch((e) => {
       console.log("예약리스트 가져오기 실패");
@@ -180,6 +188,8 @@ function pageButtonHtml(pageButton, i) {
 function pageButtonChangeColor(pageNumber) {
   let pageButtonAll = document.querySelectorAll(".pageNumberButton");
 
+  console.log("페이지 버튼 색 변환 동작 확인");
+
   for (let i = 0; i < pageButtonAll.length; i++) {
     pageButtonAll[i].style.backgroundColor = "white";
   }
@@ -191,30 +201,37 @@ function pageButtonChangeColor(pageNumber) {
   }
 }
 
-function onclickPrePageButton(mid) {
+// 페이지번호 알아내기
+function findNowPage() {
   let contentNumber = document.querySelector('.contentNumber').innerText;
   let nowPage = parseInt(contentNumber / 10) + 1;
 
-  pageButtonChangeColor(nowPage);
+  return nowPage;
+}
+
+// 이전페이지로 버튼
+function onclickPrePageButton(mid) {
+  let nowPage = findNowPage();
 
   let preValue = nowPage % 5;
 
   if (preValue === 1 && nowPage === 1) {
     alert("첫 페이지 입니다.")
+    pageButtonChangeColor(nowPage);
   } else {
+    // pageButtonChangeColor(nowPage - 1);
     getReservationView(mid, nowPage - 1);
   }
 }
 
 function onclickNextPageButton(mid, endPage) {
-  let contentNumber = document.querySelector('.contentNumber').innerText;
-  let nowPage = parseInt(contentNumber / 10) + 1;
-
-  pageButtonChangeColor(nowPage);
+  let nowPage = findNowPage();
 
   if (nowPage === endPage) {
     alert("마지막 페이지 입니다.")
+    pageButtonChangeColor(nowPage);
   } else {
+    // pageButtonChangeColor(nowPage + 1);
     getReservationView(mid, nowPage + 1);
   }
 }
@@ -250,4 +267,134 @@ function onClickShowReservationList(mid) {
 function reservationViewCloseButton() {
   const reservationListPage = document.querySelector('#info-wrap7');
   reservationListPage.style.visibility = 'hidden';
+}
+
+function deleteReservation(couponNum, mid, pageNumber) {
+  fetch("/deleteReservation", {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(makeModifyReservationJson(null, null, couponNum)),
+  })
+    .then(() => {
+      getReservationView(mid, pageNumber);
+    })
+    .catch((e) => {
+      console.log("예약리스트 가져오기 실패");
+      console.log(e);
+    });
+}
+
+// 페이지 수정 및 삭제 Json
+function makeModifyReservationJson(mid, resDate, couponNum) {
+  let list = {
+    "mid": mid,
+    "resDate": resDate,
+    "couponNum": couponNum
+  }
+
+  return list;
+}
+
+// 예약 삭제 버튼
+function deleteReservationButton(mid, couponNum) {
+  let pageNumber = findNowPage();
+  if (confirm("취소하시겠습니까?")) {
+    deleteReservation(couponNum, mid, pageNumber);
+  }
+}
+
+function getSameCouponNumList(mid, resDate, couponNum) {
+  fetch("/getSameCouponNumList", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(makeModifyReservationJson(mid, resDate, couponNum)),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      clearStartPercentage();
+      removerOption();
+      removeReservationTime();
+      getCarList();
+      activateModifyTime(data);
+      changeInsertReservationButton(resDate, couponNum);
+      console.log("활성화 확인");
+    })
+    .catch((e) => {
+      alert("잠시 후 다시 시도해주세요.");
+      console.log("예약 수정 페이지 실패");
+      console.log(e);
+    });
+}
+
+function onClickModifyReservationButton(mid, chgerId, resDate, statId, statNm, couponNum) {
+  if (confirm("예약을 변경하시겠습니까?")) {
+    modifyCheck = true;
+    // eventStartDate = resDate;
+    showDate = resDate;
+    selectChgerId = chgerId;
+    selectStatId = statId;
+    selectCouponNum = couponNum;
+    clearReservationPage();
+    getReservationList(chgerId, resDate, statId);
+    getSameCouponNumList(mid, resDate, couponNum);
+    // modifyReservationPage(couponNum);
+    reservationViewCloseButton();
+  }
+}
+
+// 예약수정 시 수정시간 활성화
+function activateModifyTime(modifyTime) {
+  console.log("예약 활성화 확인");
+  let selectAll = document.querySelectorAll("[name='tId']");
+
+  if (modifyCheck != false) {
+    for (let i = 0; i < modifyTime.length; i++) {
+      for (let j = 0; j < selectAll.length; j++) {
+        if (modifyTime[i].endTime == selectAll[j].value) {
+          selectAll[j].removeAttribute("disabled");
+          selectAll[j].checked = true;
+          selectAll[j].nextElementSibling.style.backgroundColor = "blue";
+        }
+      }
+    }
+  }
+}
+
+// 예약수정 눌렀을 때 예약페이지 버튼 수정
+function modifyReservationPage(couponNum) {
+  let reservationButtonWrap = document.querySelector("#reservation-button-wrap");
+  reservationButtonWrap.innerHTML = `
+        <button id="reservation-button" onclick="onClickModifyReservatonButton(${mId}, '${couponNum}')">예약변경</button>
+        <button id="reservation-cancle-button" onclick="deleteReservation('${couponNum}')">예약취소</button>
+        `;
+}
+
+function listConfirm(list) {
+  for (let i = 0; i < list.length; i++) {
+    console.log("list[" + i + "] : " + list[i].endTime);
+  }
+}
+
+function onClickModifyReservatonButton(mid, couponNum, resDate, chgerType) {
+  fetch("/modifyReservation", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(reservationInsertList(mid, couponNum, resDate, chgerType)),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      changeCompletePage(data);
+      reservationCheck();
+    })
+    .catch((e) => {
+      alert("잠시 후 다시 시도해주세요.");
+      console.log("예약하기 실패");
+      console.log(e);
+    });
 }

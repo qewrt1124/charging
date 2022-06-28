@@ -54,7 +54,7 @@ function chageStatinInfo(e) {
       `
       <tr>
         <td class="stationInfo-reservation-check">
-        <button onclick="ClickedReservation('${e[i].chgerId}', getToday(), '${e[i].statId}', '${e[i].chgerType}', '${mId}')">예약하기</button>
+        <button onclick="ClickedReservation('${e[i].chgerId}', getToday(), '${e[i].statId}', '${e[i].chgerType}', ${mId})">예약하기</button>
         </td>
         <td class="stationInfo-bottom-chargingStatus-adapter">
           <ul>
@@ -132,8 +132,8 @@ function ClickedReservation(chgerId, date, statId, chgerType, mId) {
     getReservationList(chgerId, date, statId);
     selectChgerId = chgerId;
     selectStatId = statId;
-    getCarList();
     selectChgerType = chgerType;
+    getCarList(null, selectChgerType);
   } else {
     alert("로그인 후 예약이 가능합니다.")
   }

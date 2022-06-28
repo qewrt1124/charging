@@ -2,7 +2,9 @@ package project.oecr.reservationView.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.oecr.dto.ReservationDto;
+import project.oecr.reservation.dao.ReservationDao;
 import project.oecr.reservationView.dao.ReservationViewDao;
 
 import java.util.List;
@@ -12,6 +14,9 @@ public class ReservationViewServiceImpl implements ReservationViewService {
 
   @Autowired
   private ReservationViewDao reservationViewDao;
+
+  @Autowired
+  private ReservationDao reservationDao;
 
   public int getEndTime(int i, List<ReservationDto> list) {
 
@@ -80,5 +85,24 @@ public class ReservationViewServiceImpl implements ReservationViewService {
   public List<ReservationDto> getReservationNowPage(ReservationDto reservationDto) {
 
     return reservationViewDao.getReservationList(reservationDto);
+  }
+
+  @Override
+  @Transactional
+  public void deleteReservation(ReservationDto reservationDto) {
+    reservationViewDao.deleteReservation(reservationDto);
+  }
+
+  @Override
+  public List<ReservationDto> modifyReservation(ReservationDto reservationDto) {
+
+
+    return null;
+  }
+
+  @Override
+  public List<ReservationDto> getSameCouponNumList(ReservationDto reservationDto) {
+
+    return reservationViewDao.getSameCouponNumList(reservationDto);
   }
 }

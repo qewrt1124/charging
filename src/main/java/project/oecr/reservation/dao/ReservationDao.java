@@ -19,8 +19,6 @@ public class ReservationDao {
 
   public List<ReservationDto> getReservationList(ReservationDto reservationDto) {
 
-    System.out.println("reservationDao : " + reservationDto);
-
     return sqlSession.selectList(nameSpace + ".getReservationList", reservationDto);
   }
 
@@ -52,5 +50,10 @@ public class ReservationDao {
   public List<Integer> getSameCouponNum(String couponCode) {
 
     return sqlSession.selectList(nameSpace + ".getSameCouponNum", couponCode);
+  }
+
+  public ReservationDto getReservationStatIdInfo(ReservationDto reservationDto) {
+
+    return sqlSession.selectOne(nameSpace + ".getReservationStatIdInfo", reservationDto);
   }
 }

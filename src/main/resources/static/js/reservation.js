@@ -1,3 +1,6 @@
+let eventStartDate = "2022-06-23";
+let showDate = getToday();
+
 // 달력(Fullcalendar) 함수 - 날짜 누르면 예약페이지 내용 바뀜
 document.addEventListener("DOMContentLoaded", function () {
   let calendarEl = document.getElementById("calendar");
@@ -5,8 +8,16 @@ document.addEventListener("DOMContentLoaded", function () {
     dateClick: function (info) {
       onClickDate(info.dateStr);
     },
-    // timeZone: "local",
-    // initialDate : new Date(2022, 6, 23),
+    titleFormat: {
+      year: "numeric",
+      month: "2-digit"
+    },
+    // events: [{start: eventStartDate, display: "background"}],
+    // events: function () {
+    //   [{start: eventStartDate, display: "background"}];
+    // },
+    timeZone: "local",
+    initialDate: showDate,
     initialView: "dayGridMonth",
     editable: true,
     selectable: true,
@@ -18,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
 });
 
 // 예약리스트 가져올 json데이터 만들기 (충전기 번호, 날짜, 충전소번호)
-function makeReservationListParam(chgerId, date, statId) {
+function makeReservationListParam(chgerId, statId, date) {
   let ResParam = {
     chgerId: chgerId,
     resDate: date,
@@ -37,18 +48,26 @@ function getReservationList(chgerId, date, statId) {
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(makeReservationListParam(chgerId, date, statId)),
+    body: JSON.stringify(makeReservationListParam(chgerId, statId, date)),
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log("1차")
       openReservationPage();
-      clearReservationPage();
+      console.log("2차")
+      clearReservationPage(date);
+      console.log("3차")
       changeReservationPage(data);
+      // getReservationStatIdInfo(chgerId, statId, date);
     })
     .catch((e) => {
       console.log(e);
       console.log("예약시간 가져오기");
-    });
+    }).then(() => {
+    getReservationStatIdInfo(chgerId, statId, date);
+  }).then(() => {
+    console.log("예약시간 비활성화");
+  });
 }
 
 // 예약리스트를 가져와서 예약되어 있는 시간은 예약시간 비활성화
@@ -71,13 +90,32 @@ function changeReservationPage(e) {
       }
     }
   }
-  reservationStatus();
 }
 
 // 달력의 날짜를 누르면 해당 일자의 예약리스트를 가져오고 예약페이지 내용을 바꿈
 function onClickDate(date) {
-  getReservationList(selectChgerId, date, selectStatId);
-  selectDate = date;
+  if (modifyCheck == false) {
+    console.log("modifyCheck = false");
+    getReservationList(selectChgerId, date, selectStatId);
+    selectDate = date;
+  } else if (modifyCheck == true && showDate == date) {
+    console.log("modifyCheck = true");
+    clearReservationPage();
+    const reservationList = () => new Promise((resolve, reject) => {
+      getReservationList(selectChgerId, date, selectStatId);
+    });
+    // getReservationList(selectChgerId, date, selectStatId);
+    // const sameCouponNumList = () => new Promise((resolve, reject) => {
+    //   getSameCouponNumList(mId, showDate, selectCouponNum);
+    // });
+    reservationList().then(console.log("1차")).then(getSameCouponNumList(mId, showDate, selectCouponNum));
+    // getSameCouponNumList(mId, showDate, selectCouponNum);
+  } else if (modifyCheck == true && showDate != date) {
+    console.log("동작확인3");
+    clearReservationPage();
+    getReservationList(selectChgerId, date, selectStatId);
+  }
+
 }
 
 // 체크박스 눌렀을때 작동하는 함수
@@ -137,25 +175,19 @@ function continuousCheck(e) {
     let preLast = checkedList[length - 2].value;
     let last = checkedList[length - 1].value;
 
-    for (let i = 0; i < length; i++ ) {
+    for (let i = 0; i < length; i++) {
       console.log("전전 " + i + "번째 : " + checkedList[i].value);
     }
 
     if (first == 1 && last == 24) {
-      console.log(1);
-      console.log("1 + checked : " + checkedList[clickedIndex].value);
       if (checkedList[clickedIndex].value == 1) {
         if (last - first == 23) {
-          console.log(0);
           checkBoxChangeRed(e);
         }
-      }
-      else if(checkedList[clickedIndex].value - checkedList[clickedIndex - 1].value < checkedList[clickedIndex + 1].value - checkedList[clickedIndex].value) {
+      } else if (checkedList[clickedIndex].value - checkedList[clickedIndex - 1].value < checkedList[clickedIndex + 1].value - checkedList[clickedIndex].value) {
         if (checkedList[clickedIndex].value - checkedList[clickedIndex - 1].value == 1) {
           checkBoxChangeRed(e);
-          console.log(2);
         } else {
-          console.log(3);
           alert("연속된 시간을 선택하세요");
           event.preventDefault();
           clearTimeStamp();
@@ -163,35 +195,29 @@ function continuousCheck(e) {
         }
       } else if (checkedList[clickedIndex].value - checkedList[clickedIndex - 1].value > checkedList[clickedIndex + 1].value - checkedList[clickedIndex].value) {
         if (checkedList[clickedIndex + 1].value - checkedList[clickedIndex].value == 1) {
-          console.log(4);
           checkBoxChangeRed(e);
         } else {
-          console.log(5);
           alert("연속된 시간을 선택하세요");
           event.preventDefault();
           clearTimeStamp();
           getSelectedTimeStamp();
         }
       }
-    }
-    else if ((second - first) > 1 || (last - preLast) > 1) {
-      console.log(6);
+    } else if ((second - first) > 1 || (last - preLast) > 1) {
       alert("연속된 시간을 선택하세요");
-      for (let i = 0; i < length; i++ ) {
-        console.log("전 " + i + "번째 : " + checkedList[i].value);
-      }
+      // for (let i = 0; i < length; i++ ) {
+      //   console.log("전 " + i + "번째 : " + checkedList[i].value);
+      // }
       event.preventDefault();
       clearTimeStamp();
       getSelectedTimeStamp();
-      for (let i = 0; i < length; i++ ) {
-        console.log("후 " + i + "번째 : " + checkedList[i].value);
-      }
+      // for (let i = 0; i < length; i++ ) {
+      //   console.log("후 " + i + "번째 : " + checkedList[i].value);
+      // }
     } else {
-      console.log(6);
       checkBoxChangeRed(e);
     }
   } else {
-    console.log(7);
     checkBoxChangeRed(e);
   }
 
@@ -249,18 +275,22 @@ function reservationCountBoolean(checkedList) {
 }
 
 /* 예약내역 데이터 가져오기 */
+
 // 예약데이터 json
-function reservationInsertList(mid) {
+function reservationInsertList(mid, couponNum, date, chgerType) {
   let timeList = checkedList();
 
   let reservationList = {
     mid: mid,
     statId: resStatId,
     chgerId: chargingNum,
-    resDate: selectDate,
+    // resDate: selectDate,
+    resDate: date,
     tidList: timeList,
     chgerCharge: resultPrice,
     statNm: selectStatNm,
+    couponNum: couponNum,
+    chgerType: chgerType,
   };
 
   return reservationList;
@@ -280,17 +310,21 @@ function checkedList() {
 // 예약 데이터 DB에 집어 넣기
 // -- 성공하면 예약확인 페이지 내용이 바뀌고 페이지 이동
 // -- 실패하면 데이터는 들어가지 않고 실패이유가 console에 뜨고 경고창 나옴 / 페이지 이동 및 내용 갈아끼우기 실행 되지 않음
-function insertReservation(mid) {
+function insertReservation(mid, date) {
+  console.log("insertReservation : " + selectChgerType);
+  console.log(reservationInsertList(mid, null, date, selectChgerType));
   fetch("/insertReservation", {
     method: "post",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(reservationInsertList(mid)),
+    body: JSON.stringify(reservationInsertList(mid, null, date, selectChgerType)),
   })
     .then((res) => res.json())
     .then((data) => {
+      console.log("insertReservationData 1");
       changeCompletePage(data);
+      console.log("insertReservationData 2");
       reservationCheck();
     })
     .catch((e) => {
@@ -301,35 +335,33 @@ function insertReservation(mid) {
 }
 
 // 시간이 선택되지 않으면 경고창 뜨고 시간이 하나 이상 선택되어 있을때만 데이터가 DB에 들어가도록 실행
-function onClickReservationButton(mid) {
+function onClickReservationButton(mid, date) {
   let checkedList = document.querySelectorAll("input[type='checkbox']:checked");
   let overPrice = document.querySelector("#over-charging-payment");
 
   if (timeResult === false) {
     alert("시간을 선택하고 선택완료를 눌러주세요.")
-  }
-  else if (timeResult === true && selectCheck === false) {
+  } else if (timeResult === true && selectCheck === false) {
     alert("다른 옵션들을 선택하고 입력완료를 눌러주세요");
-  } else if(JSON.stringify(timeResultList) !== JSON.stringify(checkedList)) {
+  } else if (JSON.stringify(timeResultList) !== JSON.stringify(checkedList)) {
     selectCheck = false;
     timeResult = false;
     timeResultList = 1;
     clearTimeStamp();
     alert("시간이 수정 되었습니다. 선택완료를 다시 눌러주세요.")
-    console.log(overPrice.innerText);
   } else if (timeResult === true && selectCheck === true && JSON.stringify(timeResultList) === JSON.stringify(checkedList) && overPrice.innerText !== "") {
-    if(confirm("초과 금액이 발생했습니다.")) {
-      insertReservation(mid);
+    if (confirm("초과 금액이 발생했습니다.")) {
+      insertReservation(mid, date);
     }
   } else if (timeResult === true && selectCheck === true && JSON.stringify(timeResultList) === JSON.stringify(checkedList)) {
-    insertReservation(mid);
+    insertReservation(mid, date);
   }
 }
 
 /* 제조사/차량/배터리/충전기속도 옵션 */
 // 제조사/차량/배터리/충전기속도 옵션 초기화
 // 제조사/차량/배터리 정보 DB에서 가져오는 함수
-function getCarList(e) {
+function getCarList(e, chgerType) {
   fetch("/getCarData", {
     method: "post",
     headers: {
@@ -339,7 +371,7 @@ function getCarList(e) {
   })
     .then((res) => res.json())
     .then((data) => {
-      changeOption(data);
+      changeOption(data, selectChgerType);
     })
     .catch((e) => {
       console.log("차량정보 가져오기 실패");
@@ -377,7 +409,7 @@ function selectValue(e) {
 }
 
 // 옵션에 내용 채우기 - onchange 됬을 때 동작함
-function changeOption(list) {
+function changeOption(list, chgerType) {
   const model = document.querySelector('#cars-model-select');
   const batCap = document.querySelector('#cars-batCap-select');
   const outPut = document.querySelector('#cars-outPut-select');
@@ -386,18 +418,18 @@ function changeOption(list) {
 
   if (!(list[0].manufac == null)) {
     targetNum = 0;
-    inputOption(list, targetNum);
+    inputOption(list, targetNum, chgerType);
     model.innerHTML = `<option>제조사 선택</option>`;
     batCap.innerHTML = `<option>제조사 선택</option>`;
     outPut.innerHTML = `<option>제조사 선택</option>`;
   } else if (!(list[0].model == null)) {
     targetNum = 1;
-    inputOption(list, targetNum);
+    inputOption(list, targetNum, chgerType);
     batCap.innerHTML = `<option>모델 선택</option>`;
     outPut.innerHTML = `<option>모델 선택</option>`;
   } else if (!(list[0].batCap == null)) {
     targetNum = 2;
-    inputOption(list, targetNum);
+    inputOption(list, targetNum, chgerType);
     outPut.innerHTML = `<option>배터리용량 선택</option>`;
   } else if (!(list[0].outPut == null)) {
     targetNum = 3;
@@ -414,7 +446,7 @@ function removerOption() {
 }
 
 // 제조사/차량/배터리용량/충전속도 옵션 변경 함수
-function inputOption(list, targetNum) {
+function inputOption(list, targetNum, chgerType) {
   let target;
 
   if (targetNum === 0) {
@@ -430,7 +462,7 @@ function inputOption(list, targetNum) {
     target = document.querySelector("#cars-outPut-select");
     target.innerHTML = `<option value="outPutChoose">충전속도 선택</option>`;
 
-    if (selectChgerType === '02') {
+    if (chgerType === '02') {
       list = [{outPut: "완속"}];
     } else {
       list = [{outPut: "급속"}];
@@ -446,16 +478,43 @@ function inputOption(list, targetNum) {
 }
 
 /* 예약상황 */
+function getReservationStatIdInfo(chgerId, statId, date) {
+  fetch("/getReservationStatIdInfo", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(makeReservationListParam(chgerId, statId)),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      openReservationPage();
+      // clearReservationPage(date);
+      reservationStatus(data, date);
+      console.log("4차 - 함수");
+    })
+    .catch((e) => {
+      console.log(e);
+      console.log("예약시간 가져오기");
+    });
+}
 
 // 예약페이지의 예약상황 주소, 충전기번호, 날짜 표시
-function reservationStatus() {
+function reservationStatus(e, date) {
   const statNm = document.querySelector("#reservation-statNm");
   const chgerId = document.querySelector("#reservation-chgerId");
   const resDate = document.querySelector("#reservation-resDate");
+  statNm.innerText = `${e.statNm}`;
+  chgerId.innerText = `${e.chgerId}`;
 
-  statNm.innerText = `${addrInfo}`;
-  chgerId.innerText = `${chargingNum}`;
-  resDate.innerText = `${selectDate}`;
+  if (e.resDate === null && date === null) {
+    resDate.innerText = getToday();
+  } else if (e.resDate !== null && date === null) {
+    resDate.innerText = `${e.resDate}`;
+  } else {
+    resDate.innerText = `${date}`;
+  }
+
 }
 
 // 예약상황의 예약 시간 내용 초기화
@@ -505,6 +564,7 @@ function getSelectedTimeStamp() {
 }
 
 /* first = 1 && last = 24일 때 시간 나타내기 */
+
 // endTime
 function time1(selectedTime) {
   for (let i = 0; i < selectedTime.length - 1; i++) {
@@ -513,6 +573,7 @@ function time1(selectedTime) {
     }
   }
 }
+
 // startTime
 function time2(selectedTime) {
   for (let i = selectedTime.length - 1; i > 0; i--) {
@@ -585,12 +646,10 @@ function viewChargingPercentage() {
     } else if (batCap.value === "batCapChoose") {
       alert("배터리용량을 선택해주세요.")
     } else if (chargeType.value === "outPutChoose") {
-      console.log(start.value);
       alert("충전속도를 선택해주세요.")
     } else if (start.value === "") {
       alert("충전시작 퍼센트를 입력해주세요.");
-    }
-    else {
+    } else {
       selectCheck = true;
 
       let timeDiffernce = checkedLength;
@@ -670,6 +729,7 @@ function reservationCancelButton() {
   const reservation = document.querySelector('#info-wrap2');
   info.style.visibility = "visible";
   reservation.style.visibility = "hidden";
+  modifyCheck = false;
 }
 
 // 충전시작퍼센트 입력하는 input=text 비우기
@@ -678,13 +738,14 @@ function clearStartPercentage() {
   startPercentageInput.value = "";
 }
 
-function clearReservationPage() {
+function clearReservationPage(date) {
   const resultPercentage = document.querySelector("#reservation-endPercentage");
   const overPercentage = document.querySelector("#reservation-overPercentage");
   const payment = document.querySelector("#charging-payment");
   const overPayment = document.querySelector("#over-charging-payment");
   const fee = document.querySelector("#reservation-fee");
   const startPercentage = document.querySelector("#reservation-startPercentage");
+
   resultPercentage.innerText = "";
   overPercentage.innerText = "";
   payment.innerText = "";
@@ -694,4 +755,34 @@ function clearReservationPage() {
   selectCheck = false;
   timeResult = false;
   timeResultList = 1;
+  // defaultReservationPage();
+  changeInsertReservationButton(date);
+}
+
+function defaultReservationPage() {
+  const reservationButtonWrap = document.querySelector("#reservation-button-wrap");
+
+  reservationButtonWrap.innerHTML =
+    `        
+        <button id="reservation-button" onclick="onClickReservationButton(${mId})">예약하기</button>
+        <button id="reservation-cancle-button" onclick="reservationCancelButton()">취소하기</button>
+    `;
+}
+
+function changeInsertReservationButton(date, couponNum) {
+  const reservationButtonWrap = document.querySelector("#reservation-button-wrap");
+
+  if (modifyCheck == false) {
+    reservationButtonWrap.innerHTML =
+      `        
+        <button id="reservation-button" onclick="onClickReservationButton(${mId}, '${date}')">예약하기</button>
+        <button id="reservation-cancle-button" onclick="reservationCancelButton()">취소하기</button>
+    `;
+  } else {
+    reservationButtonWrap.innerHTML = `
+        <button id="reservation-button" onclick="onClickModifyReservatonButton(${mId}, '${couponNum}', '${date}')">예약변경</button>
+        <button id="reservation-cancle-button" onclick="deleteReservation('${couponNum}')">예약취소</button>
+        `;
+  }
+
 }

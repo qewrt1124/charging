@@ -34,4 +34,13 @@ public class ReservationViewDao {
 
     return sqlSession.selectList(nameSpace + ".getSameCouponNum", couponNum);
   }
+
+  public void deleteReservation(ReservationDto reservationDto) {
+    sqlSession.delete(nameSpace + ".deleteReservation", reservationDto);
+  }
+
+  public List<ReservationDto> getSameCouponNumList(ReservationDto reservationDto) {
+
+    return sqlSession.selectList(nameSpace + ".getSameCouponNumList", reservationDto);
+  }
 }
