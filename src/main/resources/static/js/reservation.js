@@ -63,11 +63,7 @@ function getReservationList(chgerId, date, statId) {
     .catch((e) => {
       console.log(e);
       console.log("예약시간 가져오기");
-    }).then(() => {
-    getReservationStatIdInfo(chgerId, statId, date);
-  }).then(() => {
-    console.log("예약시간 비활성화");
-  });
+    })
 }
 
 // 예약리스트를 가져와서 예약되어 있는 시간은 예약시간 비활성화
@@ -93,27 +89,23 @@ function changeReservationPage(e) {
 }
 
 // 달력의 날짜를 누르면 해당 일자의 예약리스트를 가져오고 예약페이지 내용을 바꿈
-function onClickDate(date) {
+async function onClickDate(date) {
   if (modifyCheck == false) {
     console.log("modifyCheck = false");
-    getReservationList(selectChgerId, date, selectStatId);
+    await getReservationList(selectChgerId, date, selectStatId);
+    await getReservationStatIdInfo(selectChgerId, date, selectStatId);
     selectDate = date;
   } else if (modifyCheck == true && showDate == date) {
     console.log("modifyCheck = true");
-    clearReservationPage();
-    const reservationList = () => new Promise((resolve, reject) => {
-      getReservationList(selectChgerId, date, selectStatId);
-    });
-    // getReservationList(selectChgerId, date, selectStatId);
-    // const sameCouponNumList = () => new Promise((resolve, reject) => {
-    //   getSameCouponNumList(mId, showDate, selectCouponNum);
-    // });
-    reservationList().then(console.log("1차")).then(getSameCouponNumList(mId, showDate, selectCouponNum));
-    // getSameCouponNumList(mId, showDate, selectCouponNum);
+    await clearReservationPage();
+    await getReservationList(selectChgerId, date, selectStatId);
+    await getReservationStatIdInfo(selectChgerId, date, selectStatId);
+    await getSameCouponNumList(mId, showDate, selectCouponNum);
   } else if (modifyCheck == true && showDate != date) {
     console.log("동작확인3");
     clearReservationPage();
-    getReservationList(selectChgerId, date, selectStatId);
+    await getReservationList(selectChgerId, date, selectStatId);
+    await getReservationStatIdInfo(selectChgerId, date, selectStatId);
   }
 
 }
@@ -282,7 +274,7 @@ function reservationInsertList(mid, couponNum, date, chgerType) {
 
   let reservationList = {
     mid: mid,
-    statId: resStatId,
+    statId: selectStatId,
     chgerId: chargingNum,
     // resDate: selectDate,
     resDate: date,
@@ -311,8 +303,6 @@ function checkedList() {
 // -- 성공하면 예약확인 페이지 내용이 바뀌고 페이지 이동
 // -- 실패하면 데이터는 들어가지 않고 실패이유가 console에 뜨고 경고창 나옴 / 페이지 이동 및 내용 갈아끼우기 실행 되지 않음
 function insertReservation(mid, date) {
-  console.log("insertReservation : " + selectChgerType);
-  console.log(reservationInsertList(mid, null, date, selectChgerType));
   fetch("/insertReservation", {
     method: "post",
     headers: {
@@ -322,9 +312,7 @@ function insertReservation(mid, date) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log("insertReservationData 1");
       changeCompletePage(data);
-      console.log("insertReservationData 2");
       reservationCheck();
     })
     .catch((e) => {
@@ -478,7 +466,7 @@ function inputOption(list, targetNum, chgerType) {
 }
 
 /* 예약상황 */
-function getReservationStatIdInfo(chgerId, statId, date) {
+function getReservationStatIdInfo(chgerId,date, statId) {
   fetch("/getReservationStatIdInfo", {
     method: "post",
     headers: {

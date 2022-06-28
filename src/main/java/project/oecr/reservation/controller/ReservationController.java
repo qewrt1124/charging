@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.RestController;
 import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.service.ReservationService;
-import project.oecr.vo.ResultVo;
 
 import java.util.List;
 
@@ -24,7 +23,7 @@ public class ReservationController {
   }
 
   @PostMapping("/insertReservation")
-  public ResultVo insertReservation(@RequestBody ReservationDto reservationDto) {
+  public ReservationDto insertReservation(@RequestBody ReservationDto reservationDto) {
 
     return reservationService.insertReservation(reservationDto);
   }

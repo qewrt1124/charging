@@ -5,7 +5,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
-import project.oecr.vo.ResultVo;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class ReservationDao {
     return sqlSession.insert(nameSpace + ".insertReservation", reservationDto);
   }
 
-  public ResultVo getReservationCoupon(String couponCode) {
+  public ReservationDto getReservationCoupon(String couponCode) {
 
     return sqlSession.selectOne(nameSpace + ".getReservationCoupon", couponCode);
   }

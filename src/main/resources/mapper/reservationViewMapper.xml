@@ -31,7 +31,6 @@
     select endTime
     from reservation
     where couponNum = #{couponNum}
-    order by endTime desc
   </select>
 
   <delete id="deleteReservation" parameterType="project.oecr.dto.ReservationDto">

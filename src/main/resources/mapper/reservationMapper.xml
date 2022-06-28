@@ -38,7 +38,7 @@
     values (null, #{mid}, #{couponNum}, #{statId}, #{chgerId}, #{resDate}, #{tid}, #{chgerCharge}, #{statNm}, #{chgerType});
   </insert>
 
-  <select id="getReservationCoupon" parameterType="String" resultType="project.oecr.vo.ResultVo">
+  <select id="getReservationCoupon" parameterType="String" resultType="project.oecr.dto.ReservationDto">
     select statId, chgerId, resDate, endTime, statNm, chgerCharge, chgerType
     from reservation
     where couponNum = #{couponCode}

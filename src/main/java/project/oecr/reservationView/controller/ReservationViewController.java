@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.service.ReservationService;
 import project.oecr.reservationView.service.ReservationViewService;
-import project.oecr.vo.ResultVo;
 
 import java.util.List;
 
@@ -24,7 +23,11 @@ public class ReservationViewController {
   @PostMapping("/reservationView")
   public List<ReservationDto> getReservationList(@RequestBody ReservationDto reservationDto) {
 
-    return reservationViewService.getReservationList(reservationDto);
+    List<ReservationDto> list = reservationViewService.getReservationList(reservationDto);
+
+    System.out.println("getReservationViewList : " + list);
+
+    return list;
   }
 
   @PostMapping("/reservationViewCount")
@@ -48,9 +51,11 @@ public class ReservationViewController {
   }
 
   @PostMapping("/modifyReservation")
-  public ResultVo modifyReservation(@RequestBody ReservationDto reservationDto) {
+  public ReservationDto modifyReservation(@RequestBody ReservationDto reservationDto) {
 
-//    reservationViewService.deleteReservation(reservationDto);
+    System.out.println("modifyReservation : " + reservationDto);
+
+    reservationViewService.deleteReservation(reservationDto);
 //    reservationService.insertReservation(reservationDto);
 
     return reservationService.insertReservation(reservationDto);

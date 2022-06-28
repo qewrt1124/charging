@@ -46,6 +46,8 @@ function makeReservationViewParam(mid, pageNumber) {
 function makeReservationList(e, pageNumber) {
   const reservationViewTable = document.querySelector('#reservationView-table');
 
+  console.log("예약내역확인 : " + e);
+
   reservationViewTable.innerHTML = `
       <tr>
         <th style="width: 70px; height: 32px">글번호</th>
@@ -330,7 +332,7 @@ function getSameCouponNumList(mid, resDate, couponNum) {
     });
 }
 
-function onClickModifyReservationButton(mid, chgerId, resDate, statId, statNm, couponNum) {
+async function onClickModifyReservationButton(mid, chgerId, resDate, statId, statNm, couponNum) {
   if (confirm("예약을 변경하시겠습니까?")) {
     modifyCheck = true;
     // eventStartDate = resDate;
@@ -338,9 +340,11 @@ function onClickModifyReservationButton(mid, chgerId, resDate, statId, statNm, c
     selectChgerId = chgerId;
     selectStatId = statId;
     selectCouponNum = couponNum;
-    clearReservationPage();
-    getReservationList(chgerId, resDate, statId);
-    getSameCouponNumList(mid, resDate, couponNum);
+    selectStatNm = statNm;
+    await clearReservationPage();
+    await getReservationList(chgerId, resDate, statId);
+    await getReservationStatIdInfo(chgerId, resDate, statId);
+    await getSameCouponNumList(mid, resDate, couponNum);
     // modifyReservationPage(couponNum);
     reservationViewCloseButton();
   }

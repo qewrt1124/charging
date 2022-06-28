@@ -7,7 +7,6 @@ import project.oecr.dto.CarInfoDto;
 import project.oecr.dto.ReservationDto;
 import project.oecr.reservation.dao.ReservationDao;
 import project.oecr.reservationView.dao.ReservationViewDao;
-import project.oecr.vo.ResultVo;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
@@ -31,7 +30,7 @@ public class ReservationServiceImpl implements ReservationService {
 
   @Override
   @Transactional
-  public ResultVo insertReservation(ReservationDto reservationDto) {
+  public ReservationDto insertReservation(ReservationDto reservationDto) {
 
     String couponCode = makeCoupon(reservationDto);
     reservationDto.setCouponNum(couponCode);
@@ -42,7 +41,7 @@ public class ReservationServiceImpl implements ReservationService {
       reservationDao.insertReservation(reservationDto);
     }
 
-    ResultVo result = reservationDao.getReservationCoupon(couponCode);
+    ReservationDto result = reservationDao.getReservationCoupon(couponCode);
     List<Integer> endTimeList = reservationDao.getSameCouponNum(couponCode);
 
     if (result != null) {
@@ -61,13 +60,8 @@ public class ReservationServiceImpl implements ReservationService {
       } else {
         result.setStartTime(endTimeList.get(0) - 1);
         result.setEndTime(endTimeList.get(endTimeList.size() - 1));
-//        for (int j = 0; j < endTimeList.size(); j++) {
-//          result.setEndTime(endTimeList.get(j));
-//        }
       }
     }
-
-    System.out.println("timeResult마지막 : " + result);
 
     return result;
   }
