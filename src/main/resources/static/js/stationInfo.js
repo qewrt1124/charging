@@ -213,7 +213,6 @@ async function favoriteInnerHtml(data, mid, statId) {
 }
 
 async function onclickAddFavoriteButton(mid, statId) {
-  console.log("favoriteChecking : " + favoriteChecking);
   if (favoriteChecking == false) {
     await addFavorite(mid, statId);
   } else {
