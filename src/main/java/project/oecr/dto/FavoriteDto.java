@@ -7,4 +7,5 @@ public class FavoriteDto {
   int fId;
   int mid;
   String statId;
+  int pageNumber;
 }

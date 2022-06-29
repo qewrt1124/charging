@@ -31,3 +31,17 @@
   vertical-align: middle;
   cursor: pointer;
 }
+
+#mypage-favorite {
+  width: 100%;
+  height: 80px;
+  border-bottom: 1px solid black;
+  display: table;
+}
+
+#mypage-favorite h1 {
+  display: table-cell;
+  vertical-align: middle;
+  cursor: pointer;
+}
+

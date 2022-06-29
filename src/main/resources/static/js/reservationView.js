@@ -1,5 +1,5 @@
 let endPage;
-const pageButton = document.querySelector('#reservationView-Button-wrap');
+// const pageButton = document.querySelector('#reservationView-Button-wrap');
 
 function endPageValue(e) {
   let endPageNum3 = e / 10;
@@ -22,10 +22,8 @@ function getReservationView(mid, pageNumber) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log("getReservation 동작 확인 0")
       getEndPage(mid, pageNumber);
       makeReservationList(data, pageNumber);
-      console.log("getReservation 동작 확인 1");
     })
     .catch((e) => {
       console.log("예약리스트 가져오기 실패");
@@ -129,6 +127,8 @@ function getEndPage(mid, pageNumber) {
 }
 
 function makePagingButton(endPage, pageNumber) {
+  const pageButton = document.querySelector('#reservationView-Button-wrap');
+
   let endPageNum3 = endPage / 10;
   if (endPageNum3 % 1 !== 0) {
     endPageNum3 = parseInt(endPageNum3) + 1;

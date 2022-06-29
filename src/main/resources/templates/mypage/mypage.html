@@ -7,6 +7,9 @@
       <div id="mypage-reservation" th:attr="onclick=|onClinkMyPageReservation('${session.mId}')|">
         <h1>예약내역확인</h1>
       </div>
+      <div id="mypage-favorite" th:attr="onclick=|onClickFavorite('${session.mId}')|">
+        <h1>즐겨찾기</h1>
+      </div>
       <div id="mypage-logout" onclick="logout()">
         <h1>로그아웃</h1>
       </div>

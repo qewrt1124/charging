@@ -26,7 +26,7 @@ public class MapDao {
     return sqlSession.selectList(nameSpace + ".rangeLevel", chargingInfoDto);
   }
 
-  public List<FavoriteDto> getFavoriteList(FavoriteDto favoriteDto) {
+  public List<ChargingInfoDto> getFavoriteList(FavoriteDto favoriteDto) {
 
     return sqlSession.selectList(nameSpace + ".getFavoriteList", favoriteDto);
   }
@@ -52,5 +52,10 @@ public class MapDao {
   public List<ChargingInfoDto> searchForStatNm(String statNm) {
 
     return sqlSession.selectList(nameSpace + ".searchForStatNm", statNm);
+  }
+
+  public int favoriteCount(FavoriteDto favoriteDto) {
+
+    return sqlSession.selectOne(nameSpace + ".favoriteCount", favoriteDto);
   }
 }

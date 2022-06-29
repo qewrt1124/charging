@@ -30,7 +30,7 @@ public class MapController {
   }
 
   @PostMapping("/getFavoriteList")
-  public List<FavoriteDto> getFavoriteList(@RequestBody FavoriteDto favoriteDto) {
+  public List<ChargingInfoDto> getFavoriteList(@RequestBody FavoriteDto favoriteDto) {
 
     return mapService.getFavoriteList(favoriteDto);
   }
@@ -48,16 +48,21 @@ public class MapController {
   @PostMapping("/getFavoriteCheck")
   public List<FavoriteDto> getFavoriteCheck(@RequestBody FavoriteDto favoriteDto) {
 
-    System.out.println("즐겨찾기 controller : " + mapService.getFavoriteCheck(favoriteDto));
-
     return mapService.getFavoriteCheck(favoriteDto);
   }
 
-  @GetMapping("/searchForStation")
-  public List<ChargingInfoDto> searchForStation(
-      @RequestParam(value = "statNm", required = false) String statNm,
-      @RequestParam(value = "addr", required = false) String addr) {
+  @PostMapping("/searchForStation")
+  public List<ChargingInfoDto> searchForStation(@RequestBody ChargingInfoDto chargingInfoDto) {
 
-    return mapService.searchForStation(statNm, addr);
+    System.out.println("검색 확인 statNm : " + chargingInfoDto.getStatNm());
+    System.out.println("검색 확인 addr : " + chargingInfoDto.getAddr());
+
+    return mapService.searchForStation(chargingInfoDto);
+  }
+
+  @PostMapping("/favoriteCount")
+  public int favoriteCount(@RequestBody FavoriteDto favoriteDto) {
+
+    return mapService.favoriteCount(favoriteDto);
   }
 }

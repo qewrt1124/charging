@@ -213,7 +213,9 @@ async function favoriteInnerHtml(data, mid, statId) {
 }
 
 async function onclickAddFavoriteButton(mid, statId) {
-  if (favoriteChecking == false) {
+  if (mId == null) {
+    alert("로그인 후 즐겨찾기 추가 가능합니다.");
+  } else if (favoriteChecking == false) {
     await addFavorite(mid, statId);
   } else {
     await deleteFavorite(mid, statId);

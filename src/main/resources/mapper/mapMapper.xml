@@ -26,10 +26,14 @@
     order by distance
   </select>
 
-  <select id="getFavoriteList" parameterType="project.oecr.dto.FavoriteDto" resultType="project.oecr.dto.FavoriteDto">
+  <select id="getFavoriteList" parameterType="project.oecr.dto.FavoriteDto" resultType="project.oecr.dto.ChargingInfoDto">
     select *
-    from favorite
-    where mid = #{mid}
+    from charginginfo
+    where statId in (select statId
+                     from favorite
+                     where mid = #{mid})
+    group by statId
+    limit #{pageNumber}, 10
   </select>
 
   <insert id="addFavorite" parameterType="project.oecr.dto.FavoriteDto">
@@ -62,5 +66,18 @@
     from charginginfo
     where statNm
             like concat('%', #{statNm}, '%')
+  </select>
+
+  <select id="getFavoriteInfo" parameterType="project.oecr.dto.FavoriteDto" resultType="project.oecr.dto.ChargingInfoDto">
+    select *
+    from charginginfo
+    where statId = #{statId}
+    group by statId
+  </select>
+
+  <select id="favoriteCount" parameterType="project.oecr.dto.FavoriteDto" resultType="int">
+    select count(*)
+    from favorite
+    where mid = #{mid}
   </select>
 </mapper>

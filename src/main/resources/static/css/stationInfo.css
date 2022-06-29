@@ -141,5 +141,7 @@
 }
 
 .stationInfo-favorite-icon {
+  cursor: pointer;
+  float: right;
   width: 30px;
 }

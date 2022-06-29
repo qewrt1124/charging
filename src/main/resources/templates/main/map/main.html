@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="/css/join.css">
   <link rel="stylesheet" href="/css/mypage.css">
   <link rel="stylesheet" href="/css/reservationView.css">
+  <link rel="stylesheet" href="/css/favoriteList.css">
   <script src="https://code.jquery.com/jquery-3.6.0.js"></script>
 </head>
 
@@ -33,7 +34,10 @@
         <option value="addr">주소</option>
       </select>
       <input id="search-text" type="text">
-      <button id="search-button">검색</button>
+      <button id="search-button" onclick="onclickSearchButton()">검색</button>
+    </div>
+    <div id="location-list-wrap">
+
     </div>
   </div>
   <div id="info-wrap1" th:include="stationInfo/stationInfo.html">
@@ -49,6 +53,8 @@
   <div id="info-wrap6" th:include="mypage/mypage.html" th:if="${session.userId} != null">
   </div>
   <div id="info-wrap7" th:include="mypage/reservationView.html">
+  </div>
+  <div id="info-wrap8" th:include="mypage/favoriteList.html">
   </div>
   <div class="profile-button" th:onclick="|onClickProfile('${session.mId}')|">
     <span class="profile-span" th:if="${session.userName} == null">로그인</span>

@@ -11,7 +11,7 @@ public interface MapService {
 
   public List<ChargingInfoDto> getRangeList(ChargingInfoDto chargingInfoDto);
 
-  public List<FavoriteDto> getFavoriteList(FavoriteDto favoriteDto);
+  public List<ChargingInfoDto> getFavoriteList(FavoriteDto favoriteDto);
 
   public void addFavorite(FavoriteDto favoriteDto);
 
@@ -19,5 +19,7 @@ public interface MapService {
 
   public List<FavoriteDto> getFavoriteCheck(FavoriteDto favoriteDto);
 
-  public List<ChargingInfoDto> searchForStation(String statNm, String addr);
+  public List<ChargingInfoDto> searchForStation(ChargingInfoDto chargingInfoDto);
+
+  public int favoriteCount(FavoriteDto favoriteDto);
 }

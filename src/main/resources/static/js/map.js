@@ -10,7 +10,7 @@ let timeResult = false;
 let timeResultList;
 // 수정하기 누른 상태인지 체크하는 변수
 let modifyCheck = false;
-let contentNumber = 1;
+// let contentNumber = 1;
 let addrInfo;
 let chargingNum;
 let resStatId;
@@ -66,7 +66,7 @@ getRangeList(rangeList);
 
 // location-list-wrap에 충전소 이름 및 주소 등을 띄우는 함수
 function addChargingStationList(e) {
-  let list = document.querySelector("#map-location-list-wrap");
+  let list = document.querySelector("#location-list-wrap");
   for (let i = 0; i < e.length; i++) {
     list.innerHTML += `<div class="map-location-list" onclick="panTo(${e[i].lat}, ${e[i].lng})">
         <a href='javascript:void(0);' onclick="ClickedStationName(${e[i].lat}, ${e[i].lng}, '${e[i].statId}', ${i})"><span class="map-location-list-title" style="font-size: 25px;">${e[i].statNm}</span></a>
@@ -78,7 +78,7 @@ function addChargingStationList(e) {
 
 // 맵 왼쪽 충전소 리스트 제거
 function delChargingStationList() {
-  let list = document.querySelector("#map-location-list-wrap");
+  let list = document.querySelector("#location-list-wrap");
   list.innerHTML = "";
 }
 
@@ -248,5 +248,45 @@ function openLocationList() {
   openButton.style.visibility = "hidden";
 }
 
-function stationSearch() {
+function makeSearchJson(statNm, addr) {
+  let searchJson = {
+    statNm: statNm,
+    addr: addr
+  }
+
+  return searchJson;
+}
+
+function onclickSearchButton() {
+  const searchOption = document.querySelector("#search-option");
+  const searchText = document.querySelector("#search-text");
+  let statNm = null;
+  let addr = null;
+  if (searchOption.value === "statNm") {
+    statNm = searchText.value;
+  } else {
+    addr = searchText.value;
+  }
+  searchForStation(statNm, addr);
+}
+
+function searchForStation(statNm, addr) {
+  fetch("/searchForStation", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(makeSearchJson(statNm, addr)),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      overlays = [];
+      RepetitionAddMaker(data);
+      delChargingStationList();
+      addChargingStationList(data);
+    })
+    .catch((e) => {
+      console.log("검색 실패");
+      console.log(e);
+    });
 }

@@ -56,7 +56,7 @@ public class MapServiceImpl implements MapService {
   }
 
   @Override
-  public List<FavoriteDto> getFavoriteList(FavoriteDto favoriteDto) {
+  public List<ChargingInfoDto> getFavoriteList(FavoriteDto favoriteDto) {
 
     return mapDao.getFavoriteList(favoriteDto);
   }
@@ -80,15 +80,21 @@ public class MapServiceImpl implements MapService {
   }
 
   @Override
-  public List<ChargingInfoDto> searchForStation(String statNm, String addr) {
+  public List<ChargingInfoDto> searchForStation(ChargingInfoDto chargingInfoDto) {
     List<ChargingInfoDto> result = new ArrayList<ChargingInfoDto>();
 
-    if (statNm == null) {
-      result = mapDao.searchForAddr(addr);
+    if (chargingInfoDto.getStatNm() == null) {
+      result = mapDao.searchForAddr(chargingInfoDto.getAddr());
     } else {
-      result = mapDao.searchForStatNm(statNm);
+      result = mapDao.searchForStatNm(chargingInfoDto.getStatNm());
     }
 
     return result;
+  }
+
+  @Override
+  public int favoriteCount(FavoriteDto favoriteDto) {
+
+    return mapDao.favoriteCount(favoriteDto);
   }
 }
