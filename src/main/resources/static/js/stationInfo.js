@@ -12,9 +12,9 @@ function chageStatinInfo(e) {
   const totalCharging = document.querySelector("#totalCharging");
   const chargingAble = document.querySelector("#chargingAble");
   const statNm = document.querySelector("#stationInfo-top-title-content");
-  const statUpdDt = document.querySelector(
-    "#stationInfo-top-title-update-content"
-  );
+  // const statUpdDt = document.querySelector(
+  //   "#stationInfo-top-title-update-content"
+  // );
   const addr = document.querySelector("#stationInfo-top-title-detail-addr");
   const busiCall = document.querySelector(
     "#stationInfo-top-title-detail-busiCall"
@@ -30,7 +30,7 @@ function chageStatinInfo(e) {
   selectStatNm = e[0].statNm;
   totalCharging.innerText = `전체 ${e.length}대`;
   statNm.innerText = `${e[0].statNm}`;
-  statUpdDt.innerText = `${e[0].statUpdDt}`;
+  // statUpdDt.innerText = `${e[0].statUpdDt}`;
   addr.innerText = `${e[0].addr}`;
   busiCall.innerText = `${e[0].busiCall}`;
   bnm.innerText = `${e[0].bnm}`;
@@ -95,8 +95,13 @@ function GetChargeInfo(chrgId) {
   return dcCha + dcCombo + ac + slow;
 }
 
-// 충전소의 번호(statId)로 충전소 정보 전부 다 가져오기
-function getChargingInfo(statId) {
+async function onclickChargingInfo(statId, mId) {
+  await getChargingInfo(statId, mId);
+  await getFavoriteCheck(mId, statId);
+}
+
+// 충전소의 번호(statId)로 충전소 정보 전부 다 가져오기(fetch)
+function getChargingInfo(statId, mId) {
   fetch("/chargingInfo?statId=" + statId, {
     method: "get",
     dataType: "json",
@@ -105,6 +110,7 @@ function getChargingInfo(statId) {
     .then((data) => {
       chageStatinInfo(data);
       getDetail();
+      console.log("완료");
     })
     .catch((e) => {
       console.log("충전소 번호로 충전소 정보 가져오기 실패");
@@ -126,6 +132,7 @@ function ClickedStationName(lat, lng, statId, i) {
 // 예약하기 눌렀을때 충전기번호에 해당하는 예약 내역가져오기
 async function ClickedReservation(chgerId, date, statId, chgerType, mId) {
   if (mId !== "null") {
+    modifyCheck = false;
     clearStartPercentage();
     removerOption();
     removeReservationTime();
@@ -161,4 +168,97 @@ function getToday() {
   let hours = ("0" + today.getHours()).slice(-2);
 
   return dateString;
+}
+
+function makeFavoriteDto(mid, statId) {
+  let favoriteDto = {
+    mid: mid,
+    statId: statId
+  }
+
+  return favoriteDto;
+}
+
+function getFavoriteCheck(mid, statId) {
+  fetch("/getFavoriteCheck", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(makeFavoriteDto(mid, statId)),
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      favoriteInnerHtml(data, mid, statId);
+    })
+    .catch((e) => {
+      console.log("즐겨찾기 정보 가져오기 실패");
+      console.log(e);
+    });
+}
+
+async function favoriteInnerHtml(data, mid, statId) {
+  const favoriteLocation = document.querySelector("#stationInfo-top-title-favorite");
+  if (data.length === 0) {
+    favoriteLocation.innerHTML = `
+    <img class="stationInfo-favorite-icon" src="/image/favorites-lcon-empty.png" onclick="onclickAddFavoriteButton(${mid}, '${statId}')">
+    `;
+    favoriteChecking = false;
+  } else {
+    favoriteLocation.innerHTML = `
+    <img class="stationInfo-favorite-icon" src="/image/favorites-lcon-fullFill.png" onclick="onclickAddFavoriteButton(${mid}, '${statId}')">
+    `;
+    favoriteChecking = true;
+  }
+}
+
+async function onclickAddFavoriteButton(mid, statId) {
+  console.log("favoriteChecking : " + favoriteChecking);
+  if (favoriteChecking == false) {
+    await addFavorite(mid, statId);
+  } else {
+    await deleteFavorite(mid, statId);
+  }
+}
+
+function addFavorite(mid, statId) {
+  fetch("/addFavorite", {
+    method: "post",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(makeFavoriteDto(mid, statId)),
+  })
+    .then(() => {
+      const favoriteLocation = document.querySelector("#stationInfo-top-title-favorite");
+      favoriteLocation.innerHTML = `
+    <img class="stationInfo-favorite-icon" src="/image/favorites-lcon-fullFill.png" onclick="onclickAddFavoriteButton(${mid}, '${statId}')">
+    `;
+      favoriteChecking = true;
+    })
+    .catch((e) => {
+      console.log("즐겨찾기 추가 실패");
+      console.log(e);
+    });
+}
+
+function deleteFavorite(mid, statId) {
+  fetch("/deleteFavorite", {
+    method: "delete",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(makeFavoriteDto(mid, statId)),
+  })
+    .then(() => {
+      const favoriteLocation = document.querySelector("#stationInfo-top-title-favorite");
+      favoriteLocation.innerHTML = `
+    <img class="stationInfo-favorite-icon" src="/image/favorites-lcon-empty.png" onclick="onclickAddFavoriteButton(${mid}, '${statId}')">
+    `;
+      favoriteChecking = false;
+    })
+    .catch((e) => {
+      console.log("즐겨찾기 삭제 실패");
+      console.log(e);
+    });
 }

@@ -25,4 +25,42 @@
     group by statId
     order by distance
   </select>
+
+  <select id="getFavoriteList" parameterType="project.oecr.dto.FavoriteDto" resultType="project.oecr.dto.FavoriteDto">
+    select *
+    from favorite
+    where mid = #{mid}
+  </select>
+
+  <insert id="addFavorite" parameterType="project.oecr.dto.FavoriteDto">
+    insert into favorite
+    values (null, #{mid}, #{statId})
+  </insert>
+
+  <delete id="deleteFavorite" parameterType="project.oecr.dto.FavoriteDto">
+    delete from favorite
+    where mid = #{mid}
+      and statId = #{statId}
+  </delete>
+
+  <select id="getFavoriteCheck" parameterType="project.oecr.dto.FavoriteDto" resultType="project.oecr.dto.FavoriteDto">
+    select *
+    from favorite
+    where mid = #{mid}
+      and statId = #{statId}
+  </select>
+
+  <select id="searchForAddr" parameterType="project.oecr.dto.ChargingInfoDto" resultType="project.oecr.dto.ChargingInfoDto">
+    select *
+    from charginginfo
+    where addr
+            like concat('%', #{addr}, '%')
+  </select>
+
+  <select id="searchForStatNm" parameterType="project.oecr.dto.ChargingInfoDto" resultType="project.oecr.dto.ChargingInfoDto">
+    select *
+    from charginginfo
+    where statNm
+            like concat('%', #{statNm}, '%')
+  </select>
 </mapper>

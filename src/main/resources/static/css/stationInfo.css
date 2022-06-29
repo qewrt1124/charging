@@ -139,3 +139,7 @@
 #chargingAble {
   color: red;
 }
+
+.stationInfo-favorite-icon {
+  width: 30px;
+}

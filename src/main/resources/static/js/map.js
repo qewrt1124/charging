@@ -14,6 +14,7 @@ let contentNumber = 1;
 let addrInfo;
 let chargingNum;
 let resStatId;
+let favoriteChecking = false;
 // 지도를 표시할 div
 let mapContainer = document.getElementById("map"),
   mapOption = {
@@ -118,7 +119,7 @@ function RepetitionAddMaker(e) {
         <div class="desc">
           <div class="ellipsis">${e[i].statNm}</div>
           <div class="jibun ellipsis">${e[i].addr}</div>
-          <div><a onclick="getChargingInfo('${e[i].statId}')" class="link">상세정보</a></div>
+          <div><a onclick="onclickChargingInfo('${e[i].statId}', mId)" class="link">상세정보</a></div>
         </div>
        </div>
     </div>
@@ -245,4 +246,7 @@ function openLocationList() {
   infoList.style.visibility = "visible";
   closeButton.style.visibility = "visible";
   openButton.style.visibility = "hidden";
+}
+
+function stationSearch() {
 }

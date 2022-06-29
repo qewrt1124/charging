@@ -347,6 +347,7 @@ async function onClickModifyReservationButton(mid, chgerId, resDate, statId, sta
     await getSameCouponNumList(mid, resDate, couponNum);
     // modifyReservationPage(couponNum);
     reservationViewCloseButton();
+    completePageExit();
   }
 }
 
@@ -384,6 +385,29 @@ function listConfirm(list) {
 }
 
 function onClickModifyReservatonButton(mid, couponNum, resDate, chgerType) {
+  let checkedList = document.querySelectorAll("input[type='checkbox']:checked");
+  let overPrice = document.querySelector("#over-charging-payment");
+
+  if (timeResult === false) {
+    alert("시간을 선택하고 선택완료를 눌러주세요.")
+  } else if (timeResult === true && selectCheck === false) {
+    alert("다른 옵션들을 선택하고 입력완료를 눌러주세요");
+  } else if (JSON.stringify(timeResultList) !== JSON.stringify(checkedList)) {
+    selectCheck = false;
+    timeResult = false;
+    timeResultList = 1;
+    clearTimeStamp();
+    alert("시간이 수정 되었습니다. 선택완료를 다시 눌러주세요.")
+  } else if (timeResult === true && selectCheck === true && JSON.stringify(timeResultList) === JSON.stringify(checkedList) && overPrice.innerText !== "") {
+    if (confirm("초과 금액이 발생했습니다.")) {
+      modifyReservation(mid, couponNum, resDate, chgerType);
+    }
+  } else if (timeResult === true && selectCheck === true && JSON.stringify(timeResultList) === JSON.stringify(checkedList)) {
+    modifyReservation(mid, couponNum, resDate, chgerType);
+  }
+}
+
+function modifyReservation(mid, couponNum, resDate, chgerType) {
   fetch("/modifyReservation", {
     method: "post",
     headers: {

@@ -2,7 +2,9 @@ package project.oecr.main.map.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import project.oecr.dto.ChargingInfoDto;
+import project.oecr.dto.FavoriteDto;
 import project.oecr.main.map.dao.MapDao;
 
 import java.util.ArrayList;
@@ -15,14 +17,13 @@ public class MapServiceImpl implements MapService {
   private MapDao mapDao;
 
   @Override
-  public List getChargingInfo(String statId) {
+  public List<ChargingInfoDto> getChargingInfo(String statId) {
 
-    List list = new ArrayList();
     return mapDao.getChargingInfo(statId);
   }
 
   @Override
-  public List getRangeList(ChargingInfoDto chargingInfoDto) {
+  public List<ChargingInfoDto> getRangeList(ChargingInfoDto chargingInfoDto) {
 
     switch (chargingInfoDto.getLevel()) {
       case 1:
@@ -52,5 +53,42 @@ public class MapServiceImpl implements MapService {
     }
 
     return mapDao.rangeLevel(chargingInfoDto);
+  }
+
+  @Override
+  public List<FavoriteDto> getFavoriteList(FavoriteDto favoriteDto) {
+
+    return mapDao.getFavoriteList(favoriteDto);
+  }
+
+  @Override
+  @Transactional
+  public void addFavorite(FavoriteDto favoriteDto) {
+    mapDao.addFavorite(favoriteDto);
+  }
+
+  @Override
+  @Transactional
+  public void deleteFavorite(FavoriteDto favoriteDto) {
+    mapDao.deleteFavorite(favoriteDto);
+  }
+
+  @Override
+  public List<FavoriteDto> getFavoriteCheck(FavoriteDto favoriteDto) {
+
+    return mapDao.getFavoriteCheck(favoriteDto);
+  }
+
+  @Override
+  public List<ChargingInfoDto> searchForStation(String statNm, String addr) {
+    List<ChargingInfoDto> result = new ArrayList<ChargingInfoDto>();
+
+    if (statNm == null) {
+      result = mapDao.searchForAddr(addr);
+    } else {
+      result = mapDao.searchForStatNm(statNm);
+    }
+
+    return result;
   }
 }

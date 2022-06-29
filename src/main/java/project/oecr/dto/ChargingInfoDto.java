@@ -38,4 +38,6 @@ public class ChargingInfoDto {
   private Float centerLng;
   private int level;
   private String distance;
+  private int fId;
+  private int mid;
 }
