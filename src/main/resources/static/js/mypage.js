@@ -93,10 +93,10 @@ function makeFavoriteList(e, pageNumber) {
   favoriteListTable.innerHTML = `
       <tr>
         <th style="width: 70px; height: 32px">글번호</th>
-        <th style="width: 240px">충전소이름</th>
-        <th style="width: 80px">충전소주소</th>
-        <th style="width: 130px">충전타입</th>
-        <th style="width: 100px">삭제</th>
+        <th style="width: 350px">충전소이름</th>
+        <th style="width: 450px">충전소주소</th>
+        <th style="width: 80px">충전타입</th>
+        <th style="width: 50px">삭제</th>
       </tr>
   `;
 
@@ -108,7 +108,7 @@ function makeFavoriteList(e, pageNumber) {
       + pageNumberValue(i, pageNumber) +
       `
         </td>
-        <td>${e[i].statNm}</td>
+        <td onclick="onClickStatNm('${e[i].statId}', mId)">${e[i].statNm}</td>
         <td>${e[i].addr}</td>
         <td>${e[i].chgerId}</td>
         <td>
@@ -156,7 +156,7 @@ function makeFavoritePagingButton(endPage, pageNumber) {
   `;
   if ((endPageNum3 < 5)) {
     for (let i = 1; i <= endPageNum3; i++) {
-      pageButtonHtml(pageButton, i);
+      pageFavoriteButtonHtml(pageButton, i);
     }
   }
 
@@ -231,4 +231,10 @@ function getFavoriteNowPageList(mid, pageNumber) {
       console.log("예약리스트 가져오기 실패");
       console.log(e);
     });
+}
+
+async function onClickStatNm(statId, mId) {
+  await getChargingInfo(statId, mId);
+  await getFavoriteCheck(mId, statId);
+  await closeFavoriteListPage();
 }

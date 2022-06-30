@@ -145,3 +145,21 @@
   float: right;
   width: 30px;
 }
+
+#search-option {
+  line-height: 20px;
+  font-size: 18px;
+  padding: 5px;
+}
+
+#search-text {
+  line-height: 20px;
+  font-size: 18px;
+  padding: 5px;
+  width: 190px;
+}
+
+#search-button {
+  cursor: pointer;
+  font-size: 20px;
+}

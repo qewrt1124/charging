@@ -15,7 +15,7 @@
   visibility: hidden;
 }
 
-#reservationView-wrap {
+#favoriteList-wrap {
   width: 1000px;
   height: 792px;
   margin: 40px auto;
@@ -24,38 +24,39 @@
   font-size: 18px;
 }
 
-#reservationView-table-wrap {
+#favoriteList-table-wrap {
   margin-top: 40px;
+  height: 630px;
 }
 
-#reservationView-wrap table {
+#favoriteList-table-wrap table {
   border-collapse: collapse;
   border-spacing: 0;
 }
 
-#reservationView-wrap table tr th {
+#favoriteList-table-wrap table tr th {
   padding: 10px 5px;
   border: 1px solid black;
   font-size: 18px;
 }
 
-#reservationView-wrap table tr td {
+#favoriteList-table-wrap table tr td {
   padding: 10px 5px;
   border: 1px solid black;
   font-size: 18px;
 }
 
-#reservationView-Button-wrap {
+#favoriteList-Button-wrap {
   margin-top: 40px;
   padding-bottom: 30px;
 }
 
-#reservationView-Button-wrap button {
+#favoriteList-Button-wrap button {
   cursor: pointer;
   font-size: 25px;
 }
 
-#reservationView-table {
+#favoriteList-table {
   margin: auto;
 }
 

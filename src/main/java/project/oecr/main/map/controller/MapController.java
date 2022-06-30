@@ -32,6 +32,8 @@ public class MapController {
   @PostMapping("/getFavoriteList")
   public List<ChargingInfoDto> getFavoriteList(@RequestBody FavoriteDto favoriteDto) {
 
+    System.out.println("즐겨찾기 들어오는거 : " + favoriteDto);
+
     return mapService.getFavoriteList(favoriteDto);
   }
 

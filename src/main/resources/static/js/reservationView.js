@@ -259,7 +259,8 @@ function getNowPageList(mid, pageNumber) {
 
 function onClickShowReservationList(mid) {
   contentNumber = 1;
-  getReservationView(mid);
+  const pageNumber = 1;
+  getReservationView(mid, pageNumber);
   const completePage = document.querySelector('#info-wrap3');
   const reservationListPage = document.querySelector('#info-wrap7');
   completePage.style.visibility = 'hidden';

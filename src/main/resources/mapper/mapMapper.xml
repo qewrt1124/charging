@@ -59,6 +59,7 @@
     from charginginfo
     where addr
             like concat('%', #{addr}, '%')
+    group by statId
   </select>
 
   <select id="searchForStatNm" parameterType="project.oecr.dto.ChargingInfoDto" resultType="project.oecr.dto.ChargingInfoDto">
@@ -66,6 +67,7 @@
     from charginginfo
     where statNm
             like concat('%', #{statNm}, '%')
+    group by statId
   </select>
 
   <select id="getFavoriteInfo" parameterType="project.oecr.dto.FavoriteDto" resultType="project.oecr.dto.ChargingInfoDto">

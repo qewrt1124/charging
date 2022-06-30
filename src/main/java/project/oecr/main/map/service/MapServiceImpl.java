@@ -58,7 +58,21 @@ public class MapServiceImpl implements MapService {
   @Override
   public List<ChargingInfoDto> getFavoriteList(FavoriteDto favoriteDto) {
 
+    favoriteDto.setPageNumber(startPageNumber(favoriteDto.getPageNumber()));
+
     return mapDao.getFavoriteList(favoriteDto);
+  }
+
+  public int startPageNumber(int pageNumber) {
+    int startPage;
+
+    if (pageNumber == 0) {
+      startPage = pageNumber;
+    } else {
+      startPage = (pageNumber - 1) * 10;
+    }
+
+    return startPage;
   }
 
   @Override
