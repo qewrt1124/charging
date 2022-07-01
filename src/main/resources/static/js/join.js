@@ -225,7 +225,7 @@ function duplicationIdCheck(userIdList) {
       userIdDuplicated(data);
     })
     .catch((e) => {
-      console.log("주변 정보 가져오기 실패");
+      console.log("아이디 중복체크 실패");
       console.log(e);
     });
 }

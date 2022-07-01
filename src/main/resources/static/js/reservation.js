@@ -52,11 +52,8 @@ function getReservationList(chgerId, date, statId) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log("1차")
       openReservationPage();
-      console.log("2차")
       clearReservationPage(date);
-      console.log("3차")
       changeReservationPage(data);
       // getReservationStatIdInfo(chgerId, statId, date);
     })
@@ -91,23 +88,19 @@ function changeReservationPage(e) {
 // 달력의 날짜를 누르면 해당 일자의 예약리스트를 가져오고 예약페이지 내용을 바꿈
 async function onClickDate(date) {
   if (modifyCheck == false) {
-    console.log("modifyCheck = false");
     await getReservationList(selectChgerId, date, selectStatId);
     await getReservationStatIdInfo(selectChgerId, date, selectStatId);
     selectDate = date;
   } else if (modifyCheck == true && showDate == date) {
-    console.log("modifyCheck = true");
     await clearReservationPage();
     await getReservationList(selectChgerId, date, selectStatId);
     await getReservationStatIdInfo(selectChgerId, date, selectStatId);
     await getSameCouponNumList(mId, showDate, selectCouponNum);
   } else if (modifyCheck == true && showDate != date) {
-    console.log("동작확인3");
     clearReservationPage();
     await getReservationList(selectChgerId, date, selectStatId);
     await getReservationStatIdInfo(selectChgerId, date, selectStatId);
   }
-
 }
 
 // 체크박스 눌렀을때 작동하는 함수
@@ -276,7 +269,6 @@ function reservationInsertList(mid, couponNum, date, chgerType) {
     mid: mid,
     statId: selectStatId,
     chgerId: chargingNum,
-    // resDate: selectDate,
     resDate: date,
     tidList: timeList,
     chgerCharge: resultPrice,
@@ -479,7 +471,6 @@ function getReservationStatIdInfo(chgerId,date, statId) {
       openReservationPage();
       // clearReservationPage(date);
       reservationStatus(data, date);
-      console.log("4차 - 함수");
     })
     .catch((e) => {
       console.log(e);
@@ -772,5 +763,4 @@ function changeInsertReservationButton(date, couponNum) {
         <button id="reservation-cancle-button" onclick="deleteReservation('${couponNum}')">예약취소</button>
         `;
   }
-
 }

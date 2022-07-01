@@ -1,14 +1,10 @@
 // 예약확인 페이지 내용 갈아 끼우기
 function changeCompletePage(data) {
-  console.log("예약확인 페이지 바꾸기 : " + data);
-
   const completeChgerId = document.querySelector("#complete-chgerId");
   const completeStatNm = document.querySelector("#complete-statNm");
   const completeResDate = document.querySelector("#complete-resDate");
   const completeResTime = document.querySelector("#complete-resTime");
   const completeFee = document.querySelector("#complete-fee");
-
-  console.log("completePage : " + data);
 
   let startTime = data.startTime;
   let endTime = data.endTime;

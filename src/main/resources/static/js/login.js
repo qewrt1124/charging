@@ -2,14 +2,12 @@ let pageOpenCheck = 0;
 let midNum;
 
 function onClickProfile(mid) {
-  console.log("pageOpenCheck : " + pageOpenCheck);
   midNum = mid;
   clearInput();
 
   if (mid === 'null') {
     const loginPage = document.querySelector('#info-wrap4');
     const joinPage = document.querySelector('#info-wrap5');
-    console.log("pageOpenCheck : " + pageOpenCheck);
     if (pageOpenCheck === 0) {
       loginPage.style.visibility = 'visible';
       pageOpenCheck = 1;

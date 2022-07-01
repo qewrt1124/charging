@@ -75,19 +75,19 @@ function GetChargeInfo(chrgId) {
   let dcCha = "<li><span style='color: blue'>DC차데모</span></li>";
   let slow = "<li><span style='color: blue'>AC완속</span></li>";
 
-  //dcCha
+  //dc차데모
   if (!"01|05|06".includes(chrgId)) {
     dcCha = "<li><span style='color: gray;'>DC차데모</span></li>";
   }
-  //dcCombo
+  //dc콤보
   if (!"04|05|06".includes(chrgId)) {
     dcCombo = "<li><span style='color: gray;'>DC콤보</span></li>";
   }
-  //ac
+  //ac3상
   if (!"03|06|07".includes(chrgId)) {
     ac = "<li><span style='color: gray;'>AC3상</span></li>";
   }
-  //slow
+  //완속
   if (!"02".includes(chrgId)) {
     slow = "<li><span style='color: gray;'>AC완속</span></li>";
   }
@@ -110,7 +110,6 @@ function getChargingInfo(statId, mId) {
     .then((data) => {
       chageStatinInfo(data);
       getDetail();
-      console.log("완료");
     })
     .catch((e) => {
       console.log("충전소 번호로 충전소 정보 가져오기 실패");
@@ -143,7 +142,6 @@ async function ClickedReservation(chgerId, date, statId, chgerType, mId) {
     selectChgerType = chgerType;
     await getCarList(null, selectChgerType);
   } else {
-    console.log(mId);
     alert("로그인 후 예약이 가능합니다.")
   }
 }

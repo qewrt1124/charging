@@ -56,7 +56,6 @@ function getFavoriteList(mid, pageNumber) {
   })
     .then((res) => res.json())
     .then((data) => {
-      console.log(data);
       getFavoriteEndPage(mid, pageNumber);
       makeFavoriteList(data, pageNumber);
     })
@@ -228,7 +227,7 @@ function getFavoriteNowPageList(mid, pageNumber) {
       makeFavoriteList(data, pageNumber);
     })
     .catch((e) => {
-      console.log("예약리스트 가져오기 실패");
+      console.log("즐겨찾기 목록 가져오기 실패");
       console.log(e);
     });
 }

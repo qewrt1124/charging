@@ -149,16 +149,7 @@ function makePagingButton(endPage, pageNumber) {
     for (let i = 1; i <= endPageNum3; i++) {
       pageButtonHtml(pageButton, i);
     }
-  }
-    // else if ((endPageNum1 < 5) && (endPageNum2 === 0)) {
-    //   for (let i = 1; i <= endPageNum1; i++) {
-    //     console.log("2");
-    //     pageButton.innerHTML += `
-    //       <button onclick="getNowPageList(${midNum}, ${i})">${i}</button>
-    //     `;
-    //   }
-  // }
-  else if ((endPageNum3 > 5) && (pageNumber >= 6) && (buttonStartNumber + 4 <= endPageNum3)) {
+  } else if ((endPageNum3 > 5) && (pageNumber >= 6) && (buttonStartNumber + 4 <= endPageNum3)) {
     for (let i = buttonStartNumber; i <= buttonStartNumber + 4; i++) {
       pageButtonHtml(pageButton, i);
     }
@@ -189,8 +180,6 @@ function pageButtonHtml(pageButton, i) {
 
 function pageButtonChangeColor(pageNumber) {
   let pageButtonAll = document.querySelectorAll(".pageNumberButton");
-
-  console.log("페이지 버튼 색 변환 동작 확인");
 
   for (let i = 0; i < pageButtonAll.length; i++) {
     pageButtonAll[i].style.backgroundColor = "white";
@@ -324,7 +313,6 @@ function getSameCouponNumList(mid, resDate, couponNum) {
       getCarList();
       activateModifyTime(data);
       changeInsertReservationButton(resDate, couponNum);
-      console.log("활성화 확인");
     })
     .catch((e) => {
       alert("잠시 후 다시 시도해주세요.");
@@ -354,7 +342,6 @@ async function onClickModifyReservationButton(mid, chgerId, resDate, statId, sta
 
 // 예약수정 시 수정시간 활성화
 function activateModifyTime(modifyTime) {
-  console.log("예약 활성화 확인");
   let selectAll = document.querySelectorAll("[name='tId']");
 
   if (modifyCheck != false) {
@@ -423,7 +410,7 @@ function modifyReservation(mid, couponNum, resDate, chgerType) {
     })
     .catch((e) => {
       alert("잠시 후 다시 시도해주세요.");
-      console.log("예약하기 실패");
+      console.log("예약 수정 실패");
       console.log(e);
     });
 }
